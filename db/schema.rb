@@ -33,9 +33,6 @@ ActiveRecord::Schema.define(version: 20170916053628) do
     t.string "name"
     t.integer "age"
     t.integer "weight"
-    t.integer "attractiveness"
-    t.integer "race_id"
-    t.integer "species_id"
     t.integer "intelligence"
     t.integer "strength"
     t.integer "dexterity"
@@ -45,18 +42,21 @@ ActiveRecord::Schema.define(version: 20170916053628) do
     t.integer "constitution"
     t.integer "health"
     t.string "gender"
-    t.integer "spaceship_id"
-    t.integer "skill_id"
     t.integer "willpower"
-    t.integer "homeworld_id"
     t.boolean "employed"
+    t.integer "attractiveness"
+    t.integer "race_id"
+    t.integer "species_id"
+    t.integer "skill_id"
+    t.integer "spaceship_id"
+    t.integer "planet_id"
     t.integer "alignment_id"
     t.integer "occupation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["alignment_id"], name: "index_people_on_alignment_id"
-    t.index ["homeworld_id"], name: "index_people_on_homeworld_id"
     t.index ["occupation_id"], name: "index_people_on_occupation_id"
+    t.index ["planet_id"], name: "index_people_on_planet_id"
     t.index ["race_id"], name: "index_people_on_race_id"
     t.index ["skill_id"], name: "index_people_on_skill_id"
     t.index ["spaceship_id"], name: "index_people_on_spaceship_id"
@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(version: 20170916053628) do
 
   create_table "races", force: :cascade do |t|
     t.string "name"
-    t.integer "species_id"
-    t.integer "social_status"
     t.text "description"
+    t.integer "social_status"
+    t.integer "species_id"
     t.integer "skill_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -95,7 +95,6 @@ ActiveRecord::Schema.define(version: 20170916053628) do
   end
 
   create_table "spaceships", force: :cascade do |t|
-    t.integer "user_id"
     t.string "name"
     t.integer "reputation"
     t.integer "capacity"
@@ -108,6 +107,7 @@ ActiveRecord::Schema.define(version: 20170916053628) do
     t.integer "rockets"
     t.string "fuel_type"
     t.string "size"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_spaceships_on_user_id"
@@ -115,13 +115,13 @@ ActiveRecord::Schema.define(version: 20170916053628) do
 
   create_table "species", force: :cascade do |t|
     t.string "name"
-    t.integer "homeworld_id"
     t.text "description"
-    t.integer "skill_id"
     t.integer "ugliness"
+    t.integer "skill_id"
+    t.integer "planet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["homeworld_id"], name: "index_species_on_homeworld_id"
+    t.index ["planet_id"], name: "index_species_on_planet_id"
     t.index ["skill_id"], name: "index_species_on_skill_id"
   end
 

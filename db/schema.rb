@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170916161428) do
 
   create_table "governments", force: :cascade do |t|
     t.string "type"
+    t.text "description"
     t.integer "freedom_axis"
     t.integer "equality_axis"
     t.integer "person_id"

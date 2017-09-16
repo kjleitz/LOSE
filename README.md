@@ -6,11 +6,17 @@ dis gon b a gam
 
 but not a good 1
 
+(yet)
+
 hi mom
 
 ## Backbone
 
 because I'm forgetting how to React
+
+## React
+
+because I literally know 0 Backbone
 
 **edit:** ok rails 5.1 has built-in webpack support, I take it back
 
@@ -22,7 +28,7 @@ for butt-side
 
 ha
 
-## MIT license
+## Kendall/MIT license
 
 because permissive, also good T station
 

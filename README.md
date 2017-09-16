@@ -12,6 +12,8 @@ hi mom
 
 because I'm forgetting how to React
 
+**edit:** ok rails 5.1 has built-in webpack support, I take it back
+
 ## Rails
 
 for butt-side

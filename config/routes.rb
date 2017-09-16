@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :occupations
   resources :alignments
   resources :planets
   resources :skills

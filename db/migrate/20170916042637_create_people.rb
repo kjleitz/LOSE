@@ -19,6 +19,7 @@ class CreatePeople < ActiveRecord::Migration[5.1]
       t.belongs_to :race,           foreign_key: true
       t.belongs_to :species,        foreign_key: true
       t.belongs_to :spaceship,      foreign_key: true
+      t.belongs_to :nation,         foreign_key: true
       t.belongs_to :planet,         foreign_key: true
       t.belongs_to :alignment,      foreign_key: true
       t.belongs_to :occupation,     foreign_key: true

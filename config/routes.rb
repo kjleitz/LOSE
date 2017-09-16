@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :governments_people
+  resources :governments
+  resources :nations
   resources :occupations
   resources :alignments
   resources :planets

@@ -1,0 +1,2 @@
+class GovernmentsPeopleController < ApplicationController
+end

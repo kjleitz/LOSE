@@ -1,4 +1,4 @@
 class Species < ApplicationRecord
-  belongs_to :homeworld
+  belongs_to :planet
   belongs_to :skill
 end

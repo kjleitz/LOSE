@@ -1,8 +1,8 @@
 class CreateJoinTableNationSpecies < ActiveRecord::Migration[5.1]
   def change
     create_join_table :nations, :species do |t|
-      t.index [:nation_id, :species_id]
-      t.index [:species_id, :nation_id]
+      t.references :nation,  foreign_key: true, index: true
+      t.references :species, foreign_key: true, index: true
     end
   end
 end

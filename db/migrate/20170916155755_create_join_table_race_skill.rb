@@ -1,8 +1,8 @@
 class CreateJoinTableRaceSkill < ActiveRecord::Migration[5.1]
   def change
     create_join_table :races, :skills do |t|
-      t.index [:race_id, :skill_id]
-      t.index [:skill_id, :race_id]
+      t.references :race,  foreign_key: true, index: true
+      t.references :skill, foreign_key: true, index: true
     end
   end
 end

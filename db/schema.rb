@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170916161428) do
+ActiveRecord::Schema.define(version: 20170919213810) do
 
   create_table "alignments", force: :cascade do |t|
     t.string "lawfulness"
@@ -31,10 +31,10 @@ ActiveRecord::Schema.define(version: 20170916161428) do
   end
 
   create_table "governments_people", id: false, force: :cascade do |t|
-    t.integer "government_id", null: false
-    t.integer "person_id", null: false
-    t.index ["government_id", "person_id"], name: "index_governments_people_on_government_id_and_person_id"
-    t.index ["person_id", "government_id"], name: "index_governments_people_on_person_id_and_government_id"
+    t.integer "government_id"
+    t.integer "person_id"
+    t.index ["government_id"], name: "index_governments_people_on_government_id"
+    t.index ["person_id"], name: "index_governments_people_on_person_id"
   end
 
   create_table "nations", force: :cascade do |t|
@@ -49,11 +49,18 @@ ActiveRecord::Schema.define(version: 20170916161428) do
     t.index ["government_id"], name: "index_nations_on_government_id"
   end
 
+  create_table "nations_planets", id: false, force: :cascade do |t|
+    t.integer "nation_id"
+    t.integer "planet_id"
+    t.index ["nation_id"], name: "index_nations_planets_on_nation_id"
+    t.index ["planet_id"], name: "index_nations_planets_on_planet_id"
+  end
+
   create_table "nations_species", id: false, force: :cascade do |t|
-    t.integer "nation_id", null: false
-    t.integer "species_id", null: false
-    t.index ["nation_id", "species_id"], name: "index_nations_species_on_nation_id_and_species_id"
-    t.index ["species_id", "nation_id"], name: "index_nations_species_on_species_id_and_nation_id"
+    t.integer "nation_id"
+    t.integer "species_id"
+    t.index ["nation_id"], name: "index_nations_species_on_nation_id"
+    t.index ["species_id"], name: "index_nations_species_on_species_id"
   end
 
   create_table "occupations", force: :cascade do |t|
@@ -101,17 +108,17 @@ ActiveRecord::Schema.define(version: 20170916161428) do
   end
 
   create_table "people_skills", id: false, force: :cascade do |t|
-    t.integer "person_id", null: false
-    t.integer "skill_id", null: false
-    t.index ["person_id", "skill_id"], name: "index_people_skills_on_person_id_and_skill_id"
-    t.index ["skill_id", "person_id"], name: "index_people_skills_on_skill_id_and_person_id"
+    t.integer "person_id"
+    t.integer "skill_id"
+    t.index ["person_id"], name: "index_people_skills_on_person_id"
+    t.index ["skill_id"], name: "index_people_skills_on_skill_id"
   end
 
   create_table "people_spaceships", id: false, force: :cascade do |t|
-    t.integer "person_id", null: false
-    t.integer "spaceship_id", null: false
-    t.index ["spaceship_id", nil], name: "index_people_spaceships_on_spaceship_id_and_task_id"
-    t.index [nil, "spaceship_id"], name: "index_people_spaceships_on_task_id_and_spaceship_id"
+    t.integer "person_id"
+    t.integer "spaceship_id"
+    t.index ["person_id"], name: "index_people_spaceships_on_person_id"
+    t.index ["spaceship_id"], name: "index_people_spaceships_on_spaceship_id"
   end
 
   create_table "planets", force: :cascade do |t|
@@ -136,10 +143,10 @@ ActiveRecord::Schema.define(version: 20170916161428) do
   end
 
   create_table "races_skills", id: false, force: :cascade do |t|
-    t.integer "race_id", null: false
-    t.integer "skill_id", null: false
-    t.index ["race_id", "skill_id"], name: "index_races_skills_on_race_id_and_skill_id"
-    t.index ["skill_id", "race_id"], name: "index_races_skills_on_skill_id_and_race_id"
+    t.integer "race_id"
+    t.integer "skill_id"
+    t.index ["race_id"], name: "index_races_skills_on_race_id"
+    t.index ["skill_id"], name: "index_races_skills_on_skill_id"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -148,6 +155,13 @@ ActiveRecord::Schema.define(version: 20170916161428) do
     t.integer "social_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "skills_species", id: false, force: :cascade do |t|
+    t.integer "skill_id"
+    t.integer "species_id"
+    t.index ["skill_id"], name: "index_skills_species_on_skill_id"
+    t.index ["species_id"], name: "index_skills_species_on_species_id"
   end
 
   create_table "spaceships", force: :cascade do |t|
@@ -175,12 +189,10 @@ ActiveRecord::Schema.define(version: 20170916161428) do
     t.string "name"
     t.text "description"
     t.integer "ugliness"
-    t.integer "skill_id"
     t.integer "planet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["planet_id"], name: "index_species_on_planet_id"
-    t.index ["skill_id"], name: "index_species_on_skill_id"
   end
 
   create_table "users", force: :cascade do |t|

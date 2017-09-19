@@ -1,8 +1,8 @@
 class CreateJoinTableGovernmentPerson < ActiveRecord::Migration[5.1]
   def change
     create_join_table :governments, :people do |t|
-      t.index [:government_id, :person_id]
-      t.index [:person_id, :government_id]
+      t.references :government, foreign_key: true, index: true
+      t.references :person,     foreign_key: true, index: true
     end
   end
 end

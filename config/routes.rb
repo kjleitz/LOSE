@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'universe#canvas'
+
   resources :governments_people
   resources :governments
   resources :nations

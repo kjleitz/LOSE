@@ -10,7 +10,7 @@ Canvas.defaultProps = {
   name: 'basic'
 }
 
-Hello.propTypes = {
+Canvas.propTypes = {
   name: PropTypes.string
 }
 

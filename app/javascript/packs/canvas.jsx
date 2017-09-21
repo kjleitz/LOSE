@@ -1,5 +1,3 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 const Canvas = props => (
@@ -11,12 +9,6 @@ Canvas.defaultProps = {
 }
 
 Canvas.propTypes = {
-  name: PropTypes.string
+  name: PropTypes.string,
+  ship: PropTypes.object.isRequired
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <Canvas name="main" />,
-    document.getElementById('canvas')
-  );
-})

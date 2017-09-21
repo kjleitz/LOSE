@@ -33,6 +33,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'haml', '~> 4.0'
+
 gem 'rspec-rails', '~> 3.6'
 
 group :development, :test do

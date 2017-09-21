@@ -1,0 +1,11 @@
+!!!5
+%html
+  %head
+    %title L.O.S.E.
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = yield :head
+
+  %body
+    = yield

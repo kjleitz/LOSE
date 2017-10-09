@@ -1,22 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
+import React          from 'react'
+import PropTypes      from 'prop-types';
+import SpaceContainer from './space_container';
 
 const Canvas = props => (
-  <div>this is the {props.name} canvas, yo</div>
-)
+  <div id="canvas">
+    <h2>this is the {props.name} canvas, yo</h2>
+    <SpaceContainer />
+  </div>
+);
 
 Canvas.defaultProps = {
   name: 'basic'
-}
+};
 
 Canvas.propTypes = {
-  name: PropTypes.string
-}
+  name:   PropTypes.string,
+  player: PropTypes.object.isRequired
+};
 
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <Canvas name="main" />,
-    document.getElementById('canvas')
-  );
-})
+export default Canvas;

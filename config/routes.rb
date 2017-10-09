@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'universe#canvas'
+  root 'universe#app'
 
   resources :governments_people
   resources :governments

@@ -1,11 +1,11 @@
-import React     from 'react'
-import PropTypes from 'prop-types';
-import Space     from './space';
+import React          from 'react'
+import PropTypes      from 'prop-types';
+import SpaceContainer from './space_container';
 
 const Canvas = props => (
   <div id="canvas">
     <h2>this is the {props.name} canvas, yo</h2>
-    <Space />
+    <SpaceContainer />
   </div>
 );
 

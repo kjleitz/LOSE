@@ -18,18 +18,20 @@ export default class SpaceContainer extends React.Component {
   }
 
   turnLeft() {
-    this.setState(prevState => ({angle: prevState.angle - 8}))
+    this.setState(prevState => ({angle: prevState.angle + 8}))
   }
 
   turnRight() {
-    this.setState(prevState => ({angle: prevState.angle + 8}))
+    this.setState(prevState => ({angle: prevState.angle - 8}))
   }
 
   render() {
     return (
       <Space
+        player={this.props.player}
         angle={this.state.angle}
-        keyboardHandler={this.keyboardHandler} />
+        keyboardHandler={this.keyboardHandler}
+      />
     )
   }
 }

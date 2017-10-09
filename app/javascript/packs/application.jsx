@@ -13,7 +13,7 @@ import App      from './app';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <App ship={} />,
+    <App />,
     document.getElementById('app')
   );
 })

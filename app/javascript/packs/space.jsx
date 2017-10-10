@@ -1,6 +1,7 @@
-import React    from 'react';
-import MainShip from './main_ship';
-import Star     from './star';
+import React     from 'react';
+import PropTypes from 'prop-types';
+import MainShip  from './main_ship';
+import Star      from './star';
 
 export default class Space extends React.Component {
   render() {
@@ -48,4 +49,14 @@ export default class Space extends React.Component {
       </div>
     )
   }
+}
+
+Space.propTypes = {
+  player:           PropTypes.object.isRequired,
+  color:            PropTypes.string,
+  backgroundColor:  PropTypes.string,
+  width:            PropTypes.string,
+  height:           PropTypes.string,
+  angle:            PropTypes.number,
+  keyboardHandler:  PropTypes.func
 }

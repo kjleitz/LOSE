@@ -1,4 +1,5 @@
 export default class SpaceTile {
+
   // Initialize with `new SpaceTile({x: 3, y: 7})` 
   constructor(options) {
     const attrs  = _.pick(options, 'x', 'y');
@@ -66,7 +67,7 @@ export default class SpaceTile {
   static for(options) {
     if (_.isString(options)) {
       // used SpaceTile.for('3,7')
-      strNums = options.split(',');
+      const strNums = options.split(',');
       const x = parseInt(strNums[0], 10);
       const y = parseInt(strNums[1], 10);
     } else if (arguments.length === 2) {
@@ -77,7 +78,7 @@ export default class SpaceTile {
       // used SpaceTile.for({x: 3, y: 7})
       const {x, y} = _.pick(options, 'x', 'y');
     }
-    
+
     return new SpaceTile({x, y});
   }
 }

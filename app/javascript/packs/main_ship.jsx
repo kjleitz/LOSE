@@ -8,8 +8,8 @@ export default class MainShip extends React.Component {
         player={this.props.player}
         style={{
           position:        'fixed',
-          top:             '185px',
-          left:            '185px',
+          top:             'calc(50% - 15px)',
+          left:            'calc(50% - 15px)',
           width:           '30px',
           height:          '30px',
           borderRadius:    '15px 15px 0 0',

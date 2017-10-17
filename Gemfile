@@ -36,6 +36,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'haml'
 
 gem 'rspec-rails', '~> 3.6'
+gem 'underscore-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

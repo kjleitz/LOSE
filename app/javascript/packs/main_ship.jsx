@@ -15,8 +15,8 @@ export default class MainShip extends React.Component {
           borderRadius:    '15px 15px 0 0',
           backgroundColor: 'green',
           borderBottom:    '5px solid red',
-          transform:       `rotate(${this.props.angle * -1}deg)`,
-          transition:      'transform 0.1s ease-out'
+          // transform:       `rotate(${this.props.angle * -1}deg)`,
+          // transition:      'transform 0.1s ease-out'
         }}
       />
     )

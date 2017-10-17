@@ -23,12 +23,14 @@ class SpaceContainer extends React.Component {
     this.moveBackward          = this.moveBackward.bind(this);
     this.moveLeft              = this.moveLeft.bind(this);
     this.moveRight             = this.moveRight.bind(this);
-    this.moveDiagForwardLeft   = this.moveDiagForwardLeft.bind(this);
-    this.moveDiagForwardRight  = this.moveDiagForwardRight.bind(this);
-    this.moveDiagBackwardLeft  = this.moveDiagBackwardLeft.bind(this);
-    this.moveDiagBackwardRight = this.moveDiagBackwardRight.bind(this);
+    // this.moveDiagForwardLeft   = this.moveDiagForwardLeft.bind(this);
+    // this.moveDiagForwardRight  = this.moveDiagForwardRight.bind(this);
+    // this.moveDiagBackwardLeft  = this.moveDiagBackwardLeft.bind(this);
+    // this.moveDiagBackwardRight = this.moveDiagBackwardRight.bind(this);
 
-    this.loopMillis  = 100;
+    this.loopMillis  = 25;
+    this.degsPerTurn = 4;
+    this.pxPerMove   = 5;
     this.pressedKeys = {};
     this.keyControls = {
       'ArrowLeft':  this.turnLeft,
@@ -84,78 +86,90 @@ class SpaceContainer extends React.Component {
   moveXY(...coordinates) {
     const coords = coordsFromParams(coordinates);
     this.setState(prevState => ({
-      offsetX: prevState.offsetX + (coords.x || 0),
-      offsetY: prevState.offsetY + (coords.y || 0),
+      offsetX: prevState.offsetX + coords.x,
+      offsetY: prevState.offsetY + coords.y,
     }));
   }
 
   turnLeft() {
-    this.turnDegrees(8);
+    this.turnDegrees(this.degsPerTurn);
   }
 
   turnRight() {
-    this.turnDegrees(-8);
+    this.turnDegrees(-1 * this.degsPerTurn);
   }
 
   moveForward() {
+    const radians = this.state.angle * (Math.PI / 180);
+    const angledX = this.pxPerMove * Math.sin(radians)
+    const angledY = this.pxPerMove * Math.cos(radians)
     this.moveXY({
-      x: 0,
-      y: 10,
+      x: -1 * angledX,
+      y: angledY,
     });
   }
 
   moveBackward() {
+    const radians = this.state.angle * (Math.PI / 180);
+    const angledX = this.pxPerMove * Math.sin(radians)
+    const angledY = this.pxPerMove * Math.cos(radians)
     this.moveXY({
-      x: 0,
-      y: -10,
+      x: angledX,
+      y: -1 * angledY,
     });
   }
 
   moveLeft() {
+    const radians = this.state.angle * (Math.PI / 180);
+    const angledX = this.pxPerMove * Math.cos(radians)
+    const angledY = this.pxPerMove * Math.sin(radians)
     this.moveXY({
-      x: -10,
-      y: 0,
+      x: -1 * angledX,
+      y: -1 * angledY,
     });
   }
 
   moveRight() {
+    const radians = this.state.angle * (Math.PI / 180);
+    const angledX = this.pxPerMove * Math.cos(radians)
+    const angledY = this.pxPerMove * Math.sin(radians)
     this.moveXY({
-      x: 10,
-      y: 0,
+      x: angledX,
+      y: angledY,
     });
   }
 
-  moveDiagForwardLeft() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({
-      x: -1 * magnitude,
-      y: magnitude,
-    });
-  }
+  // moveDiagForwardLeft() {
+  //   const magnitude = Math.sqrt(50);
+  //   this.moveXY({
+  //     x: -1 * magnitude,
+  //     y: magnitude,
+  //   });
+  // }
 
-  moveDiagForwardRight() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({
-      x: magnitude,
-      y: magnitude,
-    });
-  }
+  // moveDiagForwardRight() {
+  //   const magnitude = Math.sqrt(50);
+  //   this.moveXY({
+  //     x: magnitude,
+  //     y: magnitude,
+  //   });
+  // }
 
-  moveDiagBackwardLeft() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({
-      x: -1 * magnitude,
-      y: -1 * magnitude,
-    });
-  }
+  // moveDiagBackwardLeft() {
+  //   const magnitude = Math.sqrt(50);
+  //   this.moveXY({
+  //     x: -1 * magnitude,
+  //     y: -1 * magnitude,
+  //   });
+  // }
 
-  moveDiagBackwardRight() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({
-      x: magnitude,
-      y: -1 * magnitude,
-    });
-  }
+  // moveDiagBackwardRight() {
+  //   const magnitude = Math.sqrt(50);
+  //   this.moveXY({
+  //     x: magnitude,
+  //     y: -1 * magnitude,
+  //   });
+  // }
 
   render() {
     return (

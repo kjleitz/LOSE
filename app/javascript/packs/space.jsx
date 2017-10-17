@@ -1,164 +1,122 @@
 import React     from 'react';
+import PropTypes from 'prop-types';
 import MainShip  from './main_ship';
-import Star      from './star';
-import SpaceTile from './space_tile'
+import SpaceTile from './space_tile';
 
 import {
   coordsFromParams,
-  coordString
+  coordString,
 } from './helpers';
 
 const propTypes = {
-  player:          PropTypes.object.isRequired
+  player:          PropTypes.object.isRequired,
+  angle:           PropTypes.number.isRequired,
+  offsetX:         PropTypes.number.isRequired,
+  offsetY:         PropTypes.number.isRequired,
+  keyboardHandler: PropTypes.func.isRequired,
 };
 
-export default class Space extends React.Component {
+class Space extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       tileMap:    {},
-      angle:      0,
-      offsetX:    0,
-      offsetY:    0
-    }
+    };
 
-    this.tiles           = this.tiles.bind(this);
-    this.addTile         = this.addTile.bind(this);
-    this.tileAt          = this.tileAt.bind(this);
-    this.keyboardHandler = this.keyboardHandler.bind(this);
-    this.turnLeft        = this.turnLeft.bind(this);
-    this.turnRight       = this.turnRight.bind(this);
-    this.moveForward     = this.moveForward.bind(this);
-    this.moveBackward    = this.moveBackward.bind(this);
-    this.moveLeft        = this.moveLeft.bind(this);
-    this.moveRight       = this.moveRight.bind(this);
+    // this.tiles   = this.tiles.bind(this);
+    this.addTile = this.addTile.bind(this);
+    this.tileAt  = this.tileAt.bind(this);
   }
 
-  tiles() {
-    return _.values(this.state.tileMap);
-  }
+  // componentDidMount() {
+  //   this.addTile(0, 0);
+  //   // this.addTile(1, 0);
+  //   // this.addTile(0, 1);
+  //   // this.addTile(1, 1);
+  // }
+
+  // tiles() {
+  //   return _.values(this.state.tileMap);
+  // }
 
   addTile(...coordinates) {
     const coords = coordsFromParams(coordinates);
     this.setState((prevState) => {
-      const tile = <SpaceTile
-                     x={coords.x}
-                     y={coords.y}
-                     angle={this.state.angle}
-                     offsetX={this.state.offsetX}
-                     offsetY={this.state.offsetY}
-                     tileMap={this.state.tileMap}
-                     keyboardHandler={this.keyboardHandler} />;
+      const tile = (
+        <SpaceTile
+          key={coordString(coords)}
+          x={coords.x}
+          y={coords.y}
+          angle={this.props.angle}
+          offsetX={this.props.offsetX}
+          offsetY={this.props.offsetY}
+          tileMap={this.state.tileMap}
+          keyboardHandler={this.props.keyboardHandler}
+        />
+      );
 
-      const newMap = _.extend(prevState.tileMap, {[tile.coordString]: tile});
-      return {tileMap: newMap};
-    })
+      const newMap = _.extend(prevState.tileMap, { [coordString(coords)]: tile });
+      return { tileMap: newMap };
+    });
   }
 
   removeTile(...coordinates) {
     this.setState((prevState) => {
       const newMap = _.omit(prevState.tileMap, coordString(coordinates));
-      return {tileMap: newMap};
-    })
+      return { tileMap: newMap };
+    });
   }
 
   tileAt(...coordinates) {
     return this.state.tileMap[coordString(coordinates)];
   }
 
-  keyboardHandler(event) {
-    switch(event.key) {
-      case 'ArrowLeft':  this.turnLeft();
-      case 'ArrowRight': this.turnRight();
-      case 'w':          this.moveForward();
-      case 's':          this.moveBackward();
-      case 'a':          this.moveLeft();
-      case 'd':          this.moveRight();
-    }
-  }
-
-  turnDegrees(degrees) {
-    this.setState(prevState => ({angle: prevState.angle + degrees}));
-  }
-
-  turnLeft() {
-    this.turnDegrees(8);
-  }
-
-  turnRight() {
-    this.turnDegrees(-8);
-  }
-
-  moveXY(...coordinates) {
-    const coords = coordsFromParams(coordinates);
-    this.setState(prevState => ({
-      offsetX: prevState.offsetX + (coords.x || 0),
-      offsetY: prevState.offsetY + (coords.y || 0)
-    }));
-  }
-
-  moveForward() {
-    this.moveXY({y: 10});
-  }
-
-  moveBackward() {
-    this.moveXY({y: -10});
-  }
-
-  moveLeft() {
-    this.moveXY({x: -10});
-  }
-
-  moveRight() {
-    this.moveXY({x: 10});
-  }
-
-  moveDiagForwardLeft() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({x: -1 * magnitude, y: magnitude});
-  }
-
-  moveDiagForwardRight() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({x: magnitude, y: magnitude});
-  }
-
-  moveDiagBackwardLeft() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({x: -1 * magnitude, y: -1 * magnitude});
-  }
-
-  moveDiagBackwardRight() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({x: magnitude, y: -1 * magnitude});
-  }
-
   render() {
-    const {
-      player
-    } = this.props;
+    const spaceStyle = {
+      backgroundColor: 'blue',
+      position:        'fixed',
+      top:             "0px",
+      bottom:          "0px",
+      left:            "0px",
+      right:           "0px",
+    };
 
     return (
-      <div 
+      <div
         id="space"
-        style={{
-          backgroundColor: 'blue',
-          position:        'fixed',
-          top:             0,
-          bottom:          0,
-          left:            0,
-          right:           0
-        }}
+        tabIndex="0"
+        style={spaceStyle}
+        onKeyDown={this.props.keyboardHandler}
       >
-        {this.tiles()}
-        <MainShip
-          player={player}
-          angle={this.state.angle}
-          coords={this.state.shipCoords}
-          keyboardHandler={this.keyboardHandler} />
+        {
+          _.map([
+            '-1,-1',
+            '-1,0',
+            '0,-1',
+            '0,0',
+            '0,1',
+            '1,0',
+            '1,1',
+            '-1,1',
+            '1,-1'
+            ], (coordinates) => {
+            const coords = coordsFromParams(coordinates);
+            return (<SpaceTile
+              key={coordString(coords)}
+              x={coords.x}
+              y={coords.y}
+              angle={this.props.angle}
+              offsetX={this.props.offsetX}
+              offsetY={this.props.offsetY}
+              tileMap={this.state.tileMap}
+              keyboardHandler={this.props.keyboardHandler}
+            />)
+          })
+        }
+        <MainShip player={this.props.player} angle={this.props.angle} />
       </div>
-    )
+    );
   }
 }
 

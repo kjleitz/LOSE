@@ -1,21 +1,21 @@
-import React          from 'react'
+import React          from 'react';
 import PropTypes      from 'prop-types';
 import SpaceContainer from './space_container';
 
 const Canvas = props => (
   <div id="canvas">
     <h2>this is the {props.name} canvas, yo</h2>
-    <SpaceContainer />
+    <SpaceContainer player={props.player} />
   </div>
 );
 
 Canvas.defaultProps = {
-  name: 'basic'
+  name: 'basic',
 };
 
 Canvas.propTypes = {
   name:   PropTypes.string,
-  player: PropTypes.object.isRequired
+  player: PropTypes.object.isRequired,
 };
 
 export default Canvas;

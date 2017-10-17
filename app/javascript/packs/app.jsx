@@ -1,8 +1,5 @@
-import React     from 'react'
-import ReactDOM  from 'react-dom'
-import PropTypes from 'prop-types'
-
-import Canvas           from './canvas'
+import React     from 'react';
+import Canvas    from './canvas';
 // import HUD              from './hud'
 // import Gauge            from './gauge'
 // import CrewmemberStatus from './crewmember_status'
@@ -13,11 +10,11 @@ export default class App extends React.Component {
     // const crewStatuses = ship.crewmembers.map(dude =>
     //   <CrewmemberStatus subject={dude} key={dude.id} />
     // );
-    
+
     const player = {
-      name: "keegs",
-      shipData: {}
-    }
+      name: 'keegs',
+      shipData: {},
+    };
 
     return (
       // <HUD name="left">
@@ -31,6 +28,6 @@ export default class App extends React.Component {
       // <HUD name="right">
       //   {crewStatuses}
       // </HUD>
-    )
+    );
   }
 }

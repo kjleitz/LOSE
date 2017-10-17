@@ -14,7 +14,7 @@ const propTypes = {
   angle:   PropTypes.number.isRequired,
   offsetX: PropTypes.number.isRequired,
   offsetY: PropTypes.number.isRequired,
-  tileMap: PropTypes.array.isRequired,
+  tileMap: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
@@ -62,8 +62,8 @@ class SpaceTile extends React.Component {
       border:          '1px solid gray',
       boxSizing:       'border-box',
       position:        'fixed',
-      left:            `${x}px`,
-      bottom:          `${y}px`,
+      left:            `calc(33% + ${x}px)`,
+      bottom:          `calc(10% + ${y}px)`,
       width:           `${size}px`,
       height:          `${size}px`,
       transform:       `rotate(${angle}deg)`,

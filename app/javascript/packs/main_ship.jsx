@@ -6,6 +6,7 @@ export default class MainShip extends React.Component {
     return (
       <Ship
         player={this.props.player}
+        moveDirection={this.props.moveDirection}
         style={{
           position:        'fixed',
           top:             'calc(50% - 15px)',

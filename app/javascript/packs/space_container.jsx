@@ -42,9 +42,10 @@ class SpaceContainer extends React.Component {
     };
 
     this.state = {
-      angle:   0,
-      offsetX: 0,
-      offsetY: 0,
+      angle:         0,
+      offsetX:       0,
+      offsetY:       0,
+      moveDirection: '',
     };
 
     // mainLoop stores the setInterval that checks keys being pressed/released
@@ -67,6 +68,7 @@ class SpaceContainer extends React.Component {
 
   keyUpHandler(event) {
     this.pressedKeys[event.key] = false;
+    this.setState({ moveDirection: null });
   }
 
   keyControlLoop() {
@@ -103,6 +105,7 @@ class SpaceContainer extends React.Component {
     const radians = this.state.angle * (Math.PI / 180);
     const angledX = this.pxPerMove * Math.sin(radians)
     const angledY = this.pxPerMove * Math.cos(radians)
+    this.setState({ moveDirection: "forward" });
     this.moveXY({
       x: -1 * angledX,
       y: angledY,
@@ -113,6 +116,7 @@ class SpaceContainer extends React.Component {
     const radians = this.state.angle * (Math.PI / 180);
     const angledX = this.pxPerMove * Math.sin(radians)
     const angledY = this.pxPerMove * Math.cos(radians)
+    this.setState({ moveDirection: "backward" });
     this.moveXY({
       x: angledX,
       y: -1 * angledY,
@@ -121,8 +125,9 @@ class SpaceContainer extends React.Component {
 
   moveLeft() {
     const radians = this.state.angle * (Math.PI / 180);
-    const angledX = this.pxPerMove * Math.cos(radians)
-    const angledY = this.pxPerMove * Math.sin(radians)
+    const angledX = (this.pxPerMove / 2) * Math.cos(radians)
+    const angledY = (this.pxPerMove / 2) * Math.sin(radians)
+    this.setState({ moveDirection: "left" });
     this.moveXY({
       x: -1 * angledX,
       y: -1 * angledY,
@@ -131,8 +136,9 @@ class SpaceContainer extends React.Component {
 
   moveRight() {
     const radians = this.state.angle * (Math.PI / 180);
-    const angledX = this.pxPerMove * Math.cos(radians)
-    const angledY = this.pxPerMove * Math.sin(radians)
+    const angledX = (this.pxPerMove / 2) * Math.cos(radians)
+    const angledY = (this.pxPerMove / 2) * Math.sin(radians)
+    this.setState({ moveDirection: "right" });
     this.moveXY({
       x: angledX,
       y: angledY,
@@ -180,6 +186,7 @@ class SpaceContainer extends React.Component {
         offsetY={this.state.offsetY}
         keyDownHandler={this.keyDownHandler}
         keyUpHandler={this.keyUpHandler}
+        moveDirection={this.state.moveDirection}
       />
     );
   }

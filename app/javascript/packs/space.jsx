@@ -15,6 +15,7 @@ const propTypes = {
   offsetY:         PropTypes.number.isRequired,
   keyDownHandler:  PropTypes.func.isRequired,
   keyUpHandler:    PropTypes.func.isRequired,
+  moveDirection:   PropTypes.string.isRequired,
 };
 
 class Space extends React.Component {
@@ -115,7 +116,11 @@ class Space extends React.Component {
             />)
           })
         }
-        <MainShip player={this.props.player} angle={this.props.angle} />
+        <MainShip
+          player={this.props.player}
+          angle={this.props.angle}
+          moveDirection={this.props.moveDirection}
+        />
       </div>
     );
   }

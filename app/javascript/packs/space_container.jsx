@@ -12,35 +12,69 @@ class SpaceContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      angle:   0,
-      offsetX: 0,
-      offsetY: 0,
-    };
-
-    this.keyboardHandler       = this.keyboardHandler.bind(this);
+    this.keyDownHandler        = this.keyDownHandler.bind(this);
+    this.keyUpHandler          = this.keyUpHandler.bind(this);
+    this.keyControlLoop        = this.keyControlLoop.bind(this);
+    this.turnDegrees           = this.turnDegrees.bind(this);
+    this.moveXY                = this.moveXY.bind(this);
     this.turnLeft              = this.turnLeft.bind(this);
     this.turnRight             = this.turnRight.bind(this);
     this.moveForward           = this.moveForward.bind(this);
     this.moveBackward          = this.moveBackward.bind(this);
     this.moveLeft              = this.moveLeft.bind(this);
     this.moveRight             = this.moveRight.bind(this);
-    this.moveDiagForwardLeft   = this.moveDiagForwardLeft.bind(this);
-    this.moveDiagForwardRight  = this.moveDiagForwardRight.bind(this);
-    this.moveDiagBackwardLeft  = this.moveDiagBackwardLeft.bind(this);
-    this.moveDiagBackwardRight = this.moveDiagBackwardRight.bind(this);
+    // this.moveDiagForwardLeft   = this.moveDiagForwardLeft.bind(this);
+    // this.moveDiagForwardRight  = this.moveDiagForwardRight.bind(this);
+    // this.moveDiagBackwardLeft  = this.moveDiagBackwardLeft.bind(this);
+    // this.moveDiagBackwardRight = this.moveDiagBackwardRight.bind(this);
+
+    this.loopMillis  = 25;
+    this.degsPerTurn = 4;
+    this.pxPerMove   = 5;
+    this.pressedKeys = {};
+    this.keyControls = {
+      'ArrowLeft':  this.turnLeft,
+      'ArrowRight': this.turnRight,
+      'w':          this.moveForward,
+      's':          this.moveBackward,
+      'a':          this.moveLeft,
+      'd':          this.moveRight,
+    };
+
+    this.state = {
+      angle:   0,
+      offsetX: 0,
+      offsetY: 0,
+    };
+
+    // mainLoop stores the setInterval that checks keys being pressed/released
+    // so that it can be initialized when the SpaceContainer mounts, and torn
+    // down when the component is removed.
+    this.mainLoop = null;
   }
 
-  keyboardHandler(event) {
-    switch (event.key) {
-      case 'ArrowLeft':  this.turnLeft();     break;
-      case 'ArrowRight': this.turnRight();    break;
-      case 'w':          this.moveForward();  break;
-      case 's':          this.moveBackward(); break;
-      case 'a':          this.moveLeft();     break;
-      case 'd':          this.moveRight();    break;
-      default:                                break;
-    }
+  componentDidMount() {
+    this.mainLoop = this.keyControlLoop();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.mainLoop);
+  }
+
+  keyDownHandler(event) {
+    this.pressedKeys[event.key] = true;
+  }
+
+  keyUpHandler(event) {
+    this.pressedKeys[event.key] = false;
+  }
+
+  keyControlLoop() {
+    return setInterval(() => {
+      _.each(this.pressedKeys, (isPressed, key) => {
+        if (isPressed) this.keyControls[key]();
+      })
+    }, this.loopMillis)
   }
 
   turnDegrees(degrees) {
@@ -52,78 +86,90 @@ class SpaceContainer extends React.Component {
   moveXY(...coordinates) {
     const coords = coordsFromParams(coordinates);
     this.setState(prevState => ({
-      offsetX: prevState.offsetX + (coords.x || 0),
-      offsetY: prevState.offsetY + (coords.y || 0),
+      offsetX: prevState.offsetX + coords.x,
+      offsetY: prevState.offsetY + coords.y,
     }));
   }
 
   turnLeft() {
-    this.turnDegrees(8);
+    this.turnDegrees(this.degsPerTurn);
   }
 
   turnRight() {
-    this.turnDegrees(-8);
+    this.turnDegrees(-1 * this.degsPerTurn);
   }
 
   moveForward() {
+    const radians = this.state.angle * (Math.PI / 180);
+    const angledX = this.pxPerMove * Math.sin(radians)
+    const angledY = this.pxPerMove * Math.cos(radians)
     this.moveXY({
-      x: 0,
-      y: 10,
+      x: -1 * angledX,
+      y: angledY,
     });
   }
 
   moveBackward() {
+    const radians = this.state.angle * (Math.PI / 180);
+    const angledX = this.pxPerMove * Math.sin(radians)
+    const angledY = this.pxPerMove * Math.cos(radians)
     this.moveXY({
-      x: 0,
-      y: -10,
+      x: angledX,
+      y: -1 * angledY,
     });
   }
 
   moveLeft() {
+    const radians = this.state.angle * (Math.PI / 180);
+    const angledX = this.pxPerMove * Math.cos(radians)
+    const angledY = this.pxPerMove * Math.sin(radians)
     this.moveXY({
-      x: -10,
-      y: 0,
+      x: -1 * angledX,
+      y: -1 * angledY,
     });
   }
 
   moveRight() {
+    const radians = this.state.angle * (Math.PI / 180);
+    const angledX = this.pxPerMove * Math.cos(radians)
+    const angledY = this.pxPerMove * Math.sin(radians)
     this.moveXY({
-      x: 10,
-      y: 0,
+      x: angledX,
+      y: angledY,
     });
   }
 
-  moveDiagForwardLeft() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({
-      x: -1 * magnitude,
-      y: magnitude,
-    });
-  }
+  // moveDiagForwardLeft() {
+  //   const magnitude = Math.sqrt(50);
+  //   this.moveXY({
+  //     x: -1 * magnitude,
+  //     y: magnitude,
+  //   });
+  // }
 
-  moveDiagForwardRight() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({
-      x: magnitude,
-      y: magnitude,
-    });
-  }
+  // moveDiagForwardRight() {
+  //   const magnitude = Math.sqrt(50);
+  //   this.moveXY({
+  //     x: magnitude,
+  //     y: magnitude,
+  //   });
+  // }
 
-  moveDiagBackwardLeft() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({
-      x: -1 * magnitude,
-      y: -1 * magnitude,
-    });
-  }
+  // moveDiagBackwardLeft() {
+  //   const magnitude = Math.sqrt(50);
+  //   this.moveXY({
+  //     x: -1 * magnitude,
+  //     y: -1 * magnitude,
+  //   });
+  // }
 
-  moveDiagBackwardRight() {
-    const magnitude = Math.sqrt(50);
-    this.moveXY({
-      x: magnitude,
-      y: -1 * magnitude,
-    });
-  }
+  // moveDiagBackwardRight() {
+  //   const magnitude = Math.sqrt(50);
+  //   this.moveXY({
+  //     x: magnitude,
+  //     y: -1 * magnitude,
+  //   });
+  // }
 
   render() {
     return (
@@ -132,7 +178,8 @@ class SpaceContainer extends React.Component {
         angle={this.state.angle}
         offsetX={this.state.offsetX}
         offsetY={this.state.offsetY}
-        keyboardHandler={this.keyboardHandler}
+        keyDownHandler={this.keyDownHandler}
+        keyUpHandler={this.keyUpHandler}
       />
     );
   }

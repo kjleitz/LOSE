@@ -43,14 +43,14 @@ class SpaceTile extends React.Component {
   }
 
   trueCoords() {
-    const scale   = this.props.size;
+    const size    = this.props.size;
     const tileX   = this.coords.x;
     const tileY   = this.coords.y;
     const offsetX = this.props.offsetX;
     const offsetY = this.props.offsetY;
     return {
-      x: (scale * tileX) - offsetX,
-      y: (scale * tileY) - offsetY,
+      x: (size * tileX) - (size / 2) - offsetX,
+      y: (size * tileY) - (size / 2) - offsetY,
     };
   }
 
@@ -58,16 +58,16 @@ class SpaceTile extends React.Component {
     const  { x, y }        = this.trueCoords();
     const  { size, angle } = this.props;
     return {
-      backgroundColor: 'black',
-      border:          '1px solid gray',
-      boxSizing:       'border-box',
-      position:        'fixed',
-      left:            `calc(33% + ${x}px)`,
-      bottom:          `calc(10% + ${y}px)`,
-      width:           `${size}px`,
-      height:          `${size}px`,
-      transform:       `rotate(${angle}deg)`,
-      transition:      'transform 0.5s',
+      backgroundColor:    'black',
+      border:             '1px solid gray',
+      boxSizing:          'border-box',
+      position:           'fixed',
+      left:               `calc(50% + ${x}px)`,
+      bottom:             `calc(50% + ${y}px)`,
+      width:              `${size}px`,
+      height:             `${size}px`,
+      transform:          `rotate(${angle}deg)`,
+      transformOrigin:    `${-1 * x}px ${y + size}px`,
     };
   }
 

@@ -58,16 +58,17 @@ class SpaceTile extends React.Component {
     const  { x, y }        = this.trueCoords();
     const  { size, angle } = this.props;
     return {
-      backgroundColor: 'black',
-      border:          '1px solid gray',
-      boxSizing:       'border-box',
-      position:        'fixed',
-      left:            `calc(33% + ${x}px)`,
-      bottom:          `calc(10% + ${y}px)`,
-      width:           `${size}px`,
-      height:          `${size}px`,
-      transform:       `rotate(${angle}deg)`,
-      transition:      'transform 0.5s',
+      backgroundColor:    'black',
+      border:             '1px solid gray',
+      boxSizing:          'border-box',
+      position:           'fixed',
+      left:               `calc(33% + ${x}px)`,
+      bottom:             `calc(10% + ${y}px)`,
+      width:              `${size}px`,
+      height:             `${size}px`,
+      transform:          `rotate(${angle}deg)`,
+      transitionProperty: 'transform, left, right, top,  bottom',
+      transitionDuration: '0.5s,      0.5s, 0.5s,  0.5s, 0.5s',
     };
   }
 

@@ -12,13 +12,11 @@ class SpaceContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      angle:   0,
-      offsetX: 0,
-      offsetY: 0,
-    };
-
-    this.keyboardHandler       = this.keyboardHandler.bind(this);
+    this.keyDownHandler        = this.keyDownHandler.bind(this);
+    this.keyUpHandler          = this.keyUpHandler.bind(this);
+    this.keyControlLoop        = this.keyControlLoop.bind(this);
+    this.turnDegrees           = this.turnDegrees.bind(this);
+    this.moveXY                = this.moveXY.bind(this);
     this.turnLeft              = this.turnLeft.bind(this);
     this.turnRight             = this.turnRight.bind(this);
     this.moveForward           = this.moveForward.bind(this);
@@ -29,18 +27,52 @@ class SpaceContainer extends React.Component {
     this.moveDiagForwardRight  = this.moveDiagForwardRight.bind(this);
     this.moveDiagBackwardLeft  = this.moveDiagBackwardLeft.bind(this);
     this.moveDiagBackwardRight = this.moveDiagBackwardRight.bind(this);
+
+    this.loopMillis  = 100;
+    this.pressedKeys = {};
+    this.keyControls = {
+      'ArrowLeft':  this.turnLeft,
+      'ArrowRight': this.turnRight,
+      'w':          this.moveForward,
+      's':          this.moveBackward,
+      'a':          this.moveLeft,
+      'd':          this.moveRight,
+    };
+
+    this.state = {
+      angle:   0,
+      offsetX: 0,
+      offsetY: 0,
+    };
+
+    // mainLoop stores the setInterval that checks keys being pressed/released
+    // so that it can be initialized when the SpaceContainer mounts, and torn
+    // down when the component is removed.
+    this.mainLoop = null;
   }
 
-  keyboardHandler(event) {
-    switch (event.key) {
-      case 'ArrowLeft':  this.turnLeft();     break;
-      case 'ArrowRight': this.turnRight();    break;
-      case 'w':          this.moveForward();  break;
-      case 's':          this.moveBackward(); break;
-      case 'a':          this.moveLeft();     break;
-      case 'd':          this.moveRight();    break;
-      default:                                break;
-    }
+  componentDidMount() {
+    this.mainLoop = this.keyControlLoop();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.mainLoop);
+  }
+
+  keyDownHandler(event) {
+    this.pressedKeys[event.key] = true;
+  }
+
+  keyUpHandler(event) {
+    this.pressedKeys[event.key] = false;
+  }
+
+  keyControlLoop() {
+    return setInterval(() => {
+      _.each(this.pressedKeys, (isPressed, key) => {
+        if (isPressed) this.keyControls[key]();
+      })
+    }, this.loopMillis)
   }
 
   turnDegrees(degrees) {
@@ -132,7 +164,8 @@ class SpaceContainer extends React.Component {
         angle={this.state.angle}
         offsetX={this.state.offsetX}
         offsetY={this.state.offsetY}
-        keyboardHandler={this.keyboardHandler}
+        keyDownHandler={this.keyDownHandler}
+        keyUpHandler={this.keyUpHandler}
       />
     );
   }

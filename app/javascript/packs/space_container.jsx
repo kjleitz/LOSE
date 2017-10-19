@@ -38,10 +38,10 @@ class SpaceContainer extends React.Component {
     this.keyControls = {
       'ArrowLeft':  this.turnLeft,
       'ArrowRight': this.turnRight,
-      'w':          this.moveForward,
-      's':          this.moveBackward,
-      'a':          this.moveLeft,
-      'd':          this.moveRight,
+      'ArrowUp':    this.moveForward,
+      'ArrowDown':  this.moveBackward,
+      'Control':    this.moveLeft,
+      'Meta':       this.moveRight,
     };
     this.validKeys = _.keys(this.keyControls);
 

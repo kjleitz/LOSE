@@ -12,6 +12,9 @@ class SpaceContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    // `true` will log state data (on separate lines) when updates are triggered
+    this.debug = true;
+
     this.keyDownHandler        = this.keyDownHandler.bind(this);
     this.keyUpHandler          = this.keyUpHandler.bind(this);
     this.keyControlLoop        = this.keyControlLoop.bind(this);
@@ -40,6 +43,7 @@ class SpaceContainer extends React.Component {
       'a':          this.moveLeft,
       'd':          this.moveRight,
     };
+    this.validKeys = _.keys(this.keyControls);
 
     this.state = {
       angle:         0,
@@ -62,12 +66,20 @@ class SpaceContainer extends React.Component {
     clearInterval(this.mainLoop);
   }
 
+  componentDidUpdate() {
+    if (!this.debug) return;
+    console.log('========== CURRENT STATE ==========');
+    _.each(this.state, (val, key) => console.log(`${key}: ${val}`));
+  }
+
   keyDownHandler(event) {
-    this.pressedKeys[event.key] = true;
+    const key = event.key;
+    if (_.contains(this.validKeys, key)) this.pressedKeys[key] = true;
   }
 
   keyUpHandler(event) {
-    this.pressedKeys[event.key] = false;
+    const key = event.key;
+    if (_.contains(this.validKeys, key)) this.pressedKeys[key] = false;
     this.setState({ moveDirection: '' });
   }
 

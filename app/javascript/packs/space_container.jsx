@@ -106,10 +106,12 @@ class SpaceContainer extends React.Component {
   }
 
   turnLeft() {
+    this.setState({ moveDirection: "left" });
     this.turnDegrees(this.degsPerTurn);
   }
 
   turnRight() {
+    this.setState({ moveDirection: "right" });
     this.turnDegrees(-1 * this.degsPerTurn);
   }
 

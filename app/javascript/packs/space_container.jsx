@@ -68,7 +68,7 @@ class SpaceContainer extends React.Component {
 
   keyUpHandler(event) {
     this.pressedKeys[event.key] = false;
-    this.setState({ moveDirection: null });
+    this.setState({ moveDirection: '' });
   }
 
   keyControlLoop() {

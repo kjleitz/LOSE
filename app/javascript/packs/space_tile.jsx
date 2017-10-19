@@ -14,7 +14,7 @@ const propTypes = {
   angle:   PropTypes.number.isRequired,
   offsetX: PropTypes.number.isRequired,
   offsetY: PropTypes.number.isRequired,
-  tileMap: PropTypes.object.isRequired,
+  // tileMap: PropTypes.array.isRequired,
 };
 
 const defaultProps = {
@@ -25,8 +25,8 @@ class SpaceTile extends React.Component {
   constructor(props) {
     super(props);
 
-    const existingTile = props.tileMap[this.coordString()];
-    if (_.isObject(existingTile)) return existingTile;
+    // const existingTile = props.tileMap[this.coordString()];
+    // if (_.isObject(existingTile)) return existingTile;
 
     this.coords = {
       x: props.x,

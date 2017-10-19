@@ -14,10 +14,10 @@ export default class Ship extends React.Component {
     return (
       <div style={this.props.style}>
         <div style={_.extend({
-          width:  "100%",
-          height: "calc(100% - 15px)",
+          width:     "100%",
+          height:    "calc(100% - 15px)",
           marginTop: "15px",
-          zIndex: '0',
+          zIndex:    '0',
         }, flameStyle)}></div>
       </div>
     )

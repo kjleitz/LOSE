@@ -23,56 +23,39 @@ class Space extends React.Component {
     super(props);
 
     this.state = {
-      tileMap:    {},
+      tiles: [],
     };
 
-    // this.tiles   = this.tiles.bind(this);
-    // this.addTile = this.addTile.bind(this);
-    // this.tileAt  = this.tileAt.bind(this);
+    this.addTile    = this.addTile.bind(this);
+    this.removeTile = this.removeTile.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.addTile(0, 0);
-  //   // this.addTile(1, 0);
-  //   // this.addTile(0, 1);
-  //   // this.addTile(1, 1);
-  // }
+  componentDidMount() {
+    this.addTile(-1, -1);
+    this.addTile(-1,  0);
+    this.addTile(-1,  1);
+    this.addTile( 0, -1);
+    this.addTile( 0,  0);
+    this.addTile( 0,  1);
+    this.addTile( 1, -1);
+    this.addTile( 1,  0);
+    this.addTile( 1,  1);
+  }
 
-  // tiles() {
-  //   return _.values(this.state.tileMap);
-  // }
+  addTile(...coordinates) {
+    const coordStr = coordString(coordinates);
+    this.setState((prevState) => {
+      if (_.contains(prevState.tiles, coordStr)) return prevState;
+      return { tiles: [...prevState.tiles, coordStr], }
+    });
+  }
 
-  // addTile(...coordinates) {
-  //   const coords = coordsFromParams(coordinates);
-  //   this.setState((prevState) => {
-  //     const tile = (
-  //       <SpaceTile
-  //         key={coordString(coords)}
-  //         x={coords.x}
-  //         y={coords.y}
-  //         angle={this.props.angle}
-  //         offsetX={this.props.offsetX}
-  //         offsetY={this.props.offsetY}
-  //         tileMap={this.state.tileMap}
-  //         keyboardHandler={this.props.keyboardHandler}
-  //       />
-  //     );
-
-  //     const newMap = _.extend(prevState.tileMap, { [coordString(coords)]: tile });
-  //     return { tileMap: newMap };
-  //   });
-  // }
-
-  // removeTile(...coordinates) {
-  //   this.setState((prevState) => {
-  //     const newMap = _.omit(prevState.tileMap, coordString(coordinates));
-  //     return { tileMap: newMap };
-  //   });
-  // }
-
-  // tileAt(...coordinates) {
-  //   return this.state.tileMap[coordString(coordinates)];
-  // }
+  removeTile(...coordinates) {
+    const coordStr = coordString(coordinates);
+    this.setState((prevState) => {
+      return { tiles: _.without(prevState.tiles, coordStr) };
+    });
+  }
 
   render() {
     const spaceStyle = {
@@ -84,6 +67,18 @@ class Space extends React.Component {
       right:           "0px",
     };
 
+    const spaceTiles = _.map(this.state.tiles, (coordinates) => {
+      const coords = coordsFromParams(coordinates);
+      return (<SpaceTile
+        key={coordString(coords)}
+        x={coords.x}
+        y={coords.y}
+        angle={this.props.angle}
+        offsetX={this.props.offsetX}
+        offsetY={this.props.offsetY}
+      />)
+    })
+
     return (
       <div
         id="space"
@@ -92,30 +87,7 @@ class Space extends React.Component {
         onKeyDown={this.props.keyDownHandler}
         onKeyUp={this.props.keyUpHandler}
       >
-        {
-          _.map([
-            '-1,-1',
-            '-1, 0',
-            ' 0,-1',
-            ' 0, 0',
-            ' 0, 1',
-            ' 1, 0',
-            ' 1, 1',
-            '-1, 1',
-            ' 1,-1'
-            ], (coordinates) => {
-            const coords = coordsFromParams(coordinates);
-            return (<SpaceTile
-              key={coordString(coords)}
-              x={coords.x}
-              y={coords.y}
-              angle={this.props.angle}
-              offsetX={this.props.offsetX}
-              offsetY={this.props.offsetY}
-              tileMap={this.state.tileMap}
-            />)
-          })
-        }
+        {spaceTiles}
         <MainShip
           player={this.props.player}
           angle={this.props.angle}

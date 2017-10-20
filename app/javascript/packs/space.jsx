@@ -44,8 +44,8 @@ class Space extends React.Component {
     const nextY = nextProps.offsetY;
     if (prevX === nextX && prevY === nextY) return;
 
-    const tileX      = Math.floor((nextX + (this.tileSize / 2)) / this.tileSize);
-    const tileY      = Math.floor((nextY + (this.tileSize / 2)) / this.tileSize);
+    const tileX = Math.floor((nextX + (this.tileSize / 2)) / this.tileSize);
+    const tileY = Math.floor((nextY + (this.tileSize / 2)) / this.tileSize);
     const centerTile = coordString(tileX, tileY);
     if (this.state.centerTile === centerTile) return;
 

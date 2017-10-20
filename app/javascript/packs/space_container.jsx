@@ -12,25 +12,20 @@ class SpaceContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    // `true` will log state data (on separate lines) when updates are triggered
-    this.debug = false;
+    this.keyDownHandler = this.keyDownHandler.bind(this);
+    this.keyUpHandler   = this.keyUpHandler.bind(this);
+    this.keyControlLoop = this.keyControlLoop.bind(this);
+    this.turnDegrees    = this.turnDegrees.bind(this);
+    this.moveXY         = this.moveXY.bind(this);
+    this.turnLeft       = this.turnLeft.bind(this);
+    this.turnRight      = this.turnRight.bind(this);
+    this.moveForward    = this.moveForward.bind(this);
+    this.moveBackward   = this.moveBackward.bind(this);
+    this.moveLeft       = this.moveLeft.bind(this);
+    this.moveRight      = this.moveRight.bind(this);
 
-    this.keyDownHandler        = this.keyDownHandler.bind(this);
-    this.keyUpHandler          = this.keyUpHandler.bind(this);
-    this.keyControlLoop        = this.keyControlLoop.bind(this);
-    this.turnDegrees           = this.turnDegrees.bind(this);
-    this.moveXY                = this.moveXY.bind(this);
-    this.turnLeft              = this.turnLeft.bind(this);
-    this.turnRight             = this.turnRight.bind(this);
-    this.moveForward           = this.moveForward.bind(this);
-    this.moveBackward          = this.moveBackward.bind(this);
-    this.moveLeft              = this.moveLeft.bind(this);
-    this.moveRight             = this.moveRight.bind(this);
-    // this.moveDiagForwardLeft   = this.moveDiagForwardLeft.bind(this);
-    // this.moveDiagForwardRight  = this.moveDiagForwardRight.bind(this);
-    // this.moveDiagBackwardLeft  = this.moveDiagBackwardLeft.bind(this);
-    // this.moveDiagBackwardRight = this.moveDiagBackwardRight.bind(this);
-
+    // defaults/pseudo-"constants"
+    this.debug       = false;
     this.loopMillis  = 25;
     this.degsPerTurn = 4;
     this.pxPerMove   = 5;
@@ -158,38 +153,6 @@ class SpaceContainer extends React.Component {
       y: angledY,
     });
   }
-
-  // moveDiagForwardLeft() {
-  //   const magnitude = Math.sqrt(50);
-  //   this.moveXY({
-  //     x: -1 * magnitude,
-  //     y: magnitude,
-  //   });
-  // }
-
-  // moveDiagForwardRight() {
-  //   const magnitude = Math.sqrt(50);
-  //   this.moveXY({
-  //     x: magnitude,
-  //     y: magnitude,
-  //   });
-  // }
-
-  // moveDiagBackwardLeft() {
-  //   const magnitude = Math.sqrt(50);
-  //   this.moveXY({
-  //     x: -1 * magnitude,
-  //     y: -1 * magnitude,
-  //   });
-  // }
-
-  // moveDiagBackwardRight() {
-  //   const magnitude = Math.sqrt(50);
-  //   this.moveXY({
-  //     x: magnitude,
-  //     y: -1 * magnitude,
-  //   });
-  // }
 
   render() {
     return (

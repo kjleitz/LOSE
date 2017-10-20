@@ -14,19 +14,11 @@ const propTypes = {
   angle:   PropTypes.number.isRequired,
   offsetX: PropTypes.number.isRequired,
   offsetY: PropTypes.number.isRequired,
-  // tileMap: PropTypes.array.isRequired,
 };
-
-// const defaultProps = {
-//   size: 500,
-// };
 
 class SpaceTile extends React.Component {
   constructor(props) {
     super(props);
-
-    // const existingTile = props.tileMap[this.coordString()];
-    // if (_.isObject(existingTile)) return existingTile;
 
     this.coords = {
       x: props.x,
@@ -35,7 +27,14 @@ class SpaceTile extends React.Component {
 
     this.coordString = this.coordString.bind(this);
     this.trueCoords  = this.trueCoords.bind(this);
-    this.tileStyle   = this.tileStyle.bind(this);
+  }
+
+  componentWillMount() {
+    // retrieve data from server
+  }
+
+  componentWillUnmount() {
+    // save data to server
   }
 
   coordString() {
@@ -54,10 +53,10 @@ class SpaceTile extends React.Component {
     };
   }
 
-  tileStyle() {
-    const  { x, y }        = this.trueCoords();
-    const  { size, angle } = this.props;
-    return {
+  render() {
+    const { x, y }        = this.trueCoords();
+    const { size, angle } = this.props;
+    const tileStyle       = {
       backgroundColor:    'black',
       border:             '1px solid gray',
       boxSizing:          'border-box',
@@ -69,11 +68,9 @@ class SpaceTile extends React.Component {
       transform:          `rotate(${angle}deg)`,
       transformOrigin:    `${-1 * x}px ${y + size}px`,
     };
-  }
 
-  render() {
     return (
-      <div className="space-tile" style={this.tileStyle()}>
+      <div className="space-tile" style={tileStyle}>
         <Star x={10} y={20} />
         <Star x={90} y={25} />
         <Star x={50} y={20} />
@@ -87,6 +84,5 @@ class SpaceTile extends React.Component {
 }
 
 SpaceTile.propTypes    = propTypes;
-// SpaceTile.defaultProps = defaultProps;
 
 export default SpaceTile;

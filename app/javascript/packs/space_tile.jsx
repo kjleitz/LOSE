@@ -8,7 +8,7 @@ import {
 } from './helpers';
 
 const propTypes = {
-  size:    PropTypes.number,
+  size:    PropTypes.number.isRequired,
   x:       PropTypes.number.isRequired,
   y:       PropTypes.number.isRequired,
   angle:   PropTypes.number.isRequired,
@@ -17,9 +17,9 @@ const propTypes = {
   // tileMap: PropTypes.array.isRequired,
 };
 
-const defaultProps = {
-  size: 500,
-};
+// const defaultProps = {
+//   size: 500,
+// };
 
 class SpaceTile extends React.Component {
   constructor(props) {
@@ -87,6 +87,6 @@ class SpaceTile extends React.Component {
 }
 
 SpaceTile.propTypes    = propTypes;
-SpaceTile.defaultProps = defaultProps;
+// SpaceTile.defaultProps = defaultProps;
 
 export default SpaceTile;

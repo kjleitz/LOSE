@@ -13,7 +13,7 @@ class SpaceContainer extends React.Component {
     super(props);
 
     // `true` will log state data (on separate lines) when updates are triggered
-    this.debug = true;
+    this.debug = false;
 
     this.keyDownHandler        = this.keyDownHandler.bind(this);
     this.keyUpHandler          = this.keyUpHandler.bind(this);

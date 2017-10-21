@@ -1,0 +1,2 @@
+class AsteroidsController < ApplicationController
+end

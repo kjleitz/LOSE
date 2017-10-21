@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :asteroids
+  resources :wrecks
+  resources :space_tiles, param: :coord_string
   root 'universe#app'
 
   resources :governments_people
@@ -11,7 +14,7 @@ Rails.application.routes.draw do
   resources :species
   resources :races
   resources :people
-  resources :spaceships
+  resources :ships
   resources :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

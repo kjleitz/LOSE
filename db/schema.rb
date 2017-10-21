@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919213810) do
+ActiveRecord::Schema.define(version: 20171021214436) do
 
   create_table "alignments", force: :cascade do |t|
     t.string "lawfulness"
     t.string "morality"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "asteroids", force: :cascade do |t|
+    t.integer "space_tile_id"
+    t.text "description"
+    t.text "inventory"
+    t.integer "size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["space_tile_id"], name: "index_asteroids_on_space_tile_id"
   end
 
   create_table "governments", force: :cascade do |t|
@@ -91,7 +101,7 @@ ActiveRecord::Schema.define(version: 20170919213810) do
     t.integer "attractiveness"
     t.integer "race_id"
     t.integer "species_id"
-    t.integer "spaceship_id"
+    t.integer "ship_id"
     t.integer "nation_id"
     t.integer "planet_id"
     t.integer "alignment_id"
@@ -103,8 +113,15 @@ ActiveRecord::Schema.define(version: 20170919213810) do
     t.index ["occupation_id"], name: "index_people_on_occupation_id"
     t.index ["planet_id"], name: "index_people_on_planet_id"
     t.index ["race_id"], name: "index_people_on_race_id"
-    t.index ["spaceship_id"], name: "index_people_on_spaceship_id"
+    t.index ["ship_id"], name: "index_people_on_ship_id"
     t.index ["species_id"], name: "index_people_on_species_id"
+  end
+
+  create_table "people_ships", id: false, force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "ship_id"
+    t.index ["person_id"], name: "index_people_ships_on_person_id"
+    t.index ["ship_id"], name: "index_people_ships_on_ship_id"
   end
 
   create_table "people_skills", id: false, force: :cascade do |t|
@@ -112,13 +129,6 @@ ActiveRecord::Schema.define(version: 20170919213810) do
     t.integer "skill_id"
     t.index ["person_id"], name: "index_people_skills_on_person_id"
     t.index ["skill_id"], name: "index_people_skills_on_skill_id"
-  end
-
-  create_table "people_spaceships", id: false, force: :cascade do |t|
-    t.integer "person_id"
-    t.integer "spaceship_id"
-    t.index ["person_id"], name: "index_people_spaceships_on_person_id"
-    t.index ["spaceship_id"], name: "index_people_spaceships_on_spaceship_id"
   end
 
   create_table "planets", force: :cascade do |t|
@@ -130,6 +140,8 @@ ActiveRecord::Schema.define(version: 20170919213810) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "space_tile_id"
+    t.index ["space_tile_id"], name: "index_planets_on_space_tile_id"
   end
 
   create_table "races", force: :cascade do |t|
@@ -149,6 +161,27 @@ ActiveRecord::Schema.define(version: 20170919213810) do
     t.index ["skill_id"], name: "index_races_skills_on_skill_id"
   end
 
+  create_table "ships", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.integer "size"
+    t.integer "hp"
+    t.integer "shield_strength"
+    t.integer "energy"
+    t.integer "ammo"
+    t.integer "rockets"
+    t.string "fuel_type"
+    t.integer "reputation"
+    t.integer "capacity"
+    t.integer "cost"
+    t.integer "user_id"
+    t.integer "nation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nation_id"], name: "index_ships_on_nation_id"
+    t.index ["user_id"], name: "index_ships_on_user_id"
+  end
+
   create_table "skills", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -164,25 +197,16 @@ ActiveRecord::Schema.define(version: 20170919213810) do
     t.index ["species_id"], name: "index_skills_species_on_species_id"
   end
 
-  create_table "spaceships", force: :cascade do |t|
-    t.string "name"
-    t.string "type"
-    t.string "size"
-    t.integer "hp"
-    t.integer "shield_strength"
-    t.integer "energy"
-    t.integer "ammo"
-    t.integer "rockets"
-    t.string "fuel_type"
-    t.integer "reputation"
-    t.integer "capacity"
-    t.integer "cost"
+  create_table "space_tiles", force: :cascade do |t|
+    t.integer "x"
+    t.integer "y"
+    t.text "star_map"
+    t.string "coord_string"
     t.integer "user_id"
-    t.integer "nation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["nation_id"], name: "index_spaceships_on_nation_id"
-    t.index ["user_id"], name: "index_spaceships_on_user_id"
+    t.index ["coord_string"], name: "index_space_tiles_on_coord_string"
+    t.index ["user_id"], name: "index_space_tiles_on_user_id"
   end
 
   create_table "species", force: :cascade do |t|
@@ -201,6 +225,17 @@ ActiveRecord::Schema.define(version: 20170919213810) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "wrecks", force: :cascade do |t|
+    t.integer "ship_id"
+    t.integer "space_tile_id"
+    t.text "description"
+    t.integer "quality"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ship_id"], name: "index_wrecks_on_ship_id"
+    t.index ["space_tile_id"], name: "index_wrecks_on_space_tile_id"
   end
 
 end

@@ -25,16 +25,46 @@ class SpaceTile extends React.Component {
       y: props.y,
     };
 
+    this.serialize   = this.serialize.bind(this);
+    this.saveTile    = this.saveTile.bind(this);
+    this.loadTile    = this.loadTile.bind(this);
     this.coordString = this.coordString.bind(this);
     this.trueCoords  = this.trueCoords.bind(this);
   }
 
   componentWillMount() {
-    // retrieve data from server
+    this.saveTile();
   }
 
   componentWillUnmount() {
-    // save data to server
+    this.loadTile();
+  }
+
+  serialize() {
+    JSON.stringify({
+      space_tile: {
+        x:           this.coords.x,
+        y:           this.coords.y,
+        true_coords: this.trueCoords(),
+        // discoverer: this.props.player.username,
+        // ...etc.
+      }
+    });
+  }
+
+  saveTile(callback = () => {}) {
+    fetch(`space_tiles/${this.coordString()}`, {
+      headers: { 'Content-Type': 'application/json' },
+      method:  'post',
+      body:    this.serialize(),
+    }).then(resp => resp.json())
+      .then(tile => callback(tile));
+  }
+
+  loadTile(callback = () => {}) {
+    fetch(`space_tiles/${this.coordString()}`)
+      .then(resp => resp.json())
+      .then(tile => callback(tile));
   }
 
   coordString() {

@@ -10,6 +10,6 @@ class Ship < ApplicationRecord
     frigate:    3, # space cargo ship - e.g. I have no examples... picture a freighter in space
     carrier:    4, # space aircraft carrier - e.g. Enterprise (Star Trek), Destroyer (Star Wars)
     giant:      5, # ridiculously big - e.g. Borg Tactical Cube (Star Trek), Trade Federation Battleship (Star Wars)
-    supergiant: 6  # impossibly huge - e.g. Death Star (Star Wars), Executor (Star Wars), your mom (IRL)
+    supergiant: 6  # impossibly huge - e.g. Death Star (Star Wars), Executor (Star Wars), your mom (real life)
   }
 end

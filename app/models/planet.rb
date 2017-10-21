@@ -6,7 +6,7 @@ class Planet < ApplicationRecord
     super_earth:  3, # earth    <  super_earth (rocky)  <  neptune
     sub_saturn:   4, # neptune  <= sub_saturn (gaseous) <  saturn
     saturn_size:  5, #             saturn_size ~= saturn
-    super_saturn: 6, # saturn   <     super_saturn      <= jupiter
+    super_saturn: 6, # saturn   <     super_saturn      <= planetar
     planetar:     7  # jupiter  <       planetar        <  sun
   }
 end

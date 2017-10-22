@@ -15,63 +15,82 @@ const propTypes = {
   offsetY:         PropTypes.number.isRequired,
   keyDownHandler:  PropTypes.func.isRequired,
   keyUpHandler:    PropTypes.func.isRequired,
+  moveDirection:   PropTypes.string.isRequired,
 };
 
 class Space extends React.Component {
   constructor(props) {
     super(props);
 
+    // defaults/pseudo-"constants"
+    this.debug    = true;
+    this.tileSize = 400;
+
+    const startingTile = '0,0';
     this.state = {
-      tileMap:    {},
+      centerTile: startingTile,
+      tiles:      this.tilesAdjacentTo(startingTile),
     };
 
-    // this.tiles   = this.tiles.bind(this);
-    // this.addTile = this.addTile.bind(this);
-    // this.tileAt  = this.tileAt.bind(this);
+    this.addTile         = this.addTile.bind(this);
+    this.removeTile      = this.removeTile.bind(this);
+    this.tilesAdjacentTo = this.tilesAdjacentTo.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.addTile(0, 0);
-  //   // this.addTile(1, 0);
-  //   // this.addTile(0, 1);
-  //   // this.addTile(1, 1);
-  // }
+  componentWillReceiveProps(nextProps) {
+    const prevX = this.props.offsetX;
+    const prevY = this.props.offsetY;
+    const nextX = nextProps.offsetX;
+    const nextY = nextProps.offsetY;
+    if (prevX === nextX && prevY === nextY) return;
 
-  // tiles() {
-  //   return _.values(this.state.tileMap);
-  // }
+    const tileX = Math.floor((nextX + (this.tileSize / 2)) / this.tileSize);
+    const tileY = Math.floor((nextY + (this.tileSize / 2)) / this.tileSize);
+    const centerTile = coordString(tileX, tileY);
+    if (this.state.centerTile === centerTile) return;
 
-  // addTile(...coordinates) {
-  //   const coords = coordsFromParams(coordinates);
-  //   this.setState((prevState) => {
-  //     const tile = (
-  //       <SpaceTile
-  //         key={coordString(coords)}
-  //         x={coords.x}
-  //         y={coords.y}
-  //         angle={this.props.angle}
-  //         offsetX={this.props.offsetX}
-  //         offsetY={this.props.offsetY}
-  //         tileMap={this.state.tileMap}
-  //         keyboardHandler={this.props.keyboardHandler}
-  //       />
-  //     );
+    this.setState({
+      centerTile: coordString(tileX, tileY),
+      tiles:      this.tilesAdjacentTo(tileX, tileY),
+    });
 
-  //     const newMap = _.extend(prevState.tileMap, { [coordString(coords)]: tile });
-  //     return { tileMap: newMap };
-  //   });
-  // }
+  }
 
-  // removeTile(...coordinates) {
-  //   this.setState((prevState) => {
-  //     const newMap = _.omit(prevState.tileMap, coordString(coordinates));
-  //     return { tileMap: newMap };
-  //   });
-  // }
+  componentDidUpdate() {
+    if (!this.debug) return;
+    console.log('========== CURRENT STATE ==========');
+    _.each(this.state, (val, key) => console.log(`${key}: ${val}`));
+  }
 
-  // tileAt(...coordinates) {
-  //   return this.state.tileMap[coordString(coordinates)];
-  // }
+  tilesAdjacentTo(...coordinates) {
+    const coords = coordsFromParams(coordinates);
+    return [
+      coordString(coords.x - 1, coords.y - 1),
+      coordString(coords.x - 1, coords.y + 0),
+      coordString(coords.x - 1, coords.y + 1),
+      coordString(coords.x + 0, coords.y - 1),
+      coordString(coords.x + 0, coords.y + 0),
+      coordString(coords.x + 0, coords.y + 1),
+      coordString(coords.x + 1, coords.y - 1),
+      coordString(coords.x + 1, coords.y + 0),
+      coordString(coords.x + 1, coords.y + 1),
+    ]
+  }
+
+  addTile(...coordinates) {
+    const coordStr = coordString(coordinates);
+    this.setState((prevState) => {
+      if (_.contains(prevState.tiles, coordStr)) return prevState;
+      return { tiles: [...prevState.tiles, coordStr], }
+    });
+  }
+
+  removeTile(...coordinates) {
+    const coordStr = coordString(coordinates);
+    this.setState((prevState) => {
+      return { tiles: _.without(prevState.tiles, coordStr) };
+    });
+  }
 
   render() {
     const spaceStyle = {
@@ -83,6 +102,19 @@ class Space extends React.Component {
       right:           "0px",
     };
 
+    const spaceTiles = _.map(this.state.tiles, (coordinates) => {
+      const coords = coordsFromParams(coordinates);
+      return (<SpaceTile
+        key={coordString(coords)}
+        size={this.tileSize}
+        x={coords.x}
+        y={coords.y}
+        angle={this.props.angle}
+        offsetX={this.props.offsetX}
+        offsetY={this.props.offsetY}
+      />)
+    })
+
     return (
       <div
         id="space"
@@ -91,31 +123,12 @@ class Space extends React.Component {
         onKeyDown={this.props.keyDownHandler}
         onKeyUp={this.props.keyUpHandler}
       >
-        {
-          _.map([
-            '-1,-1',
-            '-1, 0',
-            ' 0,-1',
-            ' 0, 0',
-            ' 0, 1',
-            ' 1, 0',
-            ' 1, 1',
-            '-1, 1',
-            ' 1,-1'
-            ], (coordinates) => {
-            const coords = coordsFromParams(coordinates);
-            return (<SpaceTile
-              key={coordString(coords)}
-              x={coords.x}
-              y={coords.y}
-              angle={this.props.angle}
-              offsetX={this.props.offsetX}
-              offsetY={this.props.offsetY}
-              tileMap={this.state.tileMap}
-            />)
-          })
-        }
-        <MainShip player={this.props.player} angle={this.props.angle} />
+        {spaceTiles}
+        <MainShip
+          player={this.props.player}
+          angle={this.props.angle}
+          moveDirection={this.props.moveDirection}
+        />
       </div>
     );
   }
@@ -124,52 +137,3 @@ class Space extends React.Component {
 Space.propTypes = propTypes;
 
 export default Space;
-
-
-// export default class Space extends React.Component {
-//   render() {
-//     const {
-//       player,
-//       color,
-//       backgroundColor,
-//       width,
-//       height,
-//       angle,
-//       keyboardHandler
-//     } = this.props
-
-//     return (
-//       <div
-//         id="space"
-//         tabIndex="0"
-//         onKeyDown={keyboardHandler}
-//         style={{
-//           color:           color           || '#FFFFFF',
-//           backgroundColor: backgroundColor || '#000000',
-//           width:           width           || '400px',
-//           height:          height          || '400px',
-//           borderRadius:    '200px',
-//           margin:          '2em',
-//           outline:         'none',
-//           transform:       `rotate(${angle || 0}deg)`,
-//           transition:      'transform 0.5s ease-out'
-//         }}>
-//         <br/><br/><br/><br/><br/><br/><br/>
-//         <Star x={10} y={20} />
-//         <Star x={90} y={25} />
-//         <Star x={50} y={20} />
-//         <Star x={40} y={75} />
-//         <Star x={60} y={60} />
-//         <Star x={90} y={70} />
-//         <Star x={10} y={40} />
-//         <p>
-//           &nbsp;&nbsp;&nbsp;hey what up from SPACE
-//         </p>
-//         <p>
-//           &nbsp;&nbsp;&nbsp;(click me and use arrows to moooove)
-//         </p>
-//         <MainShip player={player} angle={angle} />
-//       </div>
-//     )
-//   }
-// }

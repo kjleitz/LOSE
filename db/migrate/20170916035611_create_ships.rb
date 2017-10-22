@@ -1,9 +1,9 @@
-class CreateSpaceships < ActiveRecord::Migration[5.1]
+class CreateShips < ActiveRecord::Migration[5.1]
   def change
-    create_table :spaceships do |t|
+    create_table :ships do |t|
       t.string     :name
       t.string     :type
-      t.string     :size
+      t.integer    :size
       t.integer    :hp
       t.integer    :shield_strength
       t.integer    :energy

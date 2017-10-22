@@ -8,34 +8,84 @@ import {
 } from './helpers';
 
 const propTypes = {
-  size:    PropTypes.number,
+  size:    PropTypes.number.isRequired,
   x:       PropTypes.number.isRequired,
   y:       PropTypes.number.isRequired,
   angle:   PropTypes.number.isRequired,
   offsetX: PropTypes.number.isRequired,
   offsetY: PropTypes.number.isRequired,
-  tileMap: PropTypes.object.isRequired,
-};
-
-const defaultProps = {
-  size: 500,
 };
 
 class SpaceTile extends React.Component {
   constructor(props) {
     super(props);
 
-    const existingTile = props.tileMap[this.coordString()];
-    if (_.isObject(existingTile)) return existingTile;
-
     this.coords = {
       x: props.x,
       y: props.y,
     };
 
+    this.state = {
+      starMap: []
+    };
+
+    this.serialize   = this.serialize.bind(this);
+    this.saveTile    = this.saveTile.bind(this);
+    this.loadTile    = this.loadTile.bind(this);
     this.coordString = this.coordString.bind(this);
+    this.populate    = this.populate.bind(this);
     this.trueCoords  = this.trueCoords.bind(this);
-    this.tileStyle   = this.tileStyle.bind(this);
+  }
+
+  componentWillMount() {
+    this.loadTile(tile => this.populate(tile));
+  }
+
+  componentWillUnmount() {
+    this.saveTile();
+  }
+
+  serialize() {
+    JSON.stringify({
+      space_tile: {
+        x:           this.coords.x,
+        y:           this.coords.y,
+        // discoverer: this.props.player.username,
+        // planets:    blahblahblah,
+        // asteroids:  blahblahblah,
+        // wrecks:     blahblahblah,
+        // ...etc.
+      }
+    });
+  }
+
+  // you can pass a callback to saveTile() or chain the returned promise with
+  // callbacks by employing saveTile().then() (or do both!)
+  saveTile(callback = () => {}) {
+    const jsonHeaders = {
+      'Content-Type': 'application/json',
+      'Accept':       'application/json',
+    };
+
+    return fetch(`/space_tiles/${this.coordString()}`, {
+      method:  'put',
+      headers: jsonHeaders,
+      body:    this.serialize(),
+    }).then(resp => resp.json())
+      .then(tile => callback(tile));
+  }
+
+  // you can pass a callback to loadTile() or chain the returned promise with
+  // callbacks by employing loadTile().then() (or do both!)
+  loadTile(callback = () => {}) {
+    return fetch(`/space_tiles/${this.coordString()}`)
+      .then(resp => resp.json())
+      .then(tile => callback(tile));
+  }
+
+  populate(data) {
+    // add stars, planets, whatever
+    this.setState({ starMap: data.space_tile.star_map });
   }
 
   coordString() {
@@ -54,10 +104,10 @@ class SpaceTile extends React.Component {
     };
   }
 
-  tileStyle() {
-    const  { x, y }        = this.trueCoords();
-    const  { size, angle } = this.props;
-    return {
+  render() {
+    const { x, y }        = this.trueCoords();
+    const { size, angle } = this.props;
+    const tileStyle       = {
       backgroundColor:    'black',
       border:             '1px solid gray',
       boxSizing:          'border-box',
@@ -69,24 +119,15 @@ class SpaceTile extends React.Component {
       transform:          `rotate(${angle}deg)`,
       transformOrigin:    `${-1 * x}px ${y + size}px`,
     };
-  }
 
-  render() {
     return (
-      <div className="space-tile" style={this.tileStyle()}>
-        <Star x={10} y={20} />
-        <Star x={90} y={25} />
-        <Star x={50} y={20} />
-        <Star x={40} y={75} />
-        <Star x={60} y={60} />
-        <Star x={90} y={70} />
-        <Star x={10} y={40} />
+      <div className="space-tile" style={tileStyle}>
+        {_.map(this.state.starMap, star => <Star x={star.x} y={star.y} />)}
       </div>
     );
   }
 }
 
 SpaceTile.propTypes    = propTypes;
-SpaceTile.defaultProps = defaultProps;
 
 export default SpaceTile;

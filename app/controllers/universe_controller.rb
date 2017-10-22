@@ -1,5 +1,5 @@
 class UniverseController < ApplicationController
   def canvas
-    # blah, set spaceship/user etc.
+    # blah, set ship/user etc.
   end
 end

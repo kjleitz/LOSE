@@ -27,7 +27,7 @@ export function coordsFromParams(...paramsAry) {
   const params     = _.flatten(paramsAry);
   const isCommaSep = _.isString(params[0]) ? params[0].split(',').length === 2 : false;
   const isCoordObj = _.isObject(params[0]) && _.has(params[0], 'x', 'y');
-  const isTwoNums  = _.isNumber(parseInt(params[0], 10)) && _.isNumber(parseInt(params[1]), 10) && !isCommaSep && !isCoordObj;
+  const isTwoNums  = _.isNumber(parseFloat(params[0])) && _.isNumber(parseFloat(params[1])) && !isCommaSep && !isCoordObj;
   let   coords     = [null, null];
 
   if (isCommaSep) {
@@ -38,7 +38,7 @@ export function coordsFromParams(...paramsAry) {
     coords = _.first(params, 2)
   }
 
-  return {x: parseInt(coords[0], 10), y: parseInt(coords[1], 10)};
+  return {x: parseFloat(coords[0]), y: parseFloat(coords[1])};
 }
 
 export function coordString(...coordinates) {

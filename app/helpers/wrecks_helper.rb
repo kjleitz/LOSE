@@ -1,0 +1,2 @@
+module WrecksHelper
+end

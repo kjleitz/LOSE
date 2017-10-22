@@ -25,19 +25,24 @@ class SpaceTile extends React.Component {
       y: props.y,
     };
 
+    this.state = {
+      starMap: []
+    };
+
     this.serialize   = this.serialize.bind(this);
     this.saveTile    = this.saveTile.bind(this);
     this.loadTile    = this.loadTile.bind(this);
     this.coordString = this.coordString.bind(this);
+    this.populate    = this.populate.bind(this);
     this.trueCoords  = this.trueCoords.bind(this);
   }
 
   componentWillMount() {
-    this.saveTile();
+    this.loadTile(tile => this.populate(tile));
   }
 
   componentWillUnmount() {
-    this.loadTile();
+    this.saveTile();
   }
 
   serialize() {
@@ -45,26 +50,42 @@ class SpaceTile extends React.Component {
       space_tile: {
         x:           this.coords.x,
         y:           this.coords.y,
-        true_coords: this.trueCoords(),
         // discoverer: this.props.player.username,
+        // planets:    blahblahblah,
+        // asteroids:  blahblahblah,
+        // wrecks:     blahblahblah,
         // ...etc.
       }
     });
   }
 
+  // you can pass a callback to saveTile() or chain the returned promise with
+  // callbacks by employing saveTile().then() (or do both!)
   saveTile(callback = () => {}) {
-    fetch(`space_tiles/${this.coordString()}`, {
-      headers: { 'Content-Type': 'application/json' },
-      method:  'post',
+    const jsonHeaders = {
+      'Content-Type': 'application/json',
+      'Accept':       'application/json',
+    };
+
+    return fetch(`/space_tiles/${this.coordString()}`, {
+      method:  'put',
+      headers: jsonHeaders,
       body:    this.serialize(),
     }).then(resp => resp.json())
       .then(tile => callback(tile));
   }
 
+  // you can pass a callback to loadTile() or chain the returned promise with
+  // callbacks by employing loadTile().then() (or do both!)
   loadTile(callback = () => {}) {
-    fetch(`space_tiles/${this.coordString()}`)
+    return fetch(`/space_tiles/${this.coordString()}`)
       .then(resp => resp.json())
       .then(tile => callback(tile));
+  }
+
+  populate(data) {
+    // add stars, planets, whatever
+    this.setState({ starMap: data.space_tile.star_map });
   }
 
   coordString() {
@@ -101,13 +122,7 @@ class SpaceTile extends React.Component {
 
     return (
       <div className="space-tile" style={tileStyle}>
-        <Star x={10} y={20} />
-        <Star x={90} y={25} />
-        <Star x={50} y={20} />
-        <Star x={40} y={75} />
-        <Star x={60} y={60} />
-        <Star x={90} y={70} />
-        <Star x={10} y={40} />
+        {_.map(this.state.starMap, star => <Star x={star.x} y={star.y} />)}
       </div>
     );
   }

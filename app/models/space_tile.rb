@@ -6,12 +6,12 @@ class SpaceTile < ApplicationRecord
   TILES_PER_WRECK      = 100
   STARS_PER_TILE       = 20
 
-  belongs_to :discoverer, class_name: 'User', foreign_key: :user_id
+  belongs_to :discoverer, class_name: 'User', foreign_key: :user_id, optional: true
   has_many   :planets
   has_many   :asteroids
   has_many   :wrecks
 
-  serialize :star_map, Array
+  serialize :star_map, JSON
 
   validates :x, presence: true
   validates :y, presence: true
@@ -31,10 +31,6 @@ class SpaceTile < ApplicationRecord
     end
   end
 
-  def generate_contents!
-
-  end
-
   private
 
     def self.stringify_coords(*coord_params)
@@ -49,24 +45,28 @@ class SpaceTile < ApplicationRecord
           x: params.first.to_i,
           y: params.second.to_i
         }
-      elsif params.is_a? Hash
+      elsif params.first.is_a? Hash
         {
-          x: params[:x].to_i,
-          y: params[:y].to_i
+          x: params.first[:x].to_i,
+          y: params.first[:y].to_i
         }
-      elsif params.is_a? String
-        coords = params.split(',')
+      elsif params.first.is_a? String
+        coords = params.first.split(',')
         {
           x: coords.first.to_i,
           y: coords.second.to_i
         }
       else
-        raise ArgumentError.new("Args gotta be like: ('3,7'), (3, 7), ([3, 7]), (x: 3, y: 7), or ({ x: 3, y: 7 }), yo.")
+        raise ArgumentError.new("Args gotta be like: ('3,7'), (3, 7), ([3, 7]), (x: 3, y: 7), or ({x: 3, y: 7}), yo.")
       end
     end
 
     def set_coord_string
-      self.coord_string ||= class.stringify_coords(x, y)
+      self.coord_string ||= self.class.stringify_coords(x, y)
+    end
+
+    def generate_contents!
+      self.star_map ||= STARS_PER_TILE.times.map { { x: rand(0..100), y: rand(0..100) } }
     end
 
 end

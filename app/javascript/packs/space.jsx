@@ -24,7 +24,7 @@ class Space extends React.Component {
 
     // defaults/pseudo-"constants"
     this.debug    = true;
-    this.tileSize = 200;
+    this.tileSize = 400;
 
     const startingTile = '0,0';
     this.state = {

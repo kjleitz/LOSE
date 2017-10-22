@@ -20,7 +20,7 @@ class SpaceTilesController < APIController
   private
 
   def space_tile_params
-    params.require(:space_tile).permit(:x, :y, :true_coords, :discoverer_id)
+    params.require(:space_tile).permit(:x, :y, :discoverer_id)
   end
 
 end

@@ -5,6 +5,8 @@ import Star      from './star';
 import {
   coordsFromParams,
   coordString,
+  save,
+  load,
 } from './helpers';
 
 const propTypes = {
@@ -19,30 +21,32 @@ const propTypes = {
 class SpaceTile extends React.Component {
   constructor(props) {
     super(props);
+    _.extendOwn(this, { save, load });
 
     this.coords = {
       x: props.x,
       y: props.y,
     };
 
+    this.saveURL = `/space_tiles/${this.coordString()}`;
+    this.loadURL = `/space_tiles/${this.coordString()}`;
+
     this.state = {
       starMap: []
     };
 
     this.serialize   = this.serialize.bind(this);
-    this.saveTile    = this.saveTile.bind(this);
-    this.loadTile    = this.loadTile.bind(this);
     this.coordString = this.coordString.bind(this);
     this.populate    = this.populate.bind(this);
     this.trueCoords  = this.trueCoords.bind(this);
   }
 
   componentWillMount() {
-    this.loadTile(tile => this.populate(tile));
+    this.load(tile => this.populate(tile));
   }
 
   componentWillUnmount() {
-    this.saveTile();
+    this.save();
   }
 
   serialize() {
@@ -57,30 +61,6 @@ class SpaceTile extends React.Component {
         // ...etc.
       }
     });
-  }
-
-  // you can pass a callback to saveTile() or chain the returned promise with
-  // callbacks by employing saveTile().then() (or do both!)
-  saveTile(callback = () => {}) {
-    const jsonHeaders = {
-      'Content-Type': 'application/json',
-      'Accept':       'application/json',
-    };
-
-    return fetch(`/space_tiles/${this.coordString()}`, {
-      method:  'put',
-      headers: jsonHeaders,
-      body:    this.serialize(),
-    }).then(resp => resp.json())
-      .then(tile => callback(tile));
-  }
-
-  // you can pass a callback to loadTile() or chain the returned promise with
-  // callbacks by employing loadTile().then() (or do both!)
-  loadTile(callback = () => {}) {
-    return fetch(`/space_tiles/${this.coordString()}`)
-      .then(resp => resp.json())
-      .then(tile => callback(tile));
   }
 
   populate(data) {

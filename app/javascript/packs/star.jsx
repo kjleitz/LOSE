@@ -8,7 +8,8 @@ export default class Star extends React.Component {
           position: 'absolute',
           top:      `${this.props.y}%`,
           left:     `${this.props.x}%`,
-          color:    '#BBB'
+          color:    '#BBB',
+          zIndex:   '-9',
         }}
       >*</span>
     )

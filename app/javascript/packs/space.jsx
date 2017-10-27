@@ -23,8 +23,8 @@ class Space extends React.Component {
     super(props);
 
     // defaults/pseudo-"constants"
-    this.debug    = true;
-    this.tileSize = 2000;
+    this.debug    = false;
+    this.tileSize = 1000;
 
     const startingTile = '0,0';
     this.state = {
@@ -100,6 +100,7 @@ class Space extends React.Component {
       bottom:          "0px",
       left:            "0px",
       right:           "0px",
+      zIndex:          '-11',
     };
 
     const spaceTiles = _.map(this.state.tiles, (coordinates) => {
@@ -107,8 +108,8 @@ class Space extends React.Component {
       return (<SpaceTile
         key={coordString(coords)}
         size={this.tileSize}
-        x={coords.x}
-        y={coords.y}
+        tileX={coords.x}
+        tileY={coords.y}
         angle={this.props.angle}
         offsetX={this.props.offsetX}
         offsetY={this.props.offsetY}

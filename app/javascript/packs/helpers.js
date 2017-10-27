@@ -48,17 +48,17 @@ export function coordString(...coordinates) {
   return `${coords.x},${coords.y}`;
 }
 
+const jsonHeaders = {
+  'Content-Type': 'application/json',
+  'Accept':       'application/json',
+};
+
 // Accepts a callback to be performed on the JSON response after saving.
 // Returns a Promise you can chain with `save().then()`
 // You MUST use `_.extendOwn(this, { save, load })` in the constructor method.
 // You MUST have a `this.saveURL` defined on the component.
 // You MUST have a `this.serialize()` defined on the component.
 export function save(callback = json => json) {
-  const jsonHeaders = {
-    'Content-Type': 'application/json',
-    'Accept':       'application/json',
-  };
-
   return fetch(this.saveURL, {
     method:  'put',
     headers: jsonHeaders,
@@ -72,7 +72,9 @@ export function save(callback = json => json) {
 // You MUST use `_.extendOwn(this, { save, load })` in the constructor method.
 // You MUST have a `this.loadURL` defined on the component.
 export function load(callback = json => json) {
-  return fetch(this.loadURL)
-    .then(resp => resp.json())
+  return fetch(this.loadURL, {
+    method:  'get',
+    headers: jsonHeaders,
+  }).then(resp => resp.json())
     .then(json => callback(json));
 }

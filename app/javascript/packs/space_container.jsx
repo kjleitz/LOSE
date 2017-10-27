@@ -45,6 +45,7 @@ class SpaceContainer extends React.Component {
       offsetX:       0,
       offsetY:       0,
       moveDirection: '',
+      shipCoords:    {},
     };
 
     // mainLoop stores the setInterval that checks keys being pressed/released

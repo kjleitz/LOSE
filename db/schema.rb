@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021214436) do
+ActiveRecord::Schema.define(version: 20171025215736) do
 
   create_table "alignments", force: :cascade do |t|
     t.string "lawfulness"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20171021214436) do
     t.integer "size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "x"
+    t.integer "y"
     t.index ["space_tile_id"], name: "index_asteroids_on_space_tile_id"
   end
 

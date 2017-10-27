@@ -1,4 +1,3 @@
 class AsteroidSerializer < ActiveModel::Serializer
-  attributes :id, :description, :inventory, :size
-  has_one :space_tile
+  attributes :id, :x, :size, :y, :description, :inventory, :space_tile_id
 end

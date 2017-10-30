@@ -29,6 +29,8 @@ class SpaceContainer extends React.Component {
     this.loopMillis  = 25;
     this.degsPerTurn = 4;
     this.pxPerMove   = 5;
+    this.tileSize    = 500;
+
     this.pressedKeys = {};
     this.keyControls = {
       'ArrowLeft':  this.turnLeft,
@@ -41,11 +43,10 @@ class SpaceContainer extends React.Component {
     this.validKeys = _.keys(this.keyControls);
 
     this.state = {
-      angle:         0,
-      offsetX:       0,
-      offsetY:       0,
+      angle: 0,
+      shipX: this.tileSize / 2,
+      shipY: this.tileSize / 2,
       moveDirection: '',
-      shipCoords:    {},
     };
 
     // mainLoop stores the setInterval that checks keys being pressed/released
@@ -96,8 +97,8 @@ class SpaceContainer extends React.Component {
   moveXY(...coordinates) {
     const coords = coordsFromParams(coordinates);
     this.setState(prevState => ({
-      offsetX: prevState.offsetX + coords.x,
-      offsetY: prevState.offsetY + coords.y,
+      shipX: prevState.shipX + coords.x,
+      shipY: prevState.shipY + coords.y,
     }));
   }
 
@@ -159,9 +160,10 @@ class SpaceContainer extends React.Component {
     return (
       <Space
         player={this.props.player}
+        tileSize={this.tileSize}
         angle={this.state.angle}
-        offsetX={this.state.offsetX}
-        offsetY={this.state.offsetY}
+        shipX={this.state.shipX}
+        shipY={this.state.shipY}
         keyDownHandler={this.keyDownHandler}
         keyUpHandler={this.keyUpHandler}
         moveDirection={this.state.moveDirection}

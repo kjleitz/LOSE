@@ -11,8 +11,8 @@ import {
 const propTypes = {
   player:          PropTypes.object.isRequired,
   angle:           PropTypes.number.isRequired,
-  offsetX:         PropTypes.number.isRequired,
-  offsetY:         PropTypes.number.isRequired,
+  shipX:           PropTypes.number.isRequired,
+  shipY:           PropTypes.number.isRequired,
   keyDownHandler:  PropTypes.func.isRequired,
   keyUpHandler:    PropTypes.func.isRequired,
   moveDirection:   PropTypes.string.isRequired,
@@ -22,9 +22,7 @@ class Space extends React.Component {
   constructor(props) {
     super(props);
 
-    // defaults/pseudo-"constants"
-    this.debug    = false;
-    this.tileSize = 1000;
+    this.debug = false;
 
     const startingTile = '0,0';
     this.state = {
@@ -38,14 +36,14 @@ class Space extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const prevX = this.props.offsetX;
-    const prevY = this.props.offsetY;
-    const nextX = nextProps.offsetX;
-    const nextY = nextProps.offsetY;
+    const prevX = this.props.shipX;
+    const prevY = this.props.shipY;
+    const nextX = nextProps.shipX;
+    const nextY = nextProps.shipY;
     if (prevX === nextX && prevY === nextY) return;
 
-    const tileX = Math.floor((nextX + (this.tileSize / 2)) / this.tileSize);
-    const tileY = Math.floor((nextY + (this.tileSize / 2)) / this.tileSize);
+    const tileX = Math.floor(nextX / this.props.tileSize);
+    const tileY = Math.floor(nextY / this.props.tileSize);
     const centerTile = coordString(tileX, tileY);
     if (this.state.centerTile === centerTile) return;
 
@@ -103,16 +101,16 @@ class Space extends React.Component {
       zIndex:          '-11',
     };
 
-    const spaceTiles = _.map(this.state.tiles, (coordinates) => {
-      const coords = coordsFromParams(coordinates);
+    const spaceTiles = _.map(this.state.tiles, (coordStr) => {
+      const coords = coordsFromParams(coordStr);
       return (<SpaceTile
         key={coordString(coords)}
-        size={this.tileSize}
+        size={this.props.tileSize}
         tileX={coords.x}
         tileY={coords.y}
         angle={this.props.angle}
-        offsetX={this.props.offsetX}
-        offsetY={this.props.offsetY}
+        shipX={this.props.shipX}
+        shipY={this.props.shipY}
       />)
     })
 

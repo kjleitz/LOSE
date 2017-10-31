@@ -33,10 +33,12 @@ class SpaceTile extends React.Component {
       starMap:   [],
       asteroids: [
         {
-          id:   1,
-          size: 'small',
-          x:    40,
-          y:    70,
+          id:          1,
+          x:           40,
+          y:           70,
+          size:        'small',
+          description: "It's an ass steroid!",
+          inventory:   [],
         },
       ],
     };
@@ -108,17 +110,18 @@ class SpaceTile extends React.Component {
     const { x, y }        = this.relativeCoords();
     const { size, angle } = this.props;
     const tileStyle       = {
-      backgroundColor:    'black',
-      border:             '1px solid gray',
-      boxSizing:          'border-box',
-      position:           'fixed',
-      left:               `calc(50% + ${x}px)`,
-      bottom:             `calc(50% + ${y}px)`,
-      width:              `${size}px`,
-      height:             `${size}px`,
-      transform:          `rotate(${angle}deg)`,
-      transformOrigin:    `${-1 * x}px ${y + size}px`,
-      zIndex:             '-10',
+      backgroundColor: 'black',
+      border:          '1px solid gray',
+      boxSizing:       'border-box',
+      position:        'fixed',
+      left:            `calc(50% + ${x}px)`,
+      bottom:          `calc(50% + ${y}px)`,
+      width:           `${size}px`,
+      height:          `${size}px`,
+      transform:       `rotate(${angle}deg)`,
+      transformOrigin: `${-1 * x}px ${y + size}px`,
+      zIndex:          '-9',
+      overflow:        'visible',
     };
 
     return (
@@ -139,6 +142,8 @@ class SpaceTile extends React.Component {
             tileSize={size}
             size={ast.size}
             description={ast.description}
+            inventory={ast.inventory}
+            angle={angle}
           />
         ))}
       </div>

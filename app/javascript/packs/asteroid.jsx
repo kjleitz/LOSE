@@ -1,5 +1,6 @@
 import React     from 'react';
 import PropTypes from 'prop-types';
+import InfoBox   from './info_box';
 
 import {
   coordsFromParams,
@@ -9,10 +10,14 @@ import {
 } from './helpers';
 
 const propTypes = {
-  size:               PropTypes.string.isRequired,
   x:                  PropTypes.number.isRequired,
   y:                  PropTypes.number.isRequired,
+  angle:              PropTypes.number.isRequired,
+  tileSize:           PropTypes.number.isRequired,
   tileRelativeCoords: PropTypes.object.isRequired,
+  size:               PropTypes.string.isRequired,
+  description:        PropTypes.string.isRequired,
+  inventory:          PropTypes.array.isRequired,
 }
 
 class Asteroid extends React.Component {
@@ -67,9 +72,11 @@ class Asteroid extends React.Component {
   }
 
   render() {
-    const { x, y, size, description } = this.props;
-    const dimensionPx = this.astSize();
-    const modifierPx  = dimensionPx / 3;
+    const { x, y, size, description, inventory, angle } = this.props;
+    const { isTouchingShip } = this.state;
+    const dimensionPx  = this.astSize();
+    const modifierPx   = dimensionPx / 3;
+    const infoBoxTitle = `${size} asteroid`;
 
     const asteroidStyle = {
       position:        'absolute',
@@ -78,7 +85,7 @@ class Asteroid extends React.Component {
       width:           `${dimensionPx}px`,
       height:          `${dimensionPx}px`,
       color:           '#111',
-      backgroundColor: this.state.isTouchingShip ? '#E6FFED' : 'gray',
+      backgroundColor: isTouchingShip ? '#E6FFED' : 'gray',
       borderRadius:    `${modifierPx}px`,
       zIndex:          '1',
       boxShadow:       `inset 0 0 ${modifierPx}px black`,
@@ -89,6 +96,13 @@ class Asteroid extends React.Component {
         &nbsp;*•&nbsp;&nbsp;°&nbsp;O<br/>
         •&nbsp;&nbsp;o&nbsp;&nbsp;*&nbsp;•<br/>
         &nbsp;&nbsp;*&nbsp;•&nbsp;°
+        <InfoBox
+          visible={isTouchingShip}
+          title={infoBoxTitle}
+          description={description}
+          inventory={inventory}
+          angle={angle}
+        />
       </div>
     );
   }

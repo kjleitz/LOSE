@@ -10,6 +10,7 @@ import {
 
 const propTypes = {
   player:          PropTypes.object.isRequired,
+  tileSize:        PropTypes.object.isRequired,
   angle:           PropTypes.number.isRequired,
   shipX:           PropTypes.number.isRequired,
   shipY:           PropTypes.number.isRequired,
@@ -23,9 +24,10 @@ class Space extends React.Component {
     super(props);
 
     this.debug = false;
+    // this.zIndex = 0;
 
     const startingTile = '0,0';
-    this.state = {
+    this.state         = {
       centerTile: startingTile,
       tiles:      this.tilesAdjacentTo(startingTile),
     };
@@ -92,13 +94,12 @@ class Space extends React.Component {
 
   render() {
     const spaceStyle = {
-      backgroundColor: 'blue',
+      backgroundColor: 'black',
       position:        'fixed',
       top:             "0px",
       bottom:          "0px",
       left:            "0px",
       right:           "0px",
-      zIndex:          '-11',
     };
 
     const spaceTiles = _.map(this.state.tiles, (coordStr) => {

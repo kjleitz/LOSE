@@ -29,7 +29,7 @@ class SpaceContainer extends React.Component {
     this.loopMillis  = 25;
     this.degsPerTurn = 4;
     this.pxPerMove   = 5;
-    this.tileSize    = 500;
+    this.tileSize    = 1000;
 
     this.pressedKeys = {};
     this.keyControls = {

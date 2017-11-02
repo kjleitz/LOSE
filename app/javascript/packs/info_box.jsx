@@ -2,29 +2,35 @@ import React     from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
+  visible:     PropTypes.bool.isRequired,
   title:       PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   inventory:   PropTypes.array.isRequired,
+  angle:       PropTypes.number.isRequired,
+  objectSize:  PropTypes.number.isRequired,
 }
 
 class InfoBox extends React.Component {
   render() {
+    const { visible, angle, title, description, inventory } = this.props;
+    const fullOffset = this.props.objectSize;
+    const halfOffset = fullOffset / 2;
+
     const infoBoxStyle = {
-      display:         this.props.visible ? 'block' : 'none',
-      zIndex:          9,
-      backgroundColor: '#cdcdcd',
-      width:           '7.5rem',
-      padding:         '0.25rem 1rem',
-      transform:       `rotate(${-1 * this.props.angle}deg)`,
+      display:         visible ? 'block' : 'none',
+      position:        'absolute',
+      top:             `${fullOffset}px`,
+      left:            `${fullOffset}px`,
+      minWidth:        '10rem',
+      transform:       `rotate(${-1 * angle}deg)`,
+      transformOrigin: `${-1 * halfOffset}px ${-1 * halfOffset}px`
     };
 
     return (
-      <div className="info_box" style={infoBoxStyle}>
-        <p><strong>{this.props.title}</strong></p>
-        <p><em>{this.props.description}</em></p>
-        <ul>
-          {_.map(this.props.inventory, (item, i) => <li key={i}>item.name</li>)}
-        </ul>
+      <div className="info-box" style={infoBoxStyle}>
+        <p><strong>{title}</strong></p>
+        <p><em>{description}</em></p>
+        <ul>{_.map(inventory, (item, i) => <li key={i}>item.name</li>)}</ul>
       </div>
     )
   }

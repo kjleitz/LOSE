@@ -1,18 +1,27 @@
-import React from 'react';
+import React     from 'react';
+import PropTypes from 'prop-types';
 
-export default class Ship extends React.Component {
+const propTypes = {
+  player:        PropTypes.object,
+  angle:         PropTypes.number,
+  moveDirection: PropTypes.string,
+  style:         PropTypes.object,
+}
+
+class Ship extends React.Component {
   render() {
+    const { moveDirection, style } = this.props;
     let xFlame = "0px";
     let yFlame = "0px";
-    if (this.props.moveDirection === "left")     xFlame = "10px";
-    if (this.props.moveDirection === "right")    xFlame = "-10px";
-    if (this.props.moveDirection === "forward")  yFlame = "15px";
-    const flameStyle = this.props.moveDirection === '' ? {} : {
+    if (moveDirection === "left")     xFlame = "10px";
+    if (moveDirection === "right")    xFlame = "-10px";
+    if (moveDirection === "forward")  yFlame = "15px";
+    const flameStyle = moveDirection === '' ? {} : {
       boxShadow: `${xFlame} ${yFlame} 5px -3px orangered`
     }
 
     return (
-      <div style={this.props.style}>
+      <div style={style}>
         <div style={_.extend({
           width:     "100%",
           height:    "calc(100% - 15px)",
@@ -22,3 +31,7 @@ export default class Ship extends React.Component {
     )
   }
 }
+
+Ship.propTypes = propTypes;
+
+export default Ship;

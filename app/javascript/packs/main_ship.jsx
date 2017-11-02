@@ -1,7 +1,14 @@
-import React from 'react';
-import Ship  from './ship';
+import React     from 'react';
+import PropTypes from 'prop-types';
+import Ship      from './ship';
 
-export default class MainShip extends React.Component {
+const propTypes = {
+  player:        PropTypes.object.isRequired,
+  angle:         PropTypes.number,
+  moveDirection: PropTypes.string,
+};
+
+class MainShip extends React.Component {
   render() {
     return (
       <Ship
@@ -11,7 +18,6 @@ export default class MainShip extends React.Component {
           position:        'fixed',
           top:             'calc(50% - 15px)',
           left:            'calc(50% - 15px)',
-          zIndex:          '10',
           width:           '30px',
           height:          '30px',
           borderRadius:    '15px 15px 0 0',
@@ -22,3 +28,7 @@ export default class MainShip extends React.Component {
     )
   }
 }
+
+MainShip.propTypes = propTypes;
+
+export default MainShip;

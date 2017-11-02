@@ -12,19 +12,19 @@ import {
 const propTypes = {
   x:                  PropTypes.number.isRequired,
   y:                  PropTypes.number.isRequired,
-  angle:              PropTypes.number.isRequired,
-  tileSize:           PropTypes.number.isRequired,
   tileRelativeCoords: PropTypes.object.isRequired,
+  tileSize:           PropTypes.number.isRequired,
   size:               PropTypes.string.isRequired,
   description:        PropTypes.string.isRequired,
   inventory:          PropTypes.array.isRequired,
+  angle:              PropTypes.number.isRequired,
 }
 
 class Asteroid extends React.Component {
   constructor(props) {
     super(props);
 
-    this.astSize        = this.astSize.bind(this);
+    this.sizeInPx       = this.sizeInPx.bind(this);
     this.coordsToShip   = this.coordsToShip.bind(this);
     this.isTouchingShip = this.isTouchingShip.bind(this);
 
@@ -39,7 +39,7 @@ class Asteroid extends React.Component {
     this.setState({ isTouchingShip: currentTouchStatus });
   }
 
-  astSize() {
+  sizeInPx() {
     const pixels = {
       meteoroid: 10,
       minor:     30,
@@ -59,14 +59,14 @@ class Asteroid extends React.Component {
     const tileSize = this.props.tileSize;
 
     return {
-      x: baseX + (percentX * tileSize) + (this.astSize() / 2),
-      y: baseY + (percentY * tileSize) + (this.astSize() / 2),
+      x: baseX + (percentX * tileSize) + (this.sizeInPx() / 2),
+      y: baseY + (percentY * tileSize) + (this.sizeInPx() / 2),
     }
   }
 
   isTouchingShip() {
     const { x, y } = this.coordsToShip();
-    const halfSize = this.astSize() / 2;
+    const halfSize = this.sizeInPx() / 2;
     if (Math.abs(x) <= halfSize && Math.abs(y) <= halfSize) return true;
     return false
   }
@@ -74,7 +74,7 @@ class Asteroid extends React.Component {
   render() {
     const { x, y, size, description, inventory, angle } = this.props;
     const { isTouchingShip } = this.state;
-    const dimensionPx  = this.astSize();
+    const dimensionPx  = this.sizeInPx();
     const modifierPx   = dimensionPx / 3;
     const infoBoxTitle = `${size} asteroid`;
 
@@ -87,7 +87,6 @@ class Asteroid extends React.Component {
       color:           '#111',
       backgroundColor: isTouchingShip ? '#E6FFED' : 'gray',
       borderRadius:    `${modifierPx}px`,
-      zIndex:          '1',
       boxShadow:       `inset 0 0 ${modifierPx}px black`,
     };
 
@@ -102,6 +101,7 @@ class Asteroid extends React.Component {
           description={description}
           inventory={inventory}
           angle={angle}
+          objectSize={dimensionPx}
         />
       </div>
     );

@@ -12,12 +12,12 @@ import {
 } from './helpers';
 
 const propTypes = {
-  size:    PropTypes.number.isRequired,
-  tileX:   PropTypes.number.isRequired,
-  tileY:   PropTypes.number.isRequired,
-  angle:   PropTypes.number.isRequired,
-  shipX:   PropTypes.number.isRequired,
-  shipY:   PropTypes.number.isRequired,
+  size:   PropTypes.number.isRequired,
+  tileX:  PropTypes.number.isRequired,
+  tileY:  PropTypes.number.isRequired,
+  angle:  PropTypes.number.isRequired,
+  shipX:  PropTypes.number.isRequired,
+  shipY:  PropTypes.number.isRequired,
 };
 
 class SpaceTile extends React.Component {
@@ -36,7 +36,7 @@ class SpaceTile extends React.Component {
           id:          1,
           x:           40,
           y:           70,
-          size:        'small',
+          size:        'minor',
           description: "It's an ass steroid!",
           inventory:   [],
         },
@@ -110,8 +110,7 @@ class SpaceTile extends React.Component {
     const { x, y }        = this.relativeCoords();
     const { size, angle } = this.props;
     const tileStyle       = {
-      backgroundColor: 'black',
-      border:          '1px solid gray',
+      // border:          '1px solid gray',
       boxSizing:       'border-box',
       position:        'fixed',
       left:            `calc(50% + ${x}px)`,
@@ -120,8 +119,6 @@ class SpaceTile extends React.Component {
       height:          `${size}px`,
       transform:       `rotate(${angle}deg)`,
       transformOrigin: `${-1 * x}px ${y + size}px`,
-      zIndex:          '-9',
-      overflow:        'visible',
     };
 
     return (

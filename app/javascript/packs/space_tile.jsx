@@ -1,6 +1,8 @@
 import React     from 'react';
 import PropTypes from 'prop-types';
 import Star      from './star';
+import Planet    from './planet';
+import Asteroid  from './asteroid';
 
 import {
   coordsFromParams,
@@ -11,11 +13,11 @@ import {
 
 const propTypes = {
   size:    PropTypes.number.isRequired,
-  x:       PropTypes.number.isRequired,
-  y:       PropTypes.number.isRequired,
+  tileX:   PropTypes.number.isRequired,
+  tileY:   PropTypes.number.isRequired,
   angle:   PropTypes.number.isRequired,
-  offsetX: PropTypes.number.isRequired,
-  offsetY: PropTypes.number.isRequired,
+  shipX:   PropTypes.number.isRequired,
+  shipY:   PropTypes.number.isRequired,
 };
 
 class SpaceTile extends React.Component {
@@ -23,25 +25,31 @@ class SpaceTile extends React.Component {
     super(props);
     _.extendOwn(this, { save, load });
 
-    this.coords = {
-      x: props.x,
-      y: props.y,
-    };
-
-    this.saveURL = `/space_tiles/${this.coordString()}`;
-    this.loadURL = `/space_tiles/${this.coordString()}`;
+    this.debug   = false;
+    this.saveURL = `/space_tiles/${coordString(props.tileX, props.tileY)}`;
+    this.loadURL = `/space_tiles/${coordString(props.tileX, props.tileY)}`;
 
     this.state = {
-      starMap: []
+      starMap:   [],
+      asteroids: [
+        {
+          id:          1,
+          x:           40,
+          y:           70,
+          size:        'small',
+          description: "It's an ass steroid!",
+          inventory:   [],
+        },
+      ],
     };
 
-    this.serialize   = this.serialize.bind(this);
-    this.coordString = this.coordString.bind(this);
-    this.populate    = this.populate.bind(this);
-    this.trueCoords  = this.trueCoords.bind(this);
+    this.serialize      = this.serialize.bind(this);
+    this.populate       = this.populate.bind(this);
+    this.scaledCoords   = this.scaledCoords.bind(this);
+    this.relativeCoords = this.relativeCoords.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.load(tile => this.populate(tile));
   }
 
@@ -49,11 +57,18 @@ class SpaceTile extends React.Component {
     this.save();
   }
 
+  componentDidUpdate() {
+    if (!this.debug) return;
+    console.log('========== CURRENT STATE ==========');
+    _.each(this.state, (val, key) => console.log(`${key}: ${val}`));
+  }
+
   serialize() {
-    JSON.stringify({
+    return JSON.stringify({
       space_tile: {
-        x:           this.coords.x,
-        y:           this.coords.y,
+        id: this.id,
+        // x:          this.coords.x,
+        // y:          this.coords.y,
         // discoverer: this.props.player.username,
         // planets:    blahblahblah,
         // asteroids:  blahblahblah,
@@ -64,50 +79,78 @@ class SpaceTile extends React.Component {
   }
 
   populate(data) {
+    this.id = data.space_tile.id;
     // add stars, planets, whatever
-    this.setState({ starMap: data.space_tile.star_map });
+    this.setState({
+      starMap:   data.space_tile.star_map,
+      asteroids: data.space_tile.asteroids,
+    });
   }
 
-  coordString() {
-    return coordString(this.coords);
-  }
-
-  trueCoords() {
-    const size    = this.props.size;
-    const tileX   = this.coords.x;
-    const tileY   = this.coords.y;
-    const offsetX = this.props.offsetX;
-    const offsetY = this.props.offsetY;
+  // coordinates in space; a 100px tile at '-3,7' is { x: -300px, y: 700px }
+  scaledCoords() {
+    const  { size, tileX, tileY } = this.props;
     return {
-      x: (size * tileX) - (size / 2) - offsetX,
-      y: (size * tileY) - (size / 2) - offsetY,
-    };
+      x: size * tileX,
+      y: size * tileY,
+    }
+  }
+
+  // coordinate distance to the bottom left corner of the tile w.r.t. the ship
+  relativeCoords() {
+    const  { x, y } = this.scaledCoords();
+    const  { shipX, shipY } = this.props;
+    return {
+      x: x - shipX,
+      y: y - shipY,
+    }
   }
 
   render() {
-    const { x, y }        = this.trueCoords();
+    const { x, y }        = this.relativeCoords();
     const { size, angle } = this.props;
     const tileStyle       = {
-      backgroundColor:    'black',
-      border:             '1px solid gray',
-      boxSizing:          'border-box',
-      position:           'fixed',
-      left:               `calc(50% + ${x}px)`,
-      bottom:             `calc(50% + ${y}px)`,
-      width:              `${size}px`,
-      height:             `${size}px`,
-      transform:          `rotate(${angle}deg)`,
-      transformOrigin:    `${-1 * x}px ${y + size}px`,
+      backgroundColor: 'black',
+      border:          '1px solid gray',
+      boxSizing:       'border-box',
+      position:        'fixed',
+      left:            `calc(50% + ${x}px)`,
+      bottom:          `calc(50% + ${y}px)`,
+      width:           `${size}px`,
+      height:          `${size}px`,
+      transform:       `rotate(${angle}deg)`,
+      transformOrigin: `${-1 * x}px ${y + size}px`,
+      zIndex:          '-9',
+      overflow:        'visible',
     };
 
     return (
       <div className="space-tile" style={tileStyle}>
-        {_.map(this.state.starMap, star => <Star x={star.x} y={star.y} />)}
+        {_.map(this.state.starMap, (star, i) => (
+          <Star
+            key={i}
+            x={star.x}
+            y={star.y}
+          />
+        ))}
+        {_.map(this.state.asteroids, ast => (
+          <Asteroid 
+            key={ast.id}
+            x={ast.x}
+            y={ast.y}
+            tileRelativeCoords={this.relativeCoords()}
+            tileSize={size}
+            size={ast.size}
+            description={ast.description}
+            inventory={ast.inventory}
+            angle={angle}
+          />
+        ))}
       </div>
     );
   }
 }
 
-SpaceTile.propTypes    = propTypes;
+SpaceTile.propTypes = propTypes;
 
 export default SpaceTile;

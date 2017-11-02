@@ -17,7 +17,6 @@ export default class Ship extends React.Component {
           width:     "100%",
           height:    "calc(100% - 15px)",
           marginTop: "15px",
-          zIndex:    '0',
         }, flameStyle)}></div>
       </div>
     )

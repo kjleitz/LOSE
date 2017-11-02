@@ -66,7 +66,9 @@ class SpaceTile < ApplicationRecord
     end
 
     def generate_contents!
+      # this goes in a before_create (yes, I know, I hate myself too)
       self.star_map ||= STARS_PER_TILE.times.map { { x: rand(0..100), y: rand(0..100) } }
+      self.asteroids << Asteroid.new_random
     end
 
 end

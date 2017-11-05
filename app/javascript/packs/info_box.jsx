@@ -30,7 +30,7 @@ class InfoBox extends React.Component {
       <div className="info-box" style={infoBoxStyle}>
         <p><strong>{title}</strong></p>
         <p><em>{description}</em></p>
-        <ul>{_.map(inventory, (item, i) => <li key={i}>item.name</li>)}</ul>
+        <ul>{_.map(inventory, (item, i) => <li key={i}>{item.name}</li>)}</ul>
       </div>
     )
   }

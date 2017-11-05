@@ -38,7 +38,26 @@ class SpaceTile extends React.Component {
           y:           70,
           size:        'minor',
           description: "It's an ass steroid!",
-          inventory:   [],
+          inventory:   [
+            {
+              quantity:    10,
+              name:        'rock',
+              material:    'mineral',
+              description: 'Rocks are the smartest species in the mineral kingdom.',
+            },
+            {
+              quantity:    2,
+              name:        'iron',
+              material:    'mineral',
+              description: 'You know, like the throne.',
+            },
+            {
+              quantity:    1,
+              name:        'empty space',
+              material:    'immaterial',
+              description: 'Literally nothing. May as well be something. Unlikely, though.',
+            },
+          ],
         },
       ],
     };

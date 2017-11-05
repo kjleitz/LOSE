@@ -1,0 +1,1245 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"text-",
+				"text-shadow"
+			],
+			[
+				"javascrip",
+				"javascript_pack_tag\t(application.js)"
+			],
+			[
+				"last_logge",
+				"last_logged_in_employee"
+			],
+			[
+				"new_from",
+				"new_from_average\t(service_provider.rb)"
+			],
+			[
+				"ServiceStat",
+				"ServiceStation::Location\t(offer.rb)"
+			],
+			[
+				"ServiceStatio",
+				"ServiceStation::Location"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app/javascript/packs/space.jsx",
+			"settings":
+			{
+				"buffer_size": 3827,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/javascript/packs/space_container.jsx",
+			"settings":
+			{
+				"buffer_size": 4783,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 241.0,
+		"last_filter": "sublimelinting",
+		"selected_items":
+		[
+			[
+				"sublimelinting",
+				"SublimeLinter: Enable Linting"
+			],
+			[
+				"disable",
+				"Package Control: Disable Package"
+			],
+			[
+				"linter",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"prefer",
+				"Preferences: Settings"
+			],
+			[
+				"prefere",
+				"Preferences: Settings"
+			],
+			[
+				"theme",
+				"UI: Select Theme"
+			],
+			[
+				"previ",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"preview",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"markdownEditing",
+				"Preferences: MarkdownEditing Settings – Default"
+			],
+			[
+				"sshaml",
+				"Set Syntax: Ruby Haml"
+			],
+			[
+				"enable pac",
+				"Package Control: Enable Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"package",
+				"Package Control: Enable Package"
+			],
+			[
+				"settings",
+				"Preferences: Settings"
+			],
+			[
+				"package en",
+				"Package Control: Enable Package"
+			],
+			[
+				"package di",
+				"Package Control: Disable Package"
+			],
+			[
+				"word",
+				"Word Wrap: Toggle"
+			],
+			[
+				"find",
+				"FindKeyConflicts: (Direct) Conflicts to Buffer"
+			],
+			[
+				"enable",
+				"SublimeLinter: Disable Linter"
+			],
+			[
+				"sublimeli",
+				"SublimeLinter: Enable Linting"
+			],
+			[
+				"packages",
+				"Package Control: List Packages"
+			],
+			[
+				"preference",
+				"Preferences: Settings"
+			],
+			[
+				"markdown pre",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"keybin",
+				"Preferences: Key Bindings"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Enable Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"prefe",
+				"Preferences: Settings"
+			],
+			[
+				"minima",
+				"View: Toggle Minimap"
+			],
+			[
+				"color",
+				"UI: Select Color Scheme"
+			],
+			[
+				"ui theme",
+				"UI: Select Theme"
+			],
+			[
+				"ui thee",
+				"UI: Select Theme"
+			],
+			[
+				"toggle",
+				"View: Toggle Side Bar"
+			],
+			[
+				"sublime",
+				"SublimeLinter: Disable Linting"
+			],
+			[
+				"package lis",
+				"Package Control: List Packages"
+			],
+			[
+				"keyb",
+				"Preferences: Key Bindings"
+			]
+		],
+		"width": 656.0
+	},
+	"console":
+	{
+		"height": 164.0,
+		"history":
+		[
+			"view.settings().get('syntax')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/keegan/Development/lose",
+		"/Users/keegan/Development/lose/app",
+		"/Users/keegan/Development/lose/app/javascript",
+		"/Users/keegan/Development/lose/app/javascript/packs"
+	],
+	"file_history":
+	[
+		"/Users/keegan/Development/lose/.eslintrc.json",
+		"/Users/keegan/Documents/sp_report_test.csv",
+		"/Users/keegan/Development/openbay/app/controllers/admin/reports_controller.rb",
+		"/Users/keegan/Development/openbay/app/models/messaging/notification_event_type.rb",
+		"/Users/keegan/Development/openbay/app/models/messaging/notification_category.rb",
+		"/Users/keegan/Development/openbay/app/api/serializers/notification_setting_serializer.rb",
+		"/Users/keegan/Development/openbay/db/schema.rb",
+		"/Users/keegan/Development/openbay/app/models/notification_setting.rb",
+		"/Users/keegan/Development/openbay/spec/features/profile_spec.rb",
+		"/Users/keegan/Development/openbay/spec/controllers/v2/sp/subscriptions_controller_spec.rb",
+		"/Users/keegan/Development/openbay/app/controllers/v2/sp/profiles_controller.rb",
+		"/Users/keegan/Development/openbay/spec/controllers/v2/sp/offers_controller_spec.rb",
+		"/Users/keegan/Development/openbay/spec/controllers/v2/vo/offers_controller_spec.rb",
+		"/Users/keegan/Development/openbay/spec/controllers/v2/sp/profiles_controller_spec.rb",
+		"/Users/keegan/Development/openbay/app/controllers/v2/sp/profile/notifications/email_settings_controller.rb",
+		"/Users/keegan/Development/openbay/app/controllers/v2/sp/profile/notifications/text_messages_controller.rb",
+		"/Users/keegan/Development/openbay/app/controllers/sp/public/profiles_controller.rb",
+		"/Users/keegan/Development/openbay/app/controllers/v2/sp/offers_controller.rb",
+		"/Users/keegan/Development/openbay/app/controllers/application_controller.rb",
+		"/Users/keegan/Development/openbay/spec/controllers/v2/sp/profile/notifications/notification_settings_controller_spec.rb",
+		"/Users/keegan/Development/openbay/spec/factories/service_station_employees.rb",
+		"/Users/keegan/Development/openbay/app/controllers/v2/sp/base_controller.rb",
+		"/Users/keegan/Development/openbay/app/controllers/v2/sp/profile/notifications/notification_settings_controller.rb",
+		"/Users/keegan/Development/openbay/app/views/v2/sp/profiles/_notifications.html.haml",
+		"/Users/keegan/Development/openbay/app/assets/javascripts/controllers/v2/sp/profiles.coffee",
+		"/Users/keegan/Development/openbay/Gemfile",
+		"/Users/keegan/Development/openbay/app/models/notification.rb",
+		"/Users/keegan/Development/openbay/app/assets/javascripts/controllers/sp/public/profiles.coffee",
+		"/Users/keegan/Development/openbay/app/controllers/sp/base_controller.rb",
+		"/Users/keegan/Development/openbay/config/routes/v2/sp.rb",
+		"/Users/keegan/Development/openbay/config/routes.rb",
+		"/Users/keegan/Development/openbay/app/assets/stylesheets/controllers/v2/sp/profiles.sass",
+		"/Users/keegan/Development/openbay/app/api/sp_api_v1.rb",
+		"/Users/keegan/Development/openbay/app/api/shared/helpers.rb",
+		"/Users/keegan/Development/openbay/app/api/shared/client_api_common.rb",
+		"/Users/keegan/Development/openbay/app/api/sp_api_v1/settings.rb",
+		"/Users/keegan/Development/openbay/app/assets/javascripts/new_onramp/views/simple_zipcode_selector.coffee",
+		"/Users/keegan/Development/openbay/app/views/v2/sp/profiles/_notification_platform_filters.html.haml",
+		"/Users/keegan/Development/openbay/app/views/v2/sp/profiles/_text_messages.html.haml",
+		"/Users/keegan/Development/openbay/app/views/v2/sp/profiles/_email_settings.html.haml",
+		"/Users/keegan/Development/openbay/app/views/v2/sp/profiles/index.html.haml",
+		"/Users/keegan/Development/openbay/config/routes/sp_profiles.rb",
+		"/Users/keegan/Development/openbay/app/controllers/v2/admin/plans_controller.rb",
+		"/Users/keegan/Development/openbay/app/controllers/v2/base_controller.rb",
+		"/Users/keegan/Development/openbay/app/views/v2/sp/profiles/_notification_filters.html.haml",
+		"/Users/keegan/Development/openbay/app/assets/javascripts/new_onramp/views/zipcode_selector.coffee",
+		"/Users/keegan/Development/openbay/app/mixins/activity_mixin.rb",
+		"/Users/keegan/Development/openbay/app/models/service_station/employee.rb",
+		"/Users/keegan/Development/openbay/db/migrate/20171012184732_create_notification_settings.rb",
+		"/Users/keegan/Development/openbay/db/migrate/20171009203331_add_fields_to_coupons.rb",
+		"/Users/keegan/Development/openbay/db/migrate/20171010221408_add_openbay_id_to_coupons.rb",
+		"/Users/keegan/Development/openbay/db/migrate/20171009200607_rename_deals_to_coupons.rb",
+		"/Users/keegan/Development/openbay/app/views/v2/sp/profiles/_sidebar.html.haml",
+		"/Users/keegan/Development/openbay/app/views/layouts/v2/listing.html.haml",
+		"/Users/keegan/Development/openbay/app/models/user.rb",
+		"/Users/keegan/Development/openbay/app/api/api.rb",
+		"/Users/keegan/Development/openbay/config/routes/openbay_api.rb",
+		"/Users/keegan/Development/openbay/db/global_phone.json",
+		"/Users/keegan/Development/openbay/config/routes/openbay_connect_dot_com.rb",
+		"/Users/keegan/Development/openbay/config/initializers/swagger.rb",
+		"/Users/keegan/Development/openbay/lib/swagger_doc.rb",
+		"/Users/keegan/Development/openbay/spec/factories/notifications.rb",
+		"/Users/keegan/Development/openbay/spec/jobs/notification_job_spec.rb",
+		"/Users/keegan/Development/openbay/app/assets/stylesheets/styleguide/common/_lists.sass",
+		"/Users/keegan/Development/openbay/app/assets/stylesheets/v2-sp.sass",
+		"/Users/keegan/Development/openbay/app/models/service_ability.rb",
+		"/Users/keegan/Development/openbay/app/views/service_advisor_widget/widget_loader.js.coffee",
+		"/Users/keegan/Development/openbay/app/models/service_station/locations_service_ability.rb",
+		"/Users/keegan/Development/openbay/app/models/alternative_email.rb",
+		"/Users/keegan/Development/openbay/app/services/slot_service.rb",
+		"/Users/keegan/Development/openbay/app/models/service_station/location_hours_decorator.rb",
+		"/Users/keegan/Development/openbay/app/models/offer.rb",
+		"/Users/keegan/Development/openbay/app/models/service_station/company.rb",
+		"/Users/keegan/Development/openbay/app/models/service_station/location_zipcode.rb",
+		"/Users/keegan/Development/openbay/app/models/phone_number.rb",
+		"/Users/keegan/Development/openbay/app/controllers/authenticated_controller.rb",
+		"/Users/keegan/Development/openbay/app/controllers/calendar_events_controller.rb",
+		"/Users/keegan/Development/openbay/app/models/service_station/location.rb",
+		"/Users/keegan/Documents/Notes/work/problem_rundown.md",
+		"/Users/keegan/Development/openbay/app/models/notifiable.rb",
+		"/Users/keegan/Development/openbay/app/mixins/partner_mixin.rb",
+		"/Users/keegan/Development/openbay/.gitignore",
+		"/Users/keegan/Library/Application Support/Sublime Text 3/Packages/MarkdownEditing/Markdown.sublime-settings",
+		"/Users/keegan/Library/Application Support/Sublime Text 3/Packages/User/Markdown.sublime-settings",
+		"/Users/keegan/Development/openbay/app/models/global_phone_number.rb",
+		"/Users/keegan/Development/openbay/app/presenters/request_service_presenter.rb",
+		"/Users/keegan/Development/openbay/app/models/notification_service_category_filter.rb",
+		"/Users/keegan/Development/openbay/app/models/notification_make_filter.rb",
+		"/Users/keegan/Development/openbay/app/controllers/profile_controller.rb",
+		"/Users/keegan/Development/openbay/app/views/v2/sp/profiles/_company.html.haml",
+		"/Users/keegan/Development/openbay/app/views/shared/new_vehicle/_form_force_vin.html.haml",
+		"/Users/keegan/Development/openbay/app/views/v2/sp/profiles/_overview.html.haml",
+		"/Users/keegan/Development/openbay/app/controllers/connect_devices_controller.rb",
+		"/Users/keegan/Development/openbay/app/views/shared/_dev_console.html.haml",
+		"/Users/keegan/Development/openbay/app/views/shared/new_vehicle/_form.html.haml",
+		"/Users/keegan/Development/openbay/app/views/shared/new_vehicle/_vin_lookup.html.haml",
+		"/Users/keegan/Development/openbay/app/views/shared/new_vehicle/_vin_lookup.haml",
+		"/Users/keegan/Development/openbay/app/services/chat/new_message.rb",
+		"/Users/keegan/Development/openbay/app/services/segment_service/message/message_common.rb",
+		"/Users/keegan/Development/openbay/app/services/segment_service/message/new_message_from_vo.rb",
+		"/Users/keegan/Development/openbay/spec/models/v2_message_spec.rb",
+		"/Users/keegan/Development/openbay/app/models/v2_message.rb",
+		"/Users/keegan/Development/openbay/app/services/segment_service/events.rb",
+		"/Users/keegan/Development/openbay/app/services/segment_service/message/receive.rb",
+		"/Users/keegan/Development/openbay/spec/segment/segment_offer_spec.rb",
+		"/Users/keegan/Development/better_notifications_internal_api.rb",
+		"/Users/keegan/Development/openbay/app/services/segment_service/centralized_quote/create.rb",
+		"/Users/keegan/Development/openbay/app/jobs/segment_service_centralized_quote_create_job.rb",
+		"/Users/keegan/Development/openbay/config/initializers/pubsub.rb",
+		"/Users/keegan/Development/openbay/spec/support/geocoder.rb",
+		"/Users/keegan/Development/openbay/app/models/service_station/vehicle.rb",
+		"/Users/keegan/Development/openbay/app/models/area.rb",
+		"/Users/keegan/Development/openbay/app/services/geo.rb",
+		"/Users/keegan/Development/openbay/app/assets/javascripts/new_onramp/views/internal_quotes.coffee",
+		"/Users/keegan/Development/openbay/app/views/presenters/offer/_book_it.html.haml",
+		"/Users/keegan/Development/openbay/app/controllers/v2/vo/offers_controller.rb",
+		"/Users/keegan/Development/openbay/app/views/presenters/offer/_default.html.haml",
+		"/Users/keegan/Development/openbay/app/api/api_v1/zipcode.rb",
+		"/Users/keegan/Development/openbay/app/models/edmunds_style.rb",
+		"/Users/keegan/Development/openbay/config/locales/en.yml",
+		"/Users/keegan/Development/openbay/app/views/presenters/offer/_accepted.html.haml",
+		"/Users/keegan/Development/openbay/app/views/presenters/offer/_pay_at_the_shop.html.haml",
+		"/Users/keegan/Development/openbay/app/views/presenters/offer/_details.html.haml",
+		"/Users/keegan/Development/openbay/app/presenters/offer_presenter.rb",
+		"/Users/keegan/Development/openbay/app/services/city_location_service.rb",
+		"/Users/keegan/Development/openbay/app/models/service_request.rb",
+		"/Users/keegan/Development/openbay/app/models/metro.rb",
+		"/Users/keegan/Development/openbay/app/mixins/area_report.rb"
+	],
+	"find":
+	{
+		"height": 28.0
+	},
+	"find_in_files":
+	{
+		"height": 163.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/javascript/packs/space.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3827,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3803,
+								3803
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2142.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/javascript/packs/space_container.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4783,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 57.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 98.0
+	},
+	"output.find_results":
+	{
+		"height": 282.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "lose.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"_notifications",
+				"app/views/v2/sp/profiles/_notifications.html.haml"
+			],
+			[
+				"reports",
+				"app/controllers/admin/reports_controller.rb"
+			],
+			[
+				"gem",
+				"Gemfile"
+			],
+			[
+				"profile.coffee",
+				"app/assets/javascripts/controllers/v2/sp/profiles.coffee"
+			],
+			[
+				"profiles.cof",
+				"app/assets/javascripts/controllers/sp/public/profiles.coffee"
+			],
+			[
+				"schema",
+				"db/schema.rb"
+			],
+			[
+				"factoremplo",
+				"spec/factories/service_station_employees.rb"
+			],
+			[
+				"v2spbasec",
+				"app/controllers/v2/sp/base_controller.rb"
+			],
+			[
+				"specofferscontroller",
+				"spec/controllers/v2/vo/offers_controller_spec.rb"
+			],
+			[
+				"offerscontrollerspe",
+				"spec/controllers/v2/sp/offers_controller_spec.rb"
+			],
+			[
+				"profiles_cont",
+				"app/controllers/sp/public/profiles_controller.rb"
+			],
+			[
+				"controller_spec",
+				"spec/controllers/v2/sp/profiles_controller_spec.rb"
+			],
+			[
+				"email_settings",
+				"app/controllers/v2/sp/profile/notifications/email_settings_controller.rb"
+			],
+			[
+				"text_message_controll",
+				"app/controllers/v2/sp/profile/notifications/text_messages_controller.rb"
+			],
+			[
+				"routes",
+				"config/routes.rb"
+			],
+			[
+				"text_messages_con",
+				"app/controllers/v2/sp/profile/notifications/text_messages_controller.rb"
+			],
+			[
+				"email_settings_c",
+				"app/controllers/v2/sp/profile/notifications/email_settings_controller.rb"
+			],
+			[
+				"notification_filters",
+				"app/views/v2/sp/profiles/_notification_filters.html.haml"
+			],
+			[
+				"text_messages",
+				"app/views/v2/sp/profiles/_text_messages.html.haml"
+			],
+			[
+				"simplezipc",
+				"app/assets/javascripts/new_onramp/views/simple_zipcode_selector.coffee"
+			],
+			[
+				"zipcode",
+				"app/assets/javascripts/new_onramp/views/zipcode_selector.coffee"
+			],
+			[
+				"notification",
+				"app/views/v2/sp/profiles/_notifications.html.haml"
+			],
+			[
+				"layouts/v2/listing.html.ham",
+				"app/views/layouts/v2/listing.html.haml"
+			],
+			[
+				"employee",
+				"app/models/service_station/employee.rb"
+			],
+			[
+				"user",
+				"app/models/user.rb"
+			],
+			[
+				"add_fields",
+				"db/migrate/20171009203331_add_fields_to_coupons.rb"
+			],
+			[
+				"rename_deals",
+				"db/migrate/20171009200607_rename_deals_to_coupons.rb"
+			],
+			[
+				"swagger",
+				"lib/swagger_doc.rb"
+			],
+			[
+				"specnotification",
+				"spec/jobs/notification_job_spec.rb"
+			],
+			[
+				"notificationsett",
+				"app/models/notification_setting.rb"
+			],
+			[
+				"settings",
+				"app/api/sp_api_v1/settings.rb"
+			],
+			[
+				"notificationeve",
+				"app/models/messaging/notification_event_type.rb"
+			],
+			[
+				"notification_setting",
+				"app/models/notification_setting.rb"
+			],
+			[
+				"profilesass",
+				"app/assets/stylesheets/controllers/v2/sp/profiles.sass"
+			],
+			[
+				"styleguide/common/list",
+				"app/assets/stylesheets/styleguide/common/_lists.sass"
+			],
+			[
+				"v2sp",
+				"app/assets/stylesheets/v2-sp.sass"
+			],
+			[
+				"text_message",
+				"app/views/v2/sp/profiles/_text_messages.html.haml"
+			],
+			[
+				"location",
+				"app/models/service_station/location.rb"
+			],
+			[
+				"company",
+				"app/models/service_station/company.rb"
+			],
+			[
+				"widget_load",
+				"app/views/service_advisor_widget/widget_loader.js.coffee"
+			],
+			[
+				"location_service_ab",
+				"app/models/service_station/locations_service_ability.rb"
+			],
+			[
+				"service_abili",
+				"app/models/service_ability.rb"
+			],
+			[
+				"location_zip",
+				"app/models/service_station/location_zipcode.rb"
+			],
+			[
+				"phone_num",
+				"app/models/phone_number.rb"
+			],
+			[
+				"phone",
+				"app/models/phone_number.rb"
+			],
+			[
+				"profilescontroll",
+				"app/controllers/v2/sp/profiles_controller.rb"
+			],
+			[
+				"serviceability",
+				"app/models/service_station/locations_service_ability.rb"
+			],
+			[
+				"phonenumber",
+				"app/models/phone_number.rb"
+			],
+			[
+				"alternati",
+				"app/models/alternative_email.rb"
+			],
+			[
+				"mocredit_card",
+				"app/models/credit_card.rb"
+			],
+			[
+				"coupon",
+				"app/models/service_station/coupon.rb"
+			],
+			[
+				"warranty",
+				"app/models/warranty_highlight.rb"
+			],
+			[
+				"image_uploa",
+				"app/models/image_upload.rb"
+			],
+			[
+				"subscrip",
+				"app/models/subscription.rb"
+			],
+			[
+				"company_ver",
+				"app/models/company_vetting.rb"
+			],
+			[
+				"phone_nume",
+				"app/models/phone_number.rb"
+			],
+			[
+				"alternative_",
+				"app/models/alternative_email.rb"
+			],
+			[
+				"modelcredit_card",
+				"app/models/credit_card.rb"
+			],
+			[
+				"warran",
+				"app/models/warranty_highlight.rb"
+			],
+			[
+				"image",
+				"app/models/image_upload.rb"
+			],
+			[
+				"logo_image",
+				"app/models/service_profiles/images/logo_image.rb"
+			],
+			[
+				"header_image",
+				"app/models/service_profiles/images/header_image.rb"
+			],
+			[
+				"profilecontr",
+				"app/controllers/v2/sp/profiles_controller.rb"
+			],
+			[
+				"profilecontro",
+				"app/controllers/profile_controller.rb"
+			],
+			[
+				"app/api/sp_api_v1/settings.rb",
+				"app/api/sp_api_v1/settings.rb"
+			],
+			[
+				"segment_offer_spec",
+				"spec/segment/segment_offer_spec.rb"
+			],
+			[
+				"segmentevents",
+				"app/services/segment_service/events.rb"
+			],
+			[
+				"v2_message_spec",
+				"spec/models/v2_message_spec.rb"
+			],
+			[
+				"segmentservicecentral",
+				"app/jobs/segment_service_centralized_quote_create_job.rb"
+			],
+			[
+				"chatnew",
+				"app/services/chat/new_message.rb"
+			],
+			[
+				"offer.",
+				"app/models/offer.rb"
+			],
+			[
+				"promo",
+				"app/models/promo.rb"
+			],
+			[
+				"credit_transaction",
+				"app/models/credit_transaction.rb"
+			],
+			[
+				"profilescontroller",
+				"spec/controllers/v2/sp/profiles_controller_spec.rb"
+			],
+			[
+				"locationcontroller",
+				"app/controllers/v2/admin/service_station_locations_controller.rb"
+			],
+			[
+				"geo",
+				"app/services/geo.rb"
+			],
+			[
+				"gemfile",
+				"Gemfile"
+			],
+			[
+				"geocoder",
+				"spec/support/geocoder.rb"
+			],
+			[
+				"offer",
+				"app/models/offer.rb"
+			],
+			[
+				"service_re",
+				"app/models/service_request.rb"
+			],
+			[
+				"presenter",
+				"app/presenters/offer_presenter.rb"
+			],
+			[
+				"app/assets/javascripts/controllers/v2/sp/profiles.coffee",
+				"app/assets/javascripts/controllers/v2/sp/profiles.coffee"
+			],
+			[
+				"pages.coffee",
+				"app/assets/javascripts/controllers/pages.coffee"
+			],
+			[
+				"v2homepage",
+				"app/assets/stylesheets/v2/homepage.sass"
+			],
+			[
+				"fixie_header",
+				"app/views/v2/homepages/_fixie_header.html.haml"
+			],
+			[
+				"onramps_smoke",
+				"spec/features/new_onramps_smoke_spec.rb"
+			],
+			[
+				"password_res",
+				"spec/features/password_resets_spec.rb"
+			],
+			[
+				"periodic_re",
+				"app/services/periodic_review_fetcher.rb"
+			],
+			[
+				"payment_pre",
+				"app/views/layouts/v2/payment_preferences.html.haml"
+			],
+			[
+				"_location_header",
+				"app/views/sp/public/profiles/_location_header.html.haml"
+			],
+			[
+				"capybara",
+				"spec/config/capybara.rb"
+			],
+			[
+				"sp_settles_a_pay_at_the_shop_offer_spec",
+				"spec/features/sp_settles_a_pay_at_the_shop_offer_spec.rb"
+			],
+			[
+				"canvas",
+				"app/views/universe/canvas.html.haml"
+			],
+			[
+				"tradingapi",
+				"app/services/ebay/trading_api.rb"
+			],
+			[
+				"add_sp_sett",
+				"lib/tasks/one_offs/add_sp_settle_template.rake"
+			],
+			[
+				"fixed",
+				"app/models/fixed_event.rb"
+			],
+			[
+				"template",
+				"app/models/email_template.rb"
+			],
+			[
+				"email",
+				"app/mailers/email_mailer.rb"
+			],
+			[
+				"notificationjob",
+				"app/jobs/notification_job.rb"
+			],
+			[
+				"v2mess",
+				"app/models/v2_message.rb"
+			],
+			[
+				"gemfile.",
+				"Gemfile.lock"
+			],
+			[
+				"ervice_requests_controller_spec",
+				"spec/controllers/admin/service_requests_controller_spec.rb"
+			],
+			[
+				"service_station_location",
+				"spec/factories/service_station_locations.rb"
+			],
+			[
+				"service_station_compa",
+				"spec/factories/service_station_companies.rb"
+			],
+			[
+				"service_requests_controller_spec",
+				"spec/controllers/admin/service_requests_controller_spec.rb"
+			],
+			[
+				"service_station_loca",
+				"spec/factories/service_station_locations.rb"
+			],
+			[
+				"review",
+				"app/controllers/v2/vo/reviews_controller.rb"
+			],
+			[
+				"service_advisor_onramp_smoke_test_spec",
+				"spec/features/service_advisor_onramp_smoke_test_spec.rb"
+			],
+			[
+				"service_provider",
+				"app/models/usage_analysis/service_provider.rb"
+			],
+			[
+				"reports_controller",
+				"app/controllers/admin/reports_controller.rb"
+			],
+			[
+				"offers_controller",
+				"app/controllers/v2/vo/offers_controller.rb"
+			],
+			[
+				"sr_searches",
+				"app/controllers/admin/sr_searches_controller.rb"
+			],
+			[
+				"service_advisor_widget_spec",
+				"spec/requests/service_advisor/service_advisor_widget_spec.rb"
+			],
+			[
+				"service_station_companies",
+				"app/controllers/v2/admin/service_station_companies_controller.rb"
+			],
+			[
+				"service_station_search",
+				"app/views/v2/admin/service_station_companies/_search.html.haml"
+			],
+			[
+				"admin/show",
+				"app/views/admin/home/show.html.haml"
+			],
+			[
+				"home_controller",
+				"app/controllers/admin/home_controller.rb"
+			],
+			[
+				"admin.rb",
+				"config/routes/admin.rb"
+			],
+			[
+				"companysearch",
+				"app/models/service_station/company_search_content.rb"
+			],
+			[
+				"effects",
+				"app/assets/javascripts/new_onramp/channels/effects.coffee"
+			],
+			[
+				"vo_edit_owned_vehicle_spec",
+				"spec/features/vo_edit_owned_vehicle_spec.rb"
+			],
+			[
+				"application.ht",
+				"app/views/layouts/application.html.haml"
+			],
+			[
+				"sp_messaging_spec",
+				"spec/features/sp_messaging_spec.rb"
+			],
+			[
+				"serializer",
+				"app/api/serializers/offer_serializer.rb"
+			],
+			[
+				"selector",
+				"app/assets/javascripts/new_onramp/views/zipcode_selector.coffee"
+			],
+			[
+				"vehicle_selec",
+				"app/assets/javascripts/views/vehicle_selector.coffee"
+			],
+			[
+				"vehicle_sele",
+				"app/assets/javascripts/vehicle_selector.coffee"
+			],
+			[
+				"service_request_spec",
+				"spec/models/service_request_spec.rb"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 400.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"update_logo_image",
+				"update_logo_image"
+			],
+			[
+				"update_header_image",
+				"update_header_image"
+			],
+			[
+				"update_vehic",
+				"update_vehicles!"
+			],
+			[
+				"ServiceRequestBuilder",
+				"ServiceRequestBuilder"
+			],
+			[
+				"wait",
+				"wait_for_ajax"
+			],
+			[
+				"ordered",
+				"ordered"
+			],
+			[
+				"vo_appoi",
+				"vo_appointment_confirmed"
+			]
+		],
+		"width": 767.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 300.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

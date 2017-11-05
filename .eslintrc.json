@@ -6,7 +6,7 @@
       "no-undef": 0,
       "import/no-unresolved": 0,
       "import/extensions": 0,
-      "quotes": ["double", "single", "backtick"],
+      "quotes": 0,
       "jsx-a11y/no-noninteractive-tabindex": 0
     }
 }

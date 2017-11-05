@@ -24,7 +24,6 @@ class Space extends React.Component {
     super(props);
 
     this.debug = false;
-    // this.zIndex = 0;
 
     const startingTile = '0,0';
     this.state         = {

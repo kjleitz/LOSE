@@ -1,6 +1,7 @@
-import React     from 'react';
-import PropTypes from 'prop-types';
-import InfoBox   from './info_box';
+import React      from 'react';
+import PropTypes  from 'prop-types';
+import InfoBox    from './info_box';
+import messageBus from './message_bus';
 
 import {
   coordsFromParams,
@@ -18,7 +19,7 @@ const propTypes = {
   description:        PropTypes.string.isRequired,
   inventory:          PropTypes.array.isRequired,
   angle:              PropTypes.number.isRequired,
-}
+};
 
 class Asteroid extends React.Component {
   constructor(props) {
@@ -37,6 +38,11 @@ class Asteroid extends React.Component {
     const currentTouchStatus = this.isTouchingShip();
     if (this.state.isTouchingShip === currentTouchStatus) return;
     this.setState({ isTouchingShip: currentTouchStatus });
+    if (currentTouchStatus) {
+      messageBus.trigger('target:touched', this.targetInfo());
+    } else {
+      messageBus.trigger('target:untouched');
+    }
   }
 
   sizeInPx() {
@@ -61,14 +67,20 @@ class Asteroid extends React.Component {
     return {
       x: baseX + (percentX * tileSize) + (this.sizeInPx() / 2),
       y: baseY + (percentY * tileSize) + (this.sizeInPx() / 2),
-    }
+    };
   }
 
   isTouchingShip() {
     const { x, y } = this.coordsToShip();
     const halfSize = this.sizeInPx() / 2;
     if (Math.abs(x) <= halfSize && Math.abs(y) <= halfSize) return true;
-    return false
+    return false;
+  }
+
+  targetInfo() {
+    const name = `${this.props.size} asteroid`;
+    const { description, inventory } = this.props;
+    return { name, description, inventory };
   }
 
   render() {
@@ -92,8 +104,8 @@ class Asteroid extends React.Component {
 
     return (
       <div className="asteroid" style={asteroidStyle}>
-        &nbsp;*•&nbsp;&nbsp;°&nbsp;O<br/>
-        •&nbsp;&nbsp;o&nbsp;&nbsp;*&nbsp;•<br/>
+        &nbsp;*•&nbsp;&nbsp;°&nbsp;O<br />
+        •&nbsp;&nbsp;o&nbsp;&nbsp;*&nbsp;•<br />
         &nbsp;&nbsp;*&nbsp;•&nbsp;°
         <InfoBox
           visible={isTouchingShip}

@@ -4,23 +4,39 @@ import PropTypes from 'prop-types';
 const propTypes = {
   visible: PropTypes.bool.isRequired,
   target:  PropTypes.shape({
-    name:        PropTypes.string,
-    description: PropTypes.string,
+    name:        PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     inventory:   PropTypes.arrayOf(PropTypes.shape({
-      name:        PropTypes.string,
-      quantity:    PropTypes.number,
-      description: PropTypes.string,
-    })),
-  }),
+      name:        PropTypes.string.isRequired,
+      quantity:    PropTypes.number.isRequired,
+      description: PropTypes.string.isRequired,
+    })).isRequired,
+  }).isRequired,
 };
 
-const defaultProps = {
-  target: {
-    name:        'literal nothingness',
-    description: 'smells like confused olfactory nerves',
-    inventory:   [],
-  },
-};
+// const defaultProps = {
+//   target: {
+//     name:        "nothin' but static",
+//     description: 'kshhhhhhhh...',
+//     inventory:   [
+//       {
+//         name:        'black spot',
+//         quantity:    1450,
+//         description: 'a group of pixels, temporarily black',
+//       },
+//       {
+//         name:        'white spot',
+//         quantity:    1079,
+//         description: 'a transient white collection of pixels',
+//       },
+//       {
+//         name:        'gray spot',
+//         quantity:    301,
+//         description: 'indecisive bit of white noise',
+//       },
+//     ],
+//   },
+// };
 
 class InfoPanel extends React.Component {
   constructor(props) {
@@ -49,7 +65,11 @@ class InfoPanel extends React.Component {
     };
 
     const inventoryItems = _.map(inventory, (item, i) => (
-      <li key={i}>{item.name}</li>
+      <li key={i}>
+        <p>{item.name}</p>
+        <p><em>{item.description}</em></p>
+        <p><strong>quantity:</strong> {item.quantity}</p>
+      </li>
     ));
 
     return (
@@ -69,6 +89,6 @@ class InfoPanel extends React.Component {
 }
 
 InfoPanel.propTypes    = propTypes;
-InfoPanel.defaultProps = defaultProps;
+// InfoPanel.defaultProps = defaultProps;
 
 export default InfoPanel;

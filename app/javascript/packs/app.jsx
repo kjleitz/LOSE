@@ -4,14 +4,32 @@ import InfoPanel  from './info_panel';
 import MainMenu   from './main_menu';
 import Canvas     from './canvas';
 import messageBus from './message_bus';
-// import HUD              from './hud'
-// import Gauge            from './gauge'
-// import CrewmemberStatus from './crewmember_status'
 
+// instead of putting this in defaultProps for `target` on the InfoPanel, I'm
+// defining it here because I can't figure out how to have propTypes for the
+// object shape but then _also_ have the `target` prop always passed in with a
+// value (even empty) and have InfoPanel actually use the defaultProps... I'm
+// probably just missing something obvious. OH WELL.
 const defaultTarget = {
-  name:        'literal nothingness',
-  description: 'smells like confused olfactory nerves',
-  inventory:   [],
+  name:        "nothin' but static",
+  description: 'kshhhhhhhh...',
+  inventory:   [
+    {
+      name:        'black spot',
+      quantity:    1450,
+      description: 'a group of pixels, temporarily black',
+    },
+    {
+      name:        'white spot',
+      quantity:    1079,
+      description: 'a transient white collection of pixels',
+    },
+    {
+      name:        'gray spot',
+      quantity:    301,
+      description: 'an indecisive bit of white noise',
+    },
+  ],
 };
 
 export default class App extends React.Component {
@@ -28,7 +46,7 @@ export default class App extends React.Component {
 
     this.onKeyUp = this.onKeyUp.bind(this);
 
-    this.wireChannelListeners();
+    this.wireBusListeners();
   }
 
   onKeyUp(event) {
@@ -41,7 +59,7 @@ export default class App extends React.Component {
 
   // this is not the greatest pattern in the world, but I'll refactor later.
   // also, maybe target => target, and currentTarget => currentTarget
-  wireChannelListeners() {
+  wireBusListeners() {
     this.listenTo(messageBus, 'target:touched', (target) => {
       this.setState({
         currentTarget: target,

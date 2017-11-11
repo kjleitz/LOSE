@@ -10,7 +10,7 @@ import {
 
 const propTypes = {
   player:          PropTypes.object.isRequired,
-  tileSize:        PropTypes.object.isRequired,
+  tileSize:        PropTypes.number.isRequired,
   angle:           PropTypes.number.isRequired,
   shipX:           PropTypes.number.isRequired,
   shipY:           PropTypes.number.isRequired,
@@ -52,7 +52,6 @@ class Space extends React.Component {
       centerTile: coordString(tileX, tileY),
       tiles:      this.tilesAdjacentTo(tileX, tileY),
     });
-
   }
 
   componentDidUpdate() {
@@ -73,22 +72,20 @@ class Space extends React.Component {
       coordString(coords.x + 1, coords.y - 1),
       coordString(coords.x + 1, coords.y + 0),
       coordString(coords.x + 1, coords.y + 1),
-    ]
+    ];
   }
 
   addTile(...coordinates) {
     const coordStr = coordString(coordinates);
     this.setState((prevState) => {
       if (_.contains(prevState.tiles, coordStr)) return prevState;
-      return { tiles: [...prevState.tiles, coordStr], }
+      return { tiles: [...prevState.tiles, coordStr] };
     });
   }
 
   removeTile(...coordinates) {
     const coordStr = coordString(coordinates);
-    this.setState((prevState) => {
-      return { tiles: _.without(prevState.tiles, coordStr) };
-    });
+    this.setState(prevState => ({ tiles: _.without(prevState.tiles, coordStr) }));
   }
 
   render() {
@@ -111,11 +108,12 @@ class Space extends React.Component {
         angle={this.props.angle}
         shipX={this.props.shipX}
         shipY={this.props.shipY}
-      />)
-    })
+      />);
+    });
 
     return (
       <div
+        role="presentation"
         id="space"
         tabIndex="0"
         style={spaceStyle}

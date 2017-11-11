@@ -72,14 +72,14 @@ class SpaceTile extends React.Component {
     this.load(tile => this.populate(tile));
   }
 
-  componentWillUnmount() {
-    this.save();
-  }
-
   componentDidUpdate() {
     if (!this.debug) return;
     console.log('========== CURRENT STATE ==========');
     _.each(this.state, (val, key) => console.log(`${key}: ${val}`));
+  }
+
+  componentWillUnmount() {
+    this.save();
   }
 
   serialize() {
@@ -93,7 +93,7 @@ class SpaceTile extends React.Component {
         // asteroids:  blahblahblah,
         // wrecks:     blahblahblah,
         // ...etc.
-      }
+      },
     });
   }
 
@@ -112,7 +112,7 @@ class SpaceTile extends React.Component {
     return {
       x: size * tileX,
       y: size * tileY,
-    }
+    };
   }
 
   // coordinate distance to the bottom left corner of the tile w.r.t. the ship
@@ -122,7 +122,7 @@ class SpaceTile extends React.Component {
     return {
       x: x - shipX,
       y: y - shipY,
-    }
+    };
   }
 
   render() {
@@ -150,7 +150,7 @@ class SpaceTile extends React.Component {
           />
         ))}
         {_.map(this.state.asteroids, ast => (
-          <Asteroid 
+          <Asteroid
             key={ast.id}
             x={ast.x}
             y={ast.y}

@@ -1,5 +1,6 @@
 import React      from 'react';
 import PropTypes  from 'prop-types';
+import { Events } from 'backbone';
 import Space      from './space';
 import messageBus from './message_bus';
 
@@ -13,8 +14,12 @@ class SpaceContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.keyDownHandler = this.keyDownHandler.bind(this);
-    this.keyUpHandler   = this.keyUpHandler.bind(this);
+    _.extend(this, Events);
+
+    this.wireControls(messageBus);
+
+    // this.keyDownHandler = this.keyDownHandler.bind(this);
+    // this.keyUpHandler   = this.keyUpHandler.bind(this);
     this.keyControlLoop = this.keyControlLoop.bind(this);
     this.turnDegrees    = this.turnDegrees.bind(this);
     this.moveXY         = this.moveXY.bind(this);
@@ -70,6 +75,28 @@ class SpaceContainer extends React.Component {
     clearInterval(this.mainLoop);
   }
 
+  wireControls(bus) {
+    this.listenTo(bus, 'key:left:down',  () => { this.pressedKeys['left']  = true  });
+    this.listenTo(bus, 'key:right:down', () => { this.pressedKeys['right'] = true  });
+    this.listenTo(bus, 'key:up:down',    () => { this.pressedKeys['up']    = true  });
+    this.listenTo(bus, 'key:down:down',  () => { this.pressedKeys['down']  = true  });
+    this.listenTo(bus, 'key:a:down',     () => { this.pressedKeys['a']     = true  });
+    this.listenTo(bus, 'key:d:down',     () => { this.pressedKeys['d']     = true  });
+    this.listenTo(bus, 'key:left:up',    () => { this.pressedKeys['left']  = false });
+    this.listenTo(bus, 'key:right:up',   () => { this.pressedKeys['right'] = false });
+    this.listenTo(bus, 'key:up:up',      () => { this.pressedKeys['up']    = false });
+    this.listenTo(bus, 'key:down:up',    () => { this.pressedKeys['down']  = false });
+    this.listenTo(bus, 'key:a:up',       () => { this.pressedKeys['a']     = false });
+    this.listenTo(bus, 'key:d:up',       () => { this.pressedKeys['d']     = false });
+  }
+
+  moveDirection() {
+    if (this.pressedKeys['up'])    return 'forward';
+    if (this.pressedKeys['left'])  return 'left';
+    if (this.pressedKeys['right']) return 'right';
+    return '';
+  }
+
   keyDownHandler(event) {
     const key = event.key;
     if (_.contains(this.validKeys, key)) this.pressedKeys[key] = true;
@@ -98,8 +125,9 @@ class SpaceContainer extends React.Component {
   moveXY(...coordinates) {
     const coords = coordsFromParams(coordinates);
     this.setState(prevState => ({
-      shipX: prevState.shipX + coords.x,
-      shipY: prevState.shipY + coords.y,
+      moveDirection: this.moveDirection(),
+      shipX:         prevState.shipX + coords.x,
+      shipY:         prevState.shipY + coords.y,
     }));
   }
 
@@ -117,7 +145,6 @@ class SpaceContainer extends React.Component {
     const radians = this.state.angle * (Math.PI / 180);
     const angledX = this.pxPerMove * Math.sin(radians);
     const angledY = this.pxPerMove * Math.cos(radians);
-    this.setState({ moveDirection: "forward" });
     this.moveXY({
       x: -1 * angledX,
       y: angledY,
@@ -128,7 +155,6 @@ class SpaceContainer extends React.Component {
     const radians = this.state.angle * (Math.PI / 180);
     const angledX = this.pxPerMove * Math.sin(radians);
     const angledY = this.pxPerMove * Math.cos(radians);
-    this.setState({ moveDirection: "backward" });
     this.moveXY({
       x: angledX,
       y: -1 * angledY,
@@ -139,7 +165,6 @@ class SpaceContainer extends React.Component {
     const radians = this.state.angle * (Math.PI / 180);
     const angledX = (this.pxPerMove / 2) * Math.cos(radians);
     const angledY = (this.pxPerMove / 2) * Math.sin(radians);
-    this.setState({ moveDirection: "left" });
     this.moveXY({
       x: -1 * angledX,
       y: -1 * angledY,
@@ -150,7 +175,6 @@ class SpaceContainer extends React.Component {
     const radians = this.state.angle * (Math.PI / 180);
     const angledX = (this.pxPerMove / 2) * Math.cos(radians);
     const angledY = (this.pxPerMove / 2) * Math.sin(radians);
-    this.setState({ moveDirection: "right" });
     this.moveXY({
       x: angledX,
       y: angledY,

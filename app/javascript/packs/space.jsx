@@ -9,14 +9,12 @@ import {
 } from './helpers';
 
 const propTypes = {
-  player:          PropTypes.object.isRequired,
-  tileSize:        PropTypes.number.isRequired,
-  angle:           PropTypes.number.isRequired,
-  shipX:           PropTypes.number.isRequired,
-  shipY:           PropTypes.number.isRequired,
-  keyDownHandler:  PropTypes.func.isRequired,
-  keyUpHandler:    PropTypes.func.isRequired,
-  moveDirection:   PropTypes.string.isRequired,
+  player:        PropTypes.object.isRequired,
+  tileSize:      PropTypes.number.isRequired,
+  angle:         PropTypes.number.isRequired,
+  shipX:         PropTypes.number.isRequired,
+  shipY:         PropTypes.number.isRequired,
+  moveDirection: PropTypes.string.isRequired,
 };
 
 class Space extends React.Component {
@@ -25,10 +23,11 @@ class Space extends React.Component {
 
     this.debug = false;
 
-    const startingTile = '0,0';
-    this.state         = {
+    const startingTile  = '0,0';
+    const adjacentTiles = this.tilesAdjacentTo(startingTile);
+    this.state = {
       centerTile: startingTile,
-      tiles:      this.tilesAdjacentTo(startingTile),
+      tiles:      adjacentTiles,
     };
 
     this.addTile         = this.addTile.bind(this);
@@ -112,14 +111,7 @@ class Space extends React.Component {
     });
 
     return (
-      <div
-        role="presentation"
-        id="space"
-        tabIndex="0"
-        style={spaceStyle}
-        onKeyDown={this.props.keyDownHandler}
-        onKeyUp={this.props.keyUpHandler}
-      >
+      <div id="space" style={spaceStyle} >
         {spaceTiles}
         <MainShip
           player={this.props.player}

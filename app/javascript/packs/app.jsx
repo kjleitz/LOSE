@@ -1,9 +1,10 @@
-import React      from 'react';
-import { Events } from 'backbone';
-import InfoPanel  from './info_panel';
-import MainMenu   from './main_menu';
-import Canvas     from './canvas';
-import messageBus from './message_bus';
+import React            from 'react';
+import { Events }       from 'backbone';
+import KeyboardHandler  from './keyboard_handler';
+import InfoPanel        from './info_panel';
+import MainMenu         from './main_menu';
+import Canvas           from './canvas';
+import messageBus       from './message_bus';
 
 // instead of putting this in defaultProps for `target` on the InfoPanel, I'm
 // defining it here because I can't figure out how to have propTypes for the
@@ -44,44 +45,38 @@ export default class App extends React.Component {
       infoPanelOpen: false,
     };
 
-    this.onKeyUp = this.onKeyUp.bind(this);
+    this.toggleMainMenu  = this.toggleMainMenu.bind(this);
+    this.toggleInfoPanel = this.toggleInfoPanel.bind(this);
 
-    this.wireBusListeners();
+    this.wireControls(messageBus);
+    this.wireTargets(messageBus);
   }
 
-  onKeyUp(event) {
-    switch (event.key) {
-      case 'Escape': messageBus.trigger('mainMenu:toggle');  break;
-      case ' ':      messageBus.trigger('infoPanel:toggle'); break;
-      default:
-    }
+  wireControls(bus) {
+    this.listenTo(bus, 'key:esc:up',   this.toggleMainMenu);
+    this.listenTo(bus, 'key:space:up', this.toggleInfoPanel);
   }
 
-  // this is not the greatest pattern in the world, but I'll refactor later.
-  // also, maybe target => target, and currentTarget => currentTarget
-  wireBusListeners() {
-    this.listenTo(messageBus, 'target:touched', (target) => {
-      this.setState({
-        currentTarget: target,
-      });
-    });
+  wireTargets(bus) {
+    this.listenTo(bus, 'target:touched',   this.setCurrentTarget);
+    this.listenTo(bus, 'target:untouched', this.setCurrentTarget);
+  }
 
-    this.listenTo(messageBus, 'target:untouched', () => {
-      this.setState({
-        currentTarget: defaultTarget,
-      });
-    });
+  toggleMainMenu() {
+    this.setState(prevState => ({
+      mainMenuOpen: !prevState.mainMenuOpen
+    }));
+  }
 
-    this.listenTo(messageBus, 'mainMenu:toggle', () => {
-      this.setState(prevState => ({
-        mainMenuOpen: !prevState.mainMenuOpen,
-      }));
-    });
+  toggleInfoPanel() {
+    this.setState(prevState => ({
+      infoPanelOpen: !prevState.infoPanelOpen
+    }));
+  }
 
-    this.listenTo(messageBus, 'infoPanel:toggle', () => {
-      this.setState(prevState => ({
-        infoPanelOpen: !prevState.infoPanelOpen,
-      }));
+  setCurrentTarget(target) {
+    this.setState({
+      currentTarget: _.isEmpty(target) ? defaultTarget : target,
     });
   }
 
@@ -94,14 +89,11 @@ export default class App extends React.Component {
     };
 
     return (
-      <div
-        role="presentation"
-        onKeyUp={this.onKeyUp}
-      >
+      <KeyboardHandler>
         <Canvas name="viewport" player={player} />
         <MainMenu  visible={mainMenuOpen} />
         <InfoPanel visible={infoPanelOpen} target={currentTarget} />
-      </div>
+      </KeyboardHandler>
     );
   }
 }

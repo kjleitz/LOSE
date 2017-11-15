@@ -13,22 +13,7 @@ const propTypes = {
 class SpaceContainer extends React.Component {
   constructor(props) {
     super(props);
-
     _.extend(this, Events);
-
-    this.wireControls(messageBus);
-
-    // this.keyDownHandler = this.keyDownHandler.bind(this);
-    // this.keyUpHandler   = this.keyUpHandler.bind(this);
-    this.keyControlLoop = this.keyControlLoop.bind(this);
-    this.turnDegrees    = this.turnDegrees.bind(this);
-    this.moveXY         = this.moveXY.bind(this);
-    this.turnLeft       = this.turnLeft.bind(this);
-    this.turnRight      = this.turnRight.bind(this);
-    this.moveForward    = this.moveForward.bind(this);
-    this.moveBackward   = this.moveBackward.bind(this);
-    this.moveLeft       = this.moveLeft.bind(this);
-    this.moveRight      = this.moveRight.bind(this);
 
     // defaults/pseudo-"constants"
     this.debug       = false;
@@ -36,17 +21,29 @@ class SpaceContainer extends React.Component {
     this.degsPerTurn = 4;
     this.pxPerMove   = 5;
     this.tileSize    = 1000;
+    
+    this.wireControls   = this.wireControls.bind(this);
+    this.moveDirection  = this.moveDirection.bind(this);
+    this.keyControlLoop = this.keyControlLoop.bind(this);
+    this.turnDegrees    = this.turnDegrees.bind(this);
+    this.turnLeft       = this.turnLeft.bind(this);
+    this.turnRight      = this.turnRight.bind(this);
+    this.moveXY         = this.moveXY.bind(this);
+    this.angledXY       = this.angledXY.bind(this);
+    this.moveForward    = this.moveForward.bind(this);
+    this.moveBackward   = this.moveBackward.bind(this);
+    this.moveLeft       = this.moveLeft.bind(this);
+    this.moveRight      = this.moveRight.bind(this);
 
     this.pressedKeys = {};
     this.keyControls = {
-      ArrowLeft:  this.turnLeft,
-      ArrowRight: this.turnRight,
-      ArrowUp:    this.moveForward,
-      ArrowDown:  this.moveBackward,
-      a:          this.moveLeft,
-      d:          this.moveRight,
+      left:  this.turnLeft,
+      right: this.turnRight,
+      up:    this.moveForward,
+      down:  this.moveBackward,
+      a:     this.moveLeft,
+      d:     this.moveRight,
     };
-    this.validKeys = _.keys(this.keyControls);
 
     this.state = {
       angle: 0,
@@ -59,6 +56,7 @@ class SpaceContainer extends React.Component {
     // so that it can be initialized when the SpaceContainer mounts, and torn
     // down when the component is removed.
     this.mainLoop = null;
+    this.wireControls(messageBus);
   }
 
   componentDidMount() {
@@ -90,61 +88,58 @@ class SpaceContainer extends React.Component {
     this.listenTo(bus, 'key:d:up',       () => { this.pressedKeys['d']     = false });
   }
 
-  moveDirection() {
-    if (this.pressedKeys['up'])    return 'forward';
-    if (this.pressedKeys['left'])  return 'left';
-    if (this.pressedKeys['right']) return 'right';
+  moveDirection(pressedHash) {
+    if (pressedHash['up'])                        return 'forward';
+    if (pressedHash['left']  || pressedHash['a']) return 'left';
+    if (pressedHash['right'] || pressedHash['d']) return 'right';
     return '';
   }
-
-  keyDownHandler(event) {
-    const key = event.key;
-    if (_.contains(this.validKeys, key)) this.pressedKeys[key] = true;
-  }
-
-  keyUpHandler(event) {
-    const key = event.key;
-    if (_.contains(this.validKeys, key)) this.pressedKeys[key] = false;
-    this.setState({ moveDirection: '' });
-  }
-
+  
   keyControlLoop() {
     return setInterval(() => {
-      _.each(this.pressedKeys, (isPressed, key) => {
-        if (isPressed) this.keyControls[key]();
-      });
+      // get currently-pressed keys
+      const pressedHash = messageBus.request('keys:pressed:hash');
+      // check current move direction for visual aid (e.g. engine exhaust)
+      const moveDirection = this.moveDirection(pressedHash)
+      // if the move direction is the same, don't update the state unnecessarily
+      if (this.state.moveDirection !== moveDirection) this.setState({ moveDirection });
+      // run through the pressed keys, firing off the methods they trigger
+      _.each(pressedHash, (isPressed, key) => {
+        const keyAction = this.keyControls[key];
+        if (isPressed && _.isFunction(keyAction)) keyAction();
+      })
     }, this.loopMillis);
   }
 
   turnDegrees(degrees) {
-    this.setState(prevState => ({
-      angle: prevState.angle + degrees,
-    }));
+    this.setState(prevState => ({ angle: prevState.angle + degrees }));
+  }
+
+  turnLeft() {
+    this.turnDegrees(this.degsPerTurn);
+  }
+
+  turnRight() {
+    this.turnDegrees(-1 * this.degsPerTurn);
   }
 
   moveXY(...coordinates) {
     const coords = coordsFromParams(coordinates);
     this.setState(prevState => ({
-      moveDirection: this.moveDirection(),
-      shipX:         prevState.shipX + coords.x,
-      shipY:         prevState.shipY + coords.y,
+      shipX: prevState.shipX + coords.x,
+      shipY: prevState.shipY + coords.y,
     }));
   }
 
-  turnLeft() {
-    this.setState({ moveDirection: "left" });
-    this.turnDegrees(this.degsPerTurn);
-  }
-
-  turnRight() {
-    this.setState({ moveDirection: "right" });
-    this.turnDegrees(-1 * this.degsPerTurn);
-  }
-
-  moveForward() {
+  angledXY() {
     const radians = this.state.angle * (Math.PI / 180);
     const angledX = this.pxPerMove * Math.sin(radians);
     const angledY = this.pxPerMove * Math.cos(radians);
+    return { angledX, angledY };
+  }
+
+  moveForward() {
+    const { angledX, angledY } = this.angledXY();
     this.moveXY({
       x: -1 * angledX,
       y: angledY,
@@ -152,9 +147,7 @@ class SpaceContainer extends React.Component {
   }
 
   moveBackward() {
-    const radians = this.state.angle * (Math.PI / 180);
-    const angledX = this.pxPerMove * Math.sin(radians);
-    const angledY = this.pxPerMove * Math.cos(radians);
+    const { angledX, angledY } = this.angledXY();
     this.moveXY({
       x: angledX,
       y: -1 * angledY,
@@ -162,9 +155,7 @@ class SpaceContainer extends React.Component {
   }
 
   moveLeft() {
-    const radians = this.state.angle * (Math.PI / 180);
-    const angledX = (this.pxPerMove / 2) * Math.cos(radians);
-    const angledY = (this.pxPerMove / 2) * Math.sin(radians);
+    const { angledX, angledY } = this.angledXY();
     this.moveXY({
       x: -1 * angledX,
       y: -1 * angledY,
@@ -172,9 +163,7 @@ class SpaceContainer extends React.Component {
   }
 
   moveRight() {
-    const radians = this.state.angle * (Math.PI / 180);
-    const angledX = (this.pxPerMove / 2) * Math.cos(radians);
-    const angledY = (this.pxPerMove / 2) * Math.sin(radians);
+    const { angledX, angledY } = this.angledXY();
     this.moveXY({
       x: angledX,
       y: angledY,
@@ -182,16 +171,17 @@ class SpaceContainer extends React.Component {
   }
 
   render() {
+    const { tileSize } = this;
+    const { player   } = this.props;
+    const { angle, shipX, shipY, moveDirection } = this.state;
     return (
       <Space
-        player={this.props.player}
-        tileSize={this.tileSize}
-        angle={this.state.angle}
-        shipX={this.state.shipX}
-        shipY={this.state.shipY}
-        keyDownHandler={this.keyDownHandler}
-        keyUpHandler={this.keyUpHandler}
-        moveDirection={this.state.moveDirection}
+        player={player}
+        tileSize={tileSize}
+        angle={angle}
+        shipX={shipX}
+        shipY={shipY}
+        moveDirection={moveDirection}
       />
     );
   }

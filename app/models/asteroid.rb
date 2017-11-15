@@ -17,7 +17,7 @@ class Asteroid < ApplicationRecord
   }
 
   DESCRIPTIONS = {
-    0 => "Just a space rock. Like Bowie used to do, but more boring.",
+    0 => "Just a space rock. Like Bowie used to do, but boring.",
     1 => "Minor asteroids are like cats: big, hard, and mostly composed of mundane metals.",
     2 => "Smells like home. Might be able to set up a mining base here.",
     3 => "This is quite a find! Invite the whole family, chow down on some minerals.",

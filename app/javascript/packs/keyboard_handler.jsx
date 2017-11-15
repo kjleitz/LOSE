@@ -13,37 +13,64 @@ class KeyboardHandler extends React.Component {
     this.keyUpHandler   = this.keyUpHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
 
-    // this.state = {
-    //   pressedKeys: [],
-    // };
+    this.wireKeyReplies(messageBus);
+  }
+  
+  wireKeyReplies(bus) {
+    this.pressedKeys = {};
+
+    // returns keys pressed in { 'space': true, 'esc': false } format.
+    // false values in the hash only show up after having hit the key.
+    // call messageBus.request('keys:pressed:hash') to get this value.
+    messageBus.reply('keys:pressed:hash', () => {
+      return this.pressedKeys;
+    });
+
+    // returns keys pressed in [ 'up', 'left', 'space' ] format.
+    // call messageBus.request('keys:pressed:list') to get this value.
+    messageBus.reply('keys:pressed:list', () => {
+      return _.reduce(this.pressedKeys, (memo, isPressed, key) => {
+        return isPressed ? [...memo, key] : memo;
+      });
+    })
   }
 
   keyUpHandler(event) {
     switch (event.key) {
-      case 'Escape':     messageBus.trigger('key:esc:up');   break;
-      case ' ':          messageBus.trigger('key:space:up'); break;
-      case 'ArrowLeft':  messageBus.trigger('key:left:up');  break;
-      case 'ArrowRight': messageBus.trigger('key:right:up'); break;
-      case 'ArrowUp':    messageBus.trigger('key:up:up');    break;
-      case 'ArrowDown':  messageBus.trigger('key:down:up');  break;
-      case 'a':          messageBus.trigger('key:a:up');     break;
-      case 'd':          messageBus.trigger('key:d:up');     break;
+      case 'Escape':     this.keyUp('esc');   break;
+      case ' ':          this.keyUp('space'); break;
+      case 'ArrowLeft':  this.keyUp('left');  break;
+      case 'ArrowRight': this.keyUp('right'); break;
+      case 'ArrowUp':    this.keyUp('up');    break;
+      case 'ArrowDown':  this.keyUp('down');  break;
+      case 'a':          this.keyUp('a');     break;
+      case 'd':          this.keyUp('d');     break;
       default:
     }
   }
-
+  
   keyDownHandler(event) {
     switch (event.key) {
-      case 'Escape':     messageBus.trigger('key:esc:down');   break;
-      case ' ':          messageBus.trigger('key:space:down'); break;
-      case 'ArrowLeft':  messageBus.trigger('key:left:down');  break;
-      case 'ArrowRight': messageBus.trigger('key:right:down'); break;
-      case 'ArrowUp':    messageBus.trigger('key:up:down');    break;
-      case 'ArrowDown':  messageBus.trigger('key:down:down');  break;
-      case 'a':          messageBus.trigger('key:a:down');     break;
-      case 'd':          messageBus.trigger('key:d:down');     break;
+      case 'Escape':     this.keyDown('esc');   break;
+      case ' ':          this.keyDown('space'); break;
+      case 'ArrowLeft':  this.keyDown('left');  break;
+      case 'ArrowRight': this.keyDown('right'); break;
+      case 'ArrowUp':    this.keyDown('up');    break;
+      case 'ArrowDown':  this.keyDown('down');  break;
+      case 'a':          this.keyDown('a');     break;
+      case 'd':          this.keyDown('d');     break;
       default:
     }
+  }
+  
+  keyUp(keyName) {
+    this.pressedKeys[keyName] = false
+    messageBus.trigger(`key:${keyName}:up`);
+  }
+  
+  keyDown(keyName) {
+    this.pressedKeys[keyName] = true
+    messageBus.trigger(`key:${keyName}:down`);
   }
 
   render() {

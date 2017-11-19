@@ -39,6 +39,7 @@ class KeyboardHandler extends React.Component {
     switch (event.key) {
       case 'Escape':     this.keyUp('esc');   break;
       case ' ':          this.keyUp('space'); break;
+      case '1':          this.keyUp('1');     break;
       case 'ArrowLeft':  this.keyUp('left');  break;
       case 'ArrowRight': this.keyUp('right'); break;
       case 'ArrowUp':    this.keyUp('up');    break;
@@ -53,6 +54,7 @@ class KeyboardHandler extends React.Component {
     switch (event.key) {
       case 'Escape':     this.keyDown('esc');   break;
       case ' ':          this.keyDown('space'); break;
+      case '1':          this.keyDown('1');     break;
       case 'ArrowLeft':  this.keyDown('left');  break;
       case 'ArrowRight': this.keyDown('right'); break;
       case 'ArrowUp':    this.keyDown('up');    break;

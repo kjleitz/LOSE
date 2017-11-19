@@ -2,6 +2,7 @@ import React     from 'react';
 import PropTypes from 'prop-types';
 import MainShip  from './main_ship';
 import SpaceTile from './space_tile';
+import Rocket    from './rocket';
 
 import {
   coordsFromParams,
@@ -28,11 +29,13 @@ class Space extends React.Component {
     this.state = {
       centerTile: startingTile,
       tiles:      adjacentTiles,
+      rocketLaunched: false,
     };
 
     this.addTile         = this.addTile.bind(this);
     this.removeTile      = this.removeTile.bind(this);
     this.tilesAdjacentTo = this.tilesAdjacentTo.bind(this);
+    this.launchRocket    = this.launchRocket.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -87,6 +90,10 @@ class Space extends React.Component {
     this.setState(prevState => ({ tiles: _.without(prevState.tiles, coordStr) }));
   }
 
+  launchRocket() {
+    this.setState({ rocketLaunched: true })
+  }
+
   render() {
     const spaceStyle = {
       backgroundColor: 'black',
@@ -99,15 +106,17 @@ class Space extends React.Component {
 
     const spaceTiles = _.map(this.state.tiles, (coordStr) => {
       const coords = coordsFromParams(coordStr);
-      return (<SpaceTile
-        key={coordString(coords)}
-        size={this.props.tileSize}
-        tileX={coords.x}
-        tileY={coords.y}
-        angle={this.props.angle}
-        shipX={this.props.shipX}
-        shipY={this.props.shipY}
-      />);
+      return (
+        <SpaceTile
+          key={coordString(coords)}
+          size={this.props.tileSize}
+          tileX={coords.x}
+          tileY={coords.y}
+          angle={this.props.angle}
+          shipX={this.props.shipX}
+          shipY={this.props.shipY}
+        />
+      );
     });
 
     return (
@@ -117,6 +126,15 @@ class Space extends React.Component {
           player={this.props.player}
           angle={this.props.angle}
           moveDirection={this.props.moveDirection}
+          launchRocket={this.launchRocket}
+        />
+        <Rocket
+          className="change this it's just for testing"
+          player={{ name: "poopsie" }}
+          launched={this.state.rocketLaunched}
+          shipAngle={this.props.angle}
+          shipX={this.props.shipX}
+          shipY={this.props.shipY}
         />
       </div>
     );

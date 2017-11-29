@@ -96,12 +96,11 @@ class Space extends React.Component {
 
   render() {
     const spaceStyle = {
-      backgroundColor: 'black',
-      position:        'fixed',
-      top:             "0px",
-      bottom:          "0px",
-      left:            "0px",
-      right:           "0px",
+      position:        'relative',
+      left:            `calc(50% - ${this.props.shipX}px)`,
+      top:             `calc(50% + ${this.props.shipY}px)`,
+      transform:       `rotate(${this.props.angle}deg)`,
+      transformOrigin: `${this.props.shipX}px ${-1 * this.props.shipY}px`,
     };
 
     const spaceTiles = _.map(this.state.tiles, (coordStr) => {
@@ -126,6 +125,8 @@ class Space extends React.Component {
           player={this.props.player}
           angle={this.props.angle}
           moveDirection={this.props.moveDirection}
+          shipX={this.props.shipX}
+          shipY={this.props.shipY}
           launchRocket={this.launchRocket}
         />
         <Rocket
@@ -133,8 +134,6 @@ class Space extends React.Component {
           player={{ name: "poopsie" }}
           launched={this.state.rocketLaunched}
           shipAngle={this.props.angle}
-          shipX={this.props.shipX}
-          shipY={this.props.shipY}
         />
       </div>
     );

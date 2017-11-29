@@ -174,15 +174,26 @@ class SpaceContainer extends React.Component {
     const { tileSize } = this;
     const { player   } = this.props;
     const { angle, shipX, shipY, moveDirection } = this.state;
+    const spaceContainerStyle = {
+      position:        'fixed',
+      top:             '0px',
+      right:           '0px',
+      bottom:          '0px',
+      left:            '0px',
+      backgroundColor: 'black',
+    };
+
     return (
-      <Space
-        player={player}
-        tileSize={tileSize}
-        angle={angle}
-        shipX={shipX}
-        shipY={shipY}
-        moveDirection={moveDirection}
-      />
+      <div style={spaceContainerStyle} >
+        <Space
+          player={player}
+          tileSize={tileSize}
+          angle={angle}
+          shipX={shipX}
+          shipY={shipY}
+          moveDirection={moveDirection}
+        />
+      </div>
     );
   }
 }

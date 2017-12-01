@@ -123,7 +123,7 @@ class Space extends React.Component {
         {spaceTiles}
         <MainShip
           player={this.props.player}
-          angle={this.props.angle}
+          angle={-1 * this.props.angle}
           moveDirection={this.props.moveDirection}
           shipX={this.props.shipX}
           shipY={this.props.shipY}
@@ -133,7 +133,9 @@ class Space extends React.Component {
           className="change this it's just for testing"
           player={{ name: "poopsie" }}
           launched={this.state.rocketLaunched}
-          shipAngle={this.props.angle}
+          shipAngle={-1 * this.props.angle}
+          shipX={this.props.shipX}
+          shipY={this.props.shipY}
         />
       </div>
     );

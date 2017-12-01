@@ -5,7 +5,7 @@ import messageBus from './message_bus';
 
 const propTypes = {
   player:        PropTypes.object,
-  angle:         PropTypes.number.isRequired,
+  angle:         PropTypes.number,
   moveDirection: PropTypes.string,
   style:         PropTypes.object,
 }
@@ -15,7 +15,7 @@ class Ship extends React.Component {
     super(props);
     _.extendOwn(this, Events);
   }
-  
+
   componentDidMount() {
     this.wireListeners(messageBus);
   }
@@ -28,13 +28,13 @@ class Ship extends React.Component {
     const { moveDirection, style } = this.props;
     let xFlame = "0px";
     let yFlame = "0px";
-    if (moveDirection === "left")     xFlame = "10px";
-    if (moveDirection === "right")    xFlame = "-10px";
-    if (moveDirection === "forward")  yFlame = "15px";
+    if (moveDirection === "left")    xFlame = "10px";
+    if (moveDirection === "right")   xFlame = "-10px";
+    if (moveDirection === "forward") yFlame = "15px";
     const flameStyle = moveDirection === '' ? {} : {
       boxShadow: `${xFlame} ${yFlame} 5px -3px orangered`
     }
-    
+
     return (
       <div className="ship" style={style}>
         <div style={_.extend({

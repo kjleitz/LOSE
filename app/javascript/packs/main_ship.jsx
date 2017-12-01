@@ -15,14 +15,13 @@ class MainShip extends React.Component {
     return (
       <Ship
         player={this.props.player}
-        angle={this.props.angle}
         moveDirection={this.props.moveDirection}
         launchRocket={this.props.launchRocket}
         style={{
           position:        'absolute',
           left:            `calc(${this.props.shipX}px - 15px)`,
           bottom:          `calc(${this.props.shipY}px - 15px)`,
-          transform:       `rotate(${-1 * this.props.angle}deg)`,
+          transform:       `rotate(${this.props.angle}deg)`,
           width:           '30px',
           height:          '30px',
           borderRadius:    '15px 15px 0 0',

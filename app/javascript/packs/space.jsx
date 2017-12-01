@@ -2,6 +2,7 @@ import React     from 'react';
 import PropTypes from 'prop-types';
 import MainShip  from './main_ship';
 import SpaceTile from './space_tile';
+import Rocket    from './rocket';
 
 import {
   coordsFromParams,
@@ -28,11 +29,13 @@ class Space extends React.Component {
     this.state = {
       centerTile: startingTile,
       tiles:      adjacentTiles,
+      rocketLaunched: false,
     };
 
     this.addTile         = this.addTile.bind(this);
     this.removeTile      = this.removeTile.bind(this);
     this.tilesAdjacentTo = this.tilesAdjacentTo.bind(this);
+    this.launchRocket    = this.launchRocket.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -87,6 +90,10 @@ class Space extends React.Component {
     this.setState(prevState => ({ tiles: _.without(prevState.tiles, coordStr) }));
   }
 
+  launchRocket() {
+    this.setState({ rocketLaunched: true })
+  }
+
   render() {
     const spaceStyle = {
       position:        'relative',
@@ -116,8 +123,17 @@ class Space extends React.Component {
         {spaceTiles}
         <MainShip
           player={this.props.player}
-          angle={this.props.angle}
+          angle={-1 * this.props.angle}
           moveDirection={this.props.moveDirection}
+          shipX={this.props.shipX}
+          shipY={this.props.shipY}
+          launchRocket={this.launchRocket}
+        />
+        <Rocket
+          className="change this it's just for testing"
+          player={{ name: "poopsie" }}
+          launched={this.state.rocketLaunched}
+          shipAngle={-1 * this.props.angle}
           shipX={this.props.shipX}
           shipY={this.props.shipY}
         />

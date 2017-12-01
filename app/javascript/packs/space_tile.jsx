@@ -126,18 +126,16 @@ class SpaceTile extends React.Component {
   }
 
   render() {
-    const { x, y }        = this.relativeCoords();
+    const { x, y }        = this.scaledCoords();
     const { size, angle } = this.props;
     const tileStyle       = {
       // border:          '1px solid gray',
       boxSizing:       'border-box',
-      position:        'fixed',
-      left:            `calc(50% + ${x}px)`,
-      bottom:          `calc(50% + ${y}px)`,
+      position:        'absolute',
+      left:            `${x}px`,
+      bottom:          `${y}px`,
       width:           `${size}px`,
       height:          `${size}px`,
-      transform:       `rotate(${angle}deg)`,
-      transformOrigin: `${-1 * x}px ${y + size}px`,
     };
 
     return (

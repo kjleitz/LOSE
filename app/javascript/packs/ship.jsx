@@ -21,7 +21,7 @@ class Ship extends React.Component {
     }
 
     return (
-      <div style={style}>
+      <div className="ship" style={style}>
         <div style={_.extend({
           width:     "100%",
           height:    "calc(100% - 15px)",

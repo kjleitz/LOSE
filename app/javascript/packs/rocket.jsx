@@ -18,7 +18,7 @@ class Rocket extends React.Component {
       y: 0,
     };
 
-    this.loopMillis  = 60;
+    this.loopMillis  = 30;
     this.pxPerMove   = 5;
     this.launchAngle = 0;
     this.launchX     = 0;

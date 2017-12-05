@@ -10,15 +10,16 @@ class RocketWrapper extends React.Component {
 
   render() {
     const rocketsArr = this.props.rockets.map((rocket, index) => {
-      return (<Rocket
-        key={index}
-        className='uuuuhhhh'
-        player={{ name: 'Mr. Game and Watch' }}
-        launched={true}
-        shipAngle={-1 * this.props.angle}
-        shipX={this.props.shipX}
-        shipY={this.props.shipY}
-      />)
+      return (
+        <Rocket
+          key={index}
+          className='uuuuhhhh'
+          player={{ name: 'Mr. Game and Watch' }}
+          launched={true}
+          shipAngle={-1 * this.props.angle}
+          shipX={this.props.shipX}
+          shipY={this.props.shipY}
+        />)
     })
 
     return (

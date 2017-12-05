@@ -123,7 +123,7 @@ class Space extends React.Component {
       );
     });
 
-    const rocketArr = this.state.rocketsLaunched
+    const rocketsLaunched = this.state.rocketsLaunched
 
     return (
       <div id="space" style={spaceStyle} >
@@ -137,7 +137,7 @@ class Space extends React.Component {
           launchRocket={this.launchRocket}
         />
         <RocketWrapper
-          rockets={rocketArr}
+          rockets={rocketsLaunched}
           {...this.props}
         />
       </div>

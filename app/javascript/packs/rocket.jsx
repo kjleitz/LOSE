@@ -14,13 +14,13 @@ class Rocket extends React.Component {
     super(props);
 
     this.state = {
-      x: 0,
-      y: 0,
+      x: this.props.shipX,
+      y: this.props.shipY,
     };
 
     this.loopMillis  = 30;
     this.pxPerMove   = 5;
-    this.launchAngle = 0;
+    this.launchAngle = this.props.shipAngle;
     this.launchX     = 0;
     this.launchY     = 0;
 
@@ -30,21 +30,8 @@ class Rocket extends React.Component {
     this.rocketLoop = null;
   }
 
-  componentWillReceiveProps(nextProps) {
-    // if the loop has already started, chill
-    if (!_.isNull(this.rocketLoop)) return;
-    // if the rocket is launched FUCKING FIRE
-    if (nextProps.launched) {
-      this.launchAngle = this.props.shipAngle;
-      this.launchX     = this.props.shipX;
-      this.launchY     = this.props.shipY;
-      this.setState({
-        x: this.launchX,
-        y: this.launchY,
-      });
-
-      this.rocketLoop  = this.movementLoop();
-    }
+  componentDidMount() {
+    this.rocketLoop = this.movementLoop();
   }
 
   componentWillUnmount() {
@@ -63,7 +50,7 @@ class Rocket extends React.Component {
   }
 
   movementLoop() {
-    const radians = this.currentAngle() * (Math.PI / 180);
+    const radians = this.props.shipAngle * (Math.PI / 180);
     const angledX = this.pxPerMove * Math.sin(radians);
     const angledY = this.pxPerMove * Math.cos(radians);
     return setInterval(() => {

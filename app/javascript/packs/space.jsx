@@ -30,7 +30,7 @@ class Space extends React.Component {
     this.state = {
       centerTile: startingTile,
       tiles:      adjacentTiles,
-      availableRockets:   [/* assuming this info would come from the db */]
+      availableRockets:   [/* assuming this info would come from the db */],
       rocketsLaunched:    [/* right now unlimited but would be limited by availableRockets */]
     };
 

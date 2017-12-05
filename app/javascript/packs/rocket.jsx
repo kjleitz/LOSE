@@ -57,7 +57,7 @@ class Rocket extends React.Component {
   }
 
   movementLoop() {
-    const radians = this.props.shipAngle * (Math.PI / 180);
+    const radians = this.launchAngle * (Math.PI / 180);
     const angledX = this.pxPerMove * Math.sin(radians);
     const angledY = this.pxPerMove * Math.cos(radians);
     return setInterval(() => {

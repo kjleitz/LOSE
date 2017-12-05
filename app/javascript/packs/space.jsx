@@ -1,8 +1,9 @@
-import React     from 'react';
-import PropTypes from 'prop-types';
-import MainShip  from './main_ship';
-import SpaceTile from './space_tile';
-import Rocket    from './rocket';
+import React          from 'react';
+import PropTypes      from 'prop-types';
+import MainShip       from './main_ship';
+import SpaceTile      from './space_tile';
+import RocketWrapper  from './rocket_wrapper';
+import Rocket         from './rocket';
 
 import {
   coordsFromParams,
@@ -29,7 +30,7 @@ class Space extends React.Component {
     this.state = {
       centerTile: startingTile,
       tiles:      adjacentTiles,
-      rocketLaunched: false,
+      rocketsLaunched:    []
     };
 
     this.addTile         = this.addTile.bind(this);
@@ -91,7 +92,11 @@ class Space extends React.Component {
   }
 
   launchRocket() {
-    this.setState({ rocketLaunched: true })
+    const rocketsLaunched = this.state.rocketsLaunched
+    rocketsLaunched.push({ name: `Supernova ${rocketsLaunched.length + 1}`})
+    this.setState({
+      rocketsLaunched
+    })
   }
 
   render() {
@@ -118,6 +123,8 @@ class Space extends React.Component {
       );
     });
 
+    const rocketArr = this.state.rocketsLaunched
+
     return (
       <div id="space" style={spaceStyle} >
         {spaceTiles}
@@ -129,13 +136,9 @@ class Space extends React.Component {
           shipY={this.props.shipY}
           launchRocket={this.launchRocket}
         />
-        <Rocket
-          className="change this it's just for testing"
-          player={{ name: "poopsie" }}
-          launched={this.state.rocketLaunched}
-          shipAngle={-1 * this.props.angle}
-          shipX={this.props.shipX}
-          shipY={this.props.shipY}
+        <RocketWrapper
+          rockets={rocketArr}
+          {...this.props}
         />
       </div>
     );

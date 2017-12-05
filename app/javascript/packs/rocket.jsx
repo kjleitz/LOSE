@@ -12,7 +12,7 @@ const propTypes = {
 class Rocket extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       x: 0,
       y: 0,
@@ -23,7 +23,7 @@ class Rocket extends React.Component {
     this.launchAngle = 0;
     this.launchX     = 0;
     this.launchY     = 0;
-    
+
     // rocketLoop stores the setInterval that moves the rocket forward; that way
     // it can be initialized when the Rocket mounts, and torn down when the
     // component is removed.
@@ -42,7 +42,7 @@ class Rocket extends React.Component {
         x: this.launchX,
         y: this.launchY,
       });
-      
+
       this.rocketLoop  = this.movementLoop();
     }
   }
@@ -93,7 +93,7 @@ class Rocket extends React.Component {
       textAlign: 'center',
     }
 
-    return <div className="rocket" style={rocketStyle}>!</div>;
+    return (<div className="rocket" style={rocketStyle}>!</div>);
   }
 }
 

@@ -1,8 +1,10 @@
-import React     from 'react';
-import PropTypes from 'prop-types';
-import Star      from './star';
-import Planet    from './planet';
-import Asteroid  from './asteroid';
+import React       from 'react';
+import PropTypes   from 'prop-types';
+import appConfig   from './app_config';
+import Star        from './star';
+import Planet      from './planet';
+import Asteroid    from './asteroid';
+import CoordsLabel from './coords_label';
 
 import {
   coordsFromParams,
@@ -24,8 +26,8 @@ class SpaceTile extends React.Component {
   constructor(props) {
     super(props);
     _.extendOwn(this, { save, load });
+    this.ego = _.uniqueId('space_tile_');
 
-    this.debug   = false;
     this.saveURL = `/space_tiles/${coordString(props.tileX, props.tileY)}`;
     this.loadURL = `/space_tiles/${coordString(props.tileX, props.tileY)}`;
 
@@ -73,7 +75,7 @@ class SpaceTile extends React.Component {
   }
 
   componentDidUpdate() {
-    if (!this.debug) return;
+    if (!appConfig.logState) return;
     console.log('========== CURRENT STATE ==========');
     _.each(this.state, (val, key) => console.log(`${key}: ${val}`));
   }
@@ -129,7 +131,7 @@ class SpaceTile extends React.Component {
     const { x, y }        = this.scaledCoords();
     const { size, angle } = this.props;
     const tileStyle       = {
-      // border:          '1px solid gray',
+      border:          appConfig.tileBorders ? '1px solid gray' : 'none',
       boxSizing:       'border-box',
       position:        'absolute',
       left:            `${x}px`,
@@ -152,7 +154,9 @@ class SpaceTile extends React.Component {
             key={ast.id}
             x={ast.x}
             y={ast.y}
+            tileEgo={this.ego}
             tileRelativeCoords={this.relativeCoords()}
+            tileScaledCoords={this.scaledCoords()}
             tileSize={size}
             size={ast.size}
             description={ast.description}
@@ -160,6 +164,13 @@ class SpaceTile extends React.Component {
             angle={angle}
           />
         ))}
+        <CoordsLabel
+          visible={appConfig.coordsLabels}
+          inside={true}
+          ego={this.ego}
+          x={x}
+          y={y}
+        />
       </div>
     );
   }

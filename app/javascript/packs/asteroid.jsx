@@ -1,7 +1,9 @@
-import React      from 'react';
-import PropTypes  from 'prop-types';
-import InfoBox    from './info_box';
-import messageBus from './message_bus';
+import React       from 'react';
+import PropTypes   from 'prop-types';
+import appConfig   from './app_config';
+import CoordsLabel from './coords_label'
+import InfoBox     from './info_box';
+import messageBus  from './message_bus';
 
 import {
   coordsFromParams,
@@ -13,7 +15,9 @@ import {
 const propTypes = {
   x:                  PropTypes.number.isRequired,
   y:                  PropTypes.number.isRequired,
+  tileEgo:            PropTypes.string.isRequired,
   tileRelativeCoords: PropTypes.object.isRequired,
+  tileScaledCoords:   PropTypes.object.isRequired,
   tileSize:           PropTypes.number.isRequired,
   size:               PropTypes.string.isRequired,
   description:        PropTypes.string.isRequired,
@@ -24,6 +28,7 @@ const propTypes = {
 class Asteroid extends React.Component {
   constructor(props) {
     super(props);
+    this.ego = _.uniqueId('asteroid_');
 
     this.sizeInPx       = this.sizeInPx.bind(this);
     this.coordsToShip   = this.coordsToShip.bind(this);
@@ -32,6 +37,10 @@ class Asteroid extends React.Component {
     this.state = {
       isTouchingShip: this.isTouchingShip(),
     };
+  }
+
+  componentDidMount() {
+    messageBus.request('spacemap:add:rect', this.targetShape());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,6 +54,15 @@ class Asteroid extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.x === this.props.x && prevProps.y === this.props.y) return;
+    messageBus.request('spacemap:add:rect', this.targetShape());
+  }
+
+  componentWillUnmount() {
+    messageBus.request('spacemap:remove', this.targetShape());
+  }
+
   sizeInPx() {
     const pixels = {
       meteoroid: 10,
@@ -55,6 +73,19 @@ class Asteroid extends React.Component {
     };
 
     return pixels[this.props.size];
+  }
+
+  scaledCoords() {
+    const { x: astX,  y: astY, tileSize } = this.props;
+    const { x: tileX, y: tileY }          = this.props.tileScaledCoords;
+    const relativeToTileX  = tileSize * (astX / 100);
+    const relativeToTileY  = tileSize * (astY / 100);
+    const asteroidCenterPx = this.sizeInPx() / 2
+
+    return {
+      x: tileX + relativeToTileX + asteroidCenterPx,
+      y: tileY + relativeToTileY + asteroidCenterPx,
+    };
   }
 
   coordsToShip() {
@@ -79,16 +110,32 @@ class Asteroid extends React.Component {
 
   targetInfo() {
     const name = `${this.props.size} asteroid`;
+    const size = this.sizeInPx();
     const { description, inventory } = this.props;
-    return { name, description, inventory };
+    return { name, description, inventory, size };
+  }
+
+  targetShape() {
+    const coords = this.scaledCoords();
+    const size   = this.sizeInPx();
+    return {
+      ego:     this.ego,
+      tileEgo: this.props.tileEgo,
+      shape:   'rect',
+      x:       coords.x,
+      y:       coords.y,
+      width:   size,
+      height:  size,
+    };
   }
 
   render() {
-    const { x, y, size, description, inventory, angle } = this.props;
+    const { x, y, size, description, inventory, angle, tileEgo } = this.props;
     const { isTouchingShip } = this.state;
-    const dimensionPx  = this.sizeInPx();
-    const modifierPx   = dimensionPx / 3;
-    const infoBoxTitle = `${size} asteroid`;
+    const dimensionPx    = this.sizeInPx();
+    const modifierPx     = dimensionPx / 3;
+    const infoBoxTitle   = `${size} asteroid`;
+    const coordsForLabel = this.scaledCoords();
 
     const asteroidStyle = {
       position:        'absolute',
@@ -114,6 +161,13 @@ class Asteroid extends React.Component {
           inventory={inventory}
           angle={angle}
           objectSize={dimensionPx}
+        />
+        <CoordsLabel
+          visible={appConfig.coordsLabels}
+          ego={this.ego}
+          tileEgo={tileEgo}
+          x={coordsForLabel.x}
+          y={coordsForLabel.y}
         />
       </div>
     );

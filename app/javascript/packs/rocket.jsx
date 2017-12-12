@@ -1,5 +1,8 @@
-import React     from 'react';
-import PropTypes from 'prop-types';
+import React       from 'react';
+import PropTypes   from 'prop-types';
+import appConfig   from './app_config';
+import CoordsLabel from './coords_label';
+import messageBus  from './message_bus';
 
 const propTypes = {
   player:    PropTypes.object,
@@ -12,6 +15,7 @@ const propTypes = {
 class Rocket extends React.Component {
   constructor(props) {
     super(props);
+    this.ego = _.uniqueId('rocket_');
     
     this.state = {
       x: 0,
@@ -47,6 +51,16 @@ class Rocket extends React.Component {
     }
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    const { launched } = nextProps;
+    const { explode }  = nextState;
+    if (!launched) return;
+    const coords   = _.pick(nextState, 'x', 'y');
+    const touching = messageBus.request('spacemap:at', coords);
+    if (_.isUndefined(touching)) return;
+    if (!explode) this.explode();
+  }
+
   componentWillUnmount() {
     clearInterval(this.rocketLoop);
   }
@@ -74,6 +88,10 @@ class Rocket extends React.Component {
     }, this.loopMillis);
   }
 
+  explode() {
+    this.setState({ explode: true });
+  }
+
   render() {
     const { x, y } = this.currentCoords();
     const angle    = this.currentAngle();
@@ -93,7 +111,17 @@ class Rocket extends React.Component {
       textAlign: 'center',
     }
 
-    return <div className="rocket" style={rocketStyle}>!</div>;
+    return (
+      <div className="rocket" style={rocketStyle}>
+        {this.state.explode ? '*~* asploded *~*' : '!'}
+        <CoordsLabel
+          visible={appConfig.coordsLabels}
+          ego={this.ego}
+          x={Math.floor(x)}
+          y={Math.floor(y)}
+        />
+      </div>
+    );
   }
 }
 

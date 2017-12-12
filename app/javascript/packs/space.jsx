@@ -1,5 +1,6 @@
 import React     from 'react';
 import PropTypes from 'prop-types';
+import appConfig from './app_config';
 import MainShip  from './main_ship';
 import SpaceTile from './space_tile';
 import Rocket    from './rocket';
@@ -21,8 +22,6 @@ const propTypes = {
 class Space extends React.Component {
   constructor(props) {
     super(props);
-
-    this.debug = false;
 
     const startingTile  = '0,0';
     const adjacentTiles = this.tilesAdjacentTo(startingTile);
@@ -57,7 +56,7 @@ class Space extends React.Component {
   }
 
   componentDidUpdate() {
-    if (!this.debug) return;
+    if (!appConfig.logState) return;
     console.log('========== CURRENT STATE ==========');
     _.each(this.state, (val, key) => console.log(`${key}: ${val}`));
   }

@@ -1,6 +1,8 @@
-import React     from 'react';
-import PropTypes from 'prop-types';
-import Ship      from './ship';
+import React       from 'react';
+import PropTypes   from 'prop-types';
+import appConfig   from './app_config';
+import CoordsLabel from './coords_label';
+import Ship        from './ship';
 
 const propTypes = {
   player:        PropTypes.object.isRequired,
@@ -11,24 +13,38 @@ const propTypes = {
 };
 
 class MainShip extends React.Component {
+  constructor(props) {
+    super(props);
+    this.ego = _.uniqueId('main_ship_');
+  }
+
   render() {
     return (
-      <Ship
-        player={this.props.player}
-        moveDirection={this.props.moveDirection}
-        launchRocket={this.props.launchRocket}
-        style={{
-          position:        'absolute',
-          left:            `calc(${this.props.shipX}px - 15px)`,
-          bottom:          `calc(${this.props.shipY}px - 15px)`,
-          transform:       `rotate(${this.props.angle}deg)`,
-          width:           '30px',
-          height:          '30px',
-          borderRadius:    '15px 15px 0 0',
-          backgroundColor: 'green',
-          borderBottom:    '5px solid red',
-        }}
-      />
+      <div className="main-ship">
+        <Ship
+          player={this.props.player}
+          moveDirection={this.props.moveDirection}
+          launchRocket={this.props.launchRocket}
+          style={{
+            position:        'absolute',
+            left:            `calc(${this.props.shipX}px - 15px)`,
+            bottom:          `calc(${this.props.shipY}px - 15px)`,
+            transform:       `rotate(${this.props.angle}deg)`,
+            width:           '30px',
+            height:          '30px',
+            borderRadius:    '15px 15px 0 0',
+            backgroundColor: 'green',
+            borderBottom:    '5px solid red',
+          }}
+        >
+          <CoordsLabel
+            visible={appConfig.coordsLabels}
+            ego={this.ego}
+            x={this.props.shipX}
+            y={this.props.shipY}
+          />
+        </Ship>
+      </div>
     )
   }
 }

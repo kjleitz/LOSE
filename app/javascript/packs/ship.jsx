@@ -42,6 +42,7 @@ class Ship extends React.Component {
           height:    "calc(100% - 15px)",
           marginTop: "15px",
         }, flameStyle)}></div>
+        {this.props.children}
       </div>
     )
   }

@@ -2,10 +2,16 @@ import React     from 'react';
 import PropTypes from 'prop-types';
 import Rocket    from './rocket';
 
+const propTypes = {
+  player:    PropTypes.object,
+  shipAngle: PropTypes.number.isRequired,
+  shipX:     PropTypes.number.isRequired,
+  shipY:     PropTypes.number.isRequired,
+}
+
 class RocketWrapper extends React.Component {
   constructor(props) {
-    super(props)
-
+    super(props);
   }
 
   render() {
@@ -13,21 +19,20 @@ class RocketWrapper extends React.Component {
       return (
         <Rocket
           key={index}
-          className='uuuuhhhh'
-          player={{ name: 'Mr. Game and Watch' }}
+          player={this.props.player}
           launched={true}
-          shipAngle={-1 * this.props.angle}
+          shipAngle={this.props.shipAngle}
           shipX={this.props.shipX}
           shipY={this.props.shipY}
         />)
-    })
+    });
 
     return (
-      <div>
-        {rocketsArr}
-      </div>
-    )
+      <div>{rocketsArr}</div>
+    );
   }
 }
+
+RocketWrapper.propTypes = propTypes;
 
 export default RocketWrapper

@@ -18,37 +18,28 @@ class Rocket extends React.Component {
     this.ego = _.uniqueId('rocket_');
     
     this.state = {
-      x: 0,
-      y: 0,
+      x: this.props.shipX,
+      y: this.props.shipY,
     };
 
     this.loopMillis  = 30;
     this.pxPerMove   = 5;
-    this.launchAngle = 0;
-    this.launchX     = 0;
-    this.launchY     = 0;
-    
+    this.launchAngle = this.props.shipAngle;
+
+    // These aren't actually needed, but if we want to keep them around to know
+    // where the rocket was launched from, let's just assign them right here.
+    this.launchX = this.props.shipX
+    this.launchY = this.props.shipY
+
     // rocketLoop stores the setInterval that moves the rocket forward; that way
     // it can be initialized when the Rocket mounts, and torn down when the
     // component is removed.
     this.rocketLoop = null;
   }
 
-  componentWillReceiveProps(nextProps) {
-    // if the loop has already started, chill
-    if (!_.isNull(this.rocketLoop)) return;
-    // if the rocket is launched FUCKING FIRE
-    if (nextProps.launched) {
-      this.launchAngle = this.props.shipAngle;
-      this.launchX     = this.props.shipX;
-      this.launchY     = this.props.shipY;
-      this.setState({
-        x: this.launchX,
-        y: this.launchY,
-      });
-      
-      this.rocketLoop  = this.movementLoop();
-    }
+  componentDidMount() {
+    // Setting rocketLoop when the component mounts
+    this.rocketLoop = this.movementLoop();
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -77,7 +68,7 @@ class Rocket extends React.Component {
   }
 
   movementLoop() {
-    const radians = this.currentAngle() * (Math.PI / 180);
+    const radians = this.launchAngle * (Math.PI / 180);
     const angledX = this.pxPerMove * Math.sin(radians);
     const angledY = this.pxPerMove * Math.cos(radians);
     return setInterval(() => {

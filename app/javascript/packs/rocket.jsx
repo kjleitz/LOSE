@@ -28,11 +28,8 @@ class Rocket extends React.Component {
 
     // These aren't actually needed, but if we want to keep them around to know
     // where the rocket was launched from, let's just assign them right here.
-
-    // this.launchX     = 0;
-    this.launchX     = this.props.shipX
-    // this.launchY     = 0;
-    this.launchY     = this.props.shipY
+    this.launchX = this.props.shipX
+    this.launchY = this.props.shipY
 
     // rocketLoop stores the setInterval that moves the rocket forward; that way
     // it can be initialized when the Rocket mounts, and torn down when the

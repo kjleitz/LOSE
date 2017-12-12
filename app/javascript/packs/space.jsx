@@ -27,10 +27,10 @@ class Space extends React.Component {
     const startingTile  = '0,0';
     const adjacentTiles = this.tilesAdjacentTo(startingTile);
     this.state = {
-      centerTile: startingTile,
-      tiles:      adjacentTiles,
-      availableRockets:   [/* assuming this info would come from the db */],
-      rocketsLaunched:    [/* right now unlimited but would be limited by availableRockets */]
+      centerTile:       startingTile,
+      tiles:            adjacentTiles,
+      availableRockets: [/* assuming this info would come from the db */],
+      rocketsLaunched:  [/* right now unlimited but would be limited by availableRockets */],
     };
 
     this.addTile         = this.addTile.bind(this);
@@ -92,11 +92,11 @@ class Space extends React.Component {
   }
 
   launchRocket() {
-    const rocketsLaunched = this.state.rocketsLaunched
-    rocketsLaunched.push({ name: `Supernova ${rocketsLaunched.length + 1}`})
-    this.setState({
-      rocketsLaunched
-    })
+    const { rocketsLaunched } = this.state;
+    const newRocket = { name: `Supernova ${rocketsLaunched.length + 1}`}
+    this.setState((prevState) => {
+      return { rocketsLaunched: [...prevState.rocketsLaunched, newRocket] };
+    });
   }
 
   render() {
@@ -123,8 +123,6 @@ class Space extends React.Component {
       );
     });
 
-    const rocketsLaunched = this.state.rocketsLaunched
-
     return (
       <div id="space" style={spaceStyle} >
         {spaceTiles}
@@ -137,12 +135,11 @@ class Space extends React.Component {
           launchRocket={this.launchRocket}
         />
         <RocketWrapper
-          rockets={rocketsLaunched}
+          rockets={this.state.rocketsLaunched}
           player={this.props.player}
           shipAngle={-1 * this.props.angle}
           shipX={this.props.shipX}
           shipY={this.props.shipY}
-          {...this.props}
         />
       </div>
     );

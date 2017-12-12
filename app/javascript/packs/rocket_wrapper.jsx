@@ -7,7 +7,7 @@ const propTypes = {
   shipAngle: PropTypes.number.isRequired,
   shipX:     PropTypes.number.isRequired,
   shipY:     PropTypes.number.isRequired,
-}
+};
 
 class RocketWrapper extends React.Component {
   constructor(props) {
@@ -24,7 +24,8 @@ class RocketWrapper extends React.Component {
           shipAngle={this.props.shipAngle}
           shipX={this.props.shipX}
           shipY={this.props.shipY}
-        />)
+        />
+      );
     });
 
     return (
@@ -35,4 +36,4 @@ class RocketWrapper extends React.Component {
 
 RocketWrapper.propTypes = propTypes;
 
-export default RocketWrapper
+export default RocketWrapper;

@@ -1,14 +1,16 @@
 import React      from 'react';
 import PropTypes  from 'prop-types';
 import { Events } from 'backbone';
-import messageBus from './message_bus';
+import messageBus from 'radio/message_bus';
 
 const propTypes = {
   player:        PropTypes.object,
   angle:         PropTypes.number,
   moveDirection: PropTypes.string,
   style:         PropTypes.object,
-}
+  launchRocket:  PropTypes.func,
+  children:      PropTypes.node,
+};
 
 class Ship extends React.Component {
   constructor(props) {
@@ -31,20 +33,23 @@ class Ship extends React.Component {
     if (moveDirection === "left")    xFlame = "10px";
     if (moveDirection === "right")   xFlame = "-10px";
     if (moveDirection === "forward") yFlame = "15px";
+
     const flameStyle = moveDirection === '' ? {} : {
-      boxShadow: `${xFlame} ${yFlame} 5px -3px orangered`
-    }
+      boxShadow: `${xFlame} ${yFlame} 5px -3px orangered`,
+    };
+
+    const innerShipStyle = _.extend({}, {
+      width:     "100%",
+      height:    "calc(100% - 15px)",
+      marginTop: "15px",
+    }, flameStyle);
 
     return (
       <div className="ship" style={style}>
-        <div style={_.extend({
-          width:     "100%",
-          height:    "calc(100% - 15px)",
-          marginTop: "15px",
-        }, flameStyle)}></div>
+        <div style={innerShipStyle} />
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 

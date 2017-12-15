@@ -1,8 +1,8 @@
 import React       from 'react';
 import PropTypes   from 'prop-types';
-import appConfig   from './app_config';
-import CoordsLabel from './coords_label';
-import messageBus  from './message_bus';
+import appConfig   from 'application/app_config';
+import CoordsLabel from 'components/hud/coords_label';
+import messageBus  from 'radio/message_bus';
 
 const propTypes = {
   player:    PropTypes.object,
@@ -10,13 +10,13 @@ const propTypes = {
   shipAngle: PropTypes.number.isRequired,
   shipX:     PropTypes.number.isRequired,
   shipY:     PropTypes.number.isRequired,
-}
+};
 
 class Rocket extends React.Component {
   constructor(props) {
     super(props);
     this.ego = _.uniqueId('rocket_');
-    
+
     this.state = {
       x: this.props.shipX,
       y: this.props.shipY,
@@ -28,8 +28,8 @@ class Rocket extends React.Component {
 
     // These aren't actually needed, but if we want to keep them around to know
     // where the rocket was launched from, let's just assign them right here.
-    this.launchX = this.props.shipX
-    this.launchY = this.props.shipY
+    this.launchX = this.props.shipX;
+    this.launchY = this.props.shipY;
 
     // rocketLoop stores the setInterval that moves the rocket forward; that way
     // it can be initialized when the Rocket mounts, and torn down when the
@@ -72,7 +72,7 @@ class Rocket extends React.Component {
     const angledX = this.pxPerMove * Math.sin(radians);
     const angledY = this.pxPerMove * Math.cos(radians);
     return setInterval(() => {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         x: prevState.x + angledX,
         y: prevState.y + angledY,
       }));
@@ -89,18 +89,18 @@ class Rocket extends React.Component {
     const display  = this.props.launched ? 'block' : 'none';
 
     const rocketStyle  = {
-      display:   display,
-      position:  'absolute',
-      left:      `calc(${x}px - 1em)`,
-      bottom:    `calc(${y}px - 1em)`,
-      transform: `rotate(${angle}deg)`,
-      width:     '2em',
-      height:    '2em',
-      color:     'red',
-      fontSize:  '2em',
+      display,
+      position:   'absolute',
+      left:       `calc(${x}px - 1em)`,
+      bottom:     `calc(${y}px - 1em)`,
+      transform:  `rotate(${angle}deg)`,
+      width:      '2em',
+      height:     '2em',
+      color:      'red',
+      fontSize:   '2em',
       lineHeight: '2em',
-      textAlign: 'center',
-    }
+      textAlign:  'center',
+    };
 
     return (
       <div className="rocket" style={rocketStyle}>

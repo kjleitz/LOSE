@@ -1,10 +1,10 @@
-import React            from 'react';
-import { Events }       from 'backbone';
-import KeyboardHandler  from './keyboard_handler';
-import InfoPanel        from './info_panel';
-import MainMenu         from './main_menu';
-import Canvas           from './canvas';
-import messageBus       from './message_bus';
+import React           from 'react';
+import { Events }      from 'backbone';
+import KeyboardHandler from 'components/controls/keyboard_handler';
+import InfoPanel       from 'components/hud/info_panel';
+import MainMenu        from 'components/hud/main_menu';
+import Canvas          from 'components/hud/canvas';
+import messageBus      from 'radio/message_bus';
 
 // instead of putting this in defaultProps for `target` on the InfoPanel, I'm
 // defining it here because I can't figure out how to have propTypes for the
@@ -64,13 +64,13 @@ export default class App extends React.Component {
 
   toggleMainMenu() {
     this.setState(prevState => ({
-      mainMenuOpen: !prevState.mainMenuOpen
+      mainMenuOpen: !prevState.mainMenuOpen,
     }));
   }
 
   toggleInfoPanel() {
     this.setState(prevState => ({
-      infoPanelOpen: !prevState.infoPanelOpen
+      infoPanelOpen: !prevState.infoPanelOpen,
     }));
   }
 

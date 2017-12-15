@@ -1,6 +1,6 @@
 import React          from 'react';
 import PropTypes      from 'prop-types';
-import SpaceContainer from './space_container';
+import SpaceContainer from 'components/natural/space_container';
 
 const propTypes = {
   name:   PropTypes.string,

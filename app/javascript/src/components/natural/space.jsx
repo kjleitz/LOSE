@@ -1,15 +1,14 @@
 import React         from 'react';
 import PropTypes     from 'prop-types';
-import appConfig     from './app_config';
-import MainShip      from './main_ship';
-import SpaceTile     from './space_tile';
-import RocketWrapper from './rocket_wrapper';
-import Rocket        from './rocket';
+import appConfig     from 'application/app_config';
+import MainShip      from 'components/synthetic/main_ship';
+import SpaceTile     from 'components/natural/space_tile';
+import RocketWrapper from 'components/synthetic/rocket_wrapper';
 
 import {
   coordsFromParams,
   coordString,
-} from './helpers';
+} from 'helpers/helpers';
 
 const propTypes = {
   player:        PropTypes.object.isRequired,
@@ -93,10 +92,11 @@ class Space extends React.Component {
 
   launchRocket() {
     const { rocketsLaunched } = this.state;
-    const newRocket = { name: `Supernova ${rocketsLaunched.length + 1}`}
-    this.setState((prevState) => {
-      return { rocketsLaunched: [...prevState.rocketsLaunched, newRocket] };
-    });
+    // in the future maybe this can contain a payload
+    const newRocket = { name: `Supernova ${rocketsLaunched.length + 1}` };
+    this.setState(prevState => ({
+      rocketsLaunched: [...prevState.rocketsLaunched, newRocket],
+    }));
   }
 
   render() {

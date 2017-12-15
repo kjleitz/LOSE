@@ -1,17 +1,15 @@
 import React       from 'react';
 import PropTypes   from 'prop-types';
-import appConfig   from './app_config';
-import Star        from './star';
-import Planet      from './planet';
-import Asteroid    from './asteroid';
-import CoordsLabel from './coords_label';
+import appConfig   from 'application/app_config';
+import Star        from 'components/natural/star';
+import Asteroid    from 'components/natural/asteroid';
+import CoordsLabel from 'components/hud/coords_label';
 
 import {
-  coordsFromParams,
   coordString,
   save,
   load,
-} from './helpers';
+} from 'helpers/helpers';
 
 const propTypes = {
   size:   PropTypes.number.isRequired,

@@ -1,6 +1,6 @@
 import React      from 'react';
 import PropTypes  from 'prop-types';
-import messageBus from './message_bus';
+import messageBus from 'radio/message_bus';
 
 const propTypes = {
   children: PropTypes.arrayOf(PropTypes.node).isRequired,
@@ -15,24 +15,20 @@ class KeyboardHandler extends React.Component {
 
     this.wireKeyReplies(messageBus);
   }
-  
+
   wireKeyReplies(bus) {
     this.pressedKeys = {};
 
     // returns keys pressed in { 'space': true, 'esc': false } format.
     // false values in the hash only show up after having hit the key.
     // call messageBus.request('keys:pressed:hash') to get this value.
-    messageBus.reply('keys:pressed:hash', () => {
-      return this.pressedKeys;
-    });
+    bus.reply('keys:pressed:hash', () => this.pressedKeys);
 
     // returns keys pressed in [ 'up', 'left', 'space' ] format.
     // call messageBus.request('keys:pressed:list') to get this value.
-    messageBus.reply('keys:pressed:list', () => {
-      return _.reduce(this.pressedKeys, (memo, isPressed, key) => {
-        return isPressed ? [...memo, key] : memo;
-      });
-    })
+    bus.reply('keys:pressed:list', () => (
+      _.reduce(this.pressedKeys, (list, pressed, key) => (pressed ? [...list, key] : list))
+    ));
   }
 
   keyUpHandler(event) {
@@ -49,7 +45,7 @@ class KeyboardHandler extends React.Component {
       default:
     }
   }
-  
+
   keyDownHandler(event) {
     switch (event.key) {
       case 'Escape':     this.keyDown('esc');   break;
@@ -64,14 +60,14 @@ class KeyboardHandler extends React.Component {
       default:
     }
   }
-  
+
   keyUp(keyName) {
-    this.pressedKeys[keyName] = false
+    this.pressedKeys[keyName] = false;
     messageBus.trigger(`key:${keyName}:up`);
   }
-  
+
   keyDown(keyName) {
-    this.pressedKeys[keyName] = true
+    this.pressedKeys[keyName] = true;
     messageBus.trigger(`key:${keyName}:down`);
   }
 

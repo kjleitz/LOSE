@@ -1,16 +1,9 @@
 import React       from 'react';
 import PropTypes   from 'prop-types';
-import appConfig   from './app_config';
-import CoordsLabel from './coords_label'
-import InfoBox     from './info_box';
-import messageBus  from './message_bus';
-
-import {
-  coordsFromParams,
-  coordString,
-  save,
-  load,
-} from './helpers';
+import appConfig   from 'application/app_config';
+import CoordsLabel from 'components/hud/coords_label';
+import InfoBox     from 'components/hud/info_box';
+import messageBus  from 'radio/message_bus';
 
 const propTypes = {
   x:                  PropTypes.number.isRequired,
@@ -80,7 +73,7 @@ class Asteroid extends React.Component {
     const { x: tileX, y: tileY }          = this.props.tileScaledCoords;
     const relativeToTileX  = tileSize * (astX / 100);
     const relativeToTileY  = tileSize * (astY / 100);
-    const asteroidCenterPx = this.sizeInPx() / 2
+    const asteroidCenterPx = this.sizeInPx() / 2;
 
     return {
       x: tileX + relativeToTileX + asteroidCenterPx,

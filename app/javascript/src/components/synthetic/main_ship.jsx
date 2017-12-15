@@ -1,8 +1,8 @@
 import React       from 'react';
 import PropTypes   from 'prop-types';
-import appConfig   from './app_config';
-import CoordsLabel from './coords_label';
-import Ship        from './ship';
+import appConfig   from 'application/app_config';
+import CoordsLabel from 'components/hud/coords_label';
+import Ship        from 'components/synthetic/ship';
 
 const propTypes = {
   player:        PropTypes.object.isRequired,
@@ -10,6 +10,7 @@ const propTypes = {
   moveDirection: PropTypes.string,
   shipX:         PropTypes.number.isRequired,
   shipY:         PropTypes.number.isRequired,
+  launchRocket:  PropTypes.func,
 };
 
 class MainShip extends React.Component {
@@ -45,7 +46,7 @@ class MainShip extends React.Component {
           />
         </Ship>
       </div>
-    )
+    );
   }
 }
 

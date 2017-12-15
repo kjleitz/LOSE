@@ -1,12 +1,12 @@
 // Accepts an array or list of arguments and parses that array into a coordinate
 // object. Use in a function like this:
-// 
+//
 // function someFunc(...options) { return coordsFromParams(options) }
 // function otherFunc(x, y, otherArgs) { return coordsFromParams(x, y) }
-// 
+//
 // ...etc.
 // Now, that first function, for example, could accept arguments like this:
-// 
+//
 // someFunc(3, 7)                //=> {x: 3, y: 7}
 // someFunc('3', '7')            //=> {x: 3, y: 7}
 // someFunc(3, 7, 'foo')         //=> {x: 3, y: 7}
@@ -16,7 +16,7 @@
 // someFunc({x: 3, y: 7})        //=> {x: 3, y: 7}
 // someFunc({x: '3', y: '7'})    //=> {x: 3, y: 7}
 // someFunc({x: 3, y: 7}, 'foo') //=> {x: 3, y: 7}
-// 
+//
 // coordsFromParams will accept arguments in the same patterns as someFunc, and
 // give the same result (an object with the shape {x: integer, y: integer}). You
 // can also pass it an array with the same argument patterns as above, with the
@@ -31,14 +31,14 @@ export function coordsFromParams(...paramsAry) {
   let   coords     = [null, null];
 
   if (isCommaSep) {
-    coords = params[0].split(',')
+    coords = params[0].split(',');
   } else if (isCoordObj) {
-    coords = [params[0].x, params[0].y]
+    coords = [params[0].x, params[0].y];
   } else if (isTwoNums) {
-    coords = _.first(params, 2)
+    coords = _.first(params, 2);
   }
 
-  return {x: parseFloat(coords[0]), y: parseFloat(coords[1])};
+  return { x: parseFloat(coords[0]), y: parseFloat(coords[1]) };
 }
 
 // Accepts any arguments that coordsFromParams accepts.

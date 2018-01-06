@@ -1,13 +1,14 @@
-import React     from 'react';
-import PropTypes from 'prop-types';
-import MainShip  from './main_ship';
-import SpaceTile from './space_tile';
-import Rocket    from './rocket';
+import React         from 'react';
+import PropTypes     from 'prop-types';
+import appConfig     from 'application/app_config';
+import MainShip      from 'components/synthetic/main_ship';
+import SpaceTile     from 'components/natural/space_tile';
+import RocketWrapper from 'components/synthetic/rocket_wrapper';
 
 import {
   coordsFromParams,
   coordString,
-} from './helpers';
+} from 'helpers/helpers';
 
 const propTypes = {
   player:        PropTypes.object.isRequired,
@@ -22,14 +23,13 @@ class Space extends React.Component {
   constructor(props) {
     super(props);
 
-    this.debug = false;
-
     const startingTile  = '0,0';
     const adjacentTiles = this.tilesAdjacentTo(startingTile);
     this.state = {
-      centerTile: startingTile,
-      tiles:      adjacentTiles,
-      rocketLaunched: false,
+      centerTile:       startingTile,
+      tiles:            adjacentTiles,
+      availableRockets: [/* assuming this info would come from the db */],
+      rocketsLaunched:  [/* right now unlimited but would be limited by availableRockets */],
     };
 
     this.addTile         = this.addTile.bind(this);
@@ -57,7 +57,7 @@ class Space extends React.Component {
   }
 
   componentDidUpdate() {
-    if (!this.debug) return;
+    if (!appConfig.logState) return;
     console.log('========== CURRENT STATE ==========');
     _.each(this.state, (val, key) => console.log(`${key}: ${val}`));
   }
@@ -91,7 +91,12 @@ class Space extends React.Component {
   }
 
   launchRocket() {
-    this.setState({ rocketLaunched: true })
+    const { rocketsLaunched } = this.state;
+    // in the future maybe this can contain a payload
+    const newRocket = { name: `Supernova ${rocketsLaunched.length + 1}` };
+    this.setState(prevState => ({
+      rocketsLaunched: [...prevState.rocketsLaunched, newRocket],
+    }));
   }
 
   render() {
@@ -129,10 +134,9 @@ class Space extends React.Component {
           shipY={this.props.shipY}
           launchRocket={this.launchRocket}
         />
-        <Rocket
-          className="change this it's just for testing"
-          player={{ name: "poopsie" }}
-          launched={this.state.rocketLaunched}
+        <RocketWrapper
+          rockets={this.state.rocketsLaunched}
+          player={this.props.player}
           shipAngle={-1 * this.props.angle}
           shipX={this.props.shipX}
           shipY={this.props.shipY}
